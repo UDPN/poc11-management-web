@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           width: 120
         },
         {
-          title: 'Action',
+          title: '',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

@@ -162,10 +162,10 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
         {
           title: 'Contract Address',
           field: 'contractAddress',
-          width: 300
+          width: 280
         },
         {
-          title: 'Managing Bank',
+          title: 'Central Bank',
           field: 'provider',
           width: 240
         },

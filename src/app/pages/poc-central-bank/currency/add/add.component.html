@@ -24,7 +24,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
+      <!-- <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <nz-form-label nzRequired nzSpan="10">Platform
           </nz-form-label>
@@ -41,19 +41,19 @@
             </ng-template>
           </nz-form-control>
         </nz-form-item>
-      </div>
+      </div> -->
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <nz-form-label nzRequired nzSpan="10">Decimal Precision
           </nz-form-label>
-          <nz-form-control [nzErrorTip]="platformError">
+          <nz-form-control [nzErrorTip]="precisionError">
             <div nz-row>
               <div nz-col nzSpan="24">
                 <input nz-input formControlName="currencyPrecision" [ngClass]="{'onboard-disabled': !tempStatus}"
                   [readonly]="!tempStatus" maxlength="50" />
               </div>
             </div>
-            <ng-template #platformError let-control>
+            <ng-template #precisionError let-control>
               <ng-container *ngIf="control.hasError('required')">Please input your Decimal Precision</ng-container>
               <ng-container *ngIf="control.hasError('regular')">Please enter the precision of a positive integer
               </ng-container>
@@ -82,16 +82,19 @@
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10"> Managing Bank </nz-form-label>
+          <nz-form-label nzRequired nzSpan="10"> Central Bank </nz-form-label>
           <nz-form-control [nzErrorTip]="providerError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <input nz-input formControlName="provider" maxlength="100" />
+                <nz-select formControlName="provider">
+                  <nz-option nzValue="" nzLabel="All"></nz-option>
+                  <!-- <nz-option *ngFor="let item of statusList" [nzValue]="item.cseValue" [nzLabel]="item.cseDesc">
+                  </nz-option> -->
+                </nz-select>
               </div>
             </div>
             <ng-template #providerError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Managing Bank</ng-container>
-              <ng-container *ngIf="control.hasError('regular')">2-100 arbitrary characters</ng-container>
+              <ng-container *ngIf="control.hasError('required')">Please select your Central Bank</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>

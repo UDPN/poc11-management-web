@@ -11,6 +11,7 @@ import { ThemeService } from '@store/common-store/theme.service';
 
 import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { LogoService } from '@app/core/services/http/poc-system/logo.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-default',
@@ -22,6 +23,7 @@ import { LogoService } from '@app/core/services/http/poc-system/logo.service';
 })
 export class DefaultComponent implements OnInit, AfterViewInit {
   isCollapsed$ = this.themesService.getIsCollapsed();
+  isOverMode$: Observable<boolean> = this.themesService.getIsOverMode();
   themeOptions$ = this.themesService.getThemesMode();
   isCollapsed = false;
   isOverMode = false; 

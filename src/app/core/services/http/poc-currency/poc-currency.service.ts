@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import { timeToTimestamp } from '@app/utils/tools';
 
 export interface Adata {
-  platform: string;
+  // platform: string;
   currency: string;
   contractAddress: string;
   provider: string;

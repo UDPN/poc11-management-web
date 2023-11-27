@@ -87,7 +87,7 @@ export class ApproveComponent implements OnInit {
         if (res) {
           this.message.success('Approve successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
             this.validateForm.reset();
-            this.router.navigate(['/poc/poc-provider/provider']);
+            this.router.navigate(['/poc/poc-commercial-bank/commercial-bank']);
           });
         }
         this.isLoading = false;
@@ -101,7 +101,7 @@ export class ApproveComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['/poc/poc-provider/provider']);
+    this.router.navigate(['/poc/poc-commercial-bank/commercial-bank']);
   }
 
 }

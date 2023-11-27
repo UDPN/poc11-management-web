@@ -47,10 +47,10 @@ export class AddComponent implements OnInit {
       }
     })
     this.validateForm = this.fb.group({
-      platform: [null, [Validators.required, this.validator]],
+      // platform: [null, [Validators.required, this.validator]],
       currency: [null, [Validators.required, this.currencyValidator]],
       contractAddress: [null, [Validators.required, this.contractAddressValidator]],
-      provider: [null, [Validators.required, this.validator]],
+      provider: [null, [Validators.required]],
       currencyPrecision: [null, [Validators.required, this.currencyPrecisionValidator]]
     })
   }
@@ -95,7 +95,7 @@ export class AddComponent implements OnInit {
   getInfo(currencyCode: string): void {
     this.pocCurrencyService.getInfo({ currencyCode }).subscribe((res: any) => {
       this.info = res;
-      this.validateForm.get('platform')?.setValue(res.platform);
+      // this.validateForm.get('platform')?.setValue(res.platform);
       this.validateForm.get('currency')?.setValue(res.currency);
       this.validateForm.get('contractAddress')?.setValue(res.contractAddress);
       this.validateForm.get('provider')?.setValue(res.provider);

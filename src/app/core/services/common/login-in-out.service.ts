@@ -74,7 +74,6 @@ export class LoginInOutService {
   
   loginOut(): Promise<void> {
     return new Promise(resolve => {
-      
       this.tabService.clearTabs();
       this.windowServe.removeSessionStorage(TokenKey);
       SimpleReuseStrategy.handlers = {};

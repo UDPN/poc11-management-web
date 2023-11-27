@@ -70,4 +70,7 @@ export interface Menu {
   code?: string; 
   newLinkFlag?: 0 | 1; 
   disabled?: boolean; 
+  menuGroup?: boolean;
+  groupName?: string;
+  groupCollapseName?: string;
 }

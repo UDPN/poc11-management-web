@@ -17,6 +17,10 @@ export const aesKey = 'udpnpoc9aeskey8d';
 
 export const aesVi = 'udpnpoc9aesviig5';
 
+// export const aesKey = 'udpnpoc11aesky9d';
+
+// export const aesVi = 'udpnpoc11aesvig6';
+
 export const loginTimeOutCode = 1012;
 
 export const tokenErrorCode = 1010;

@@ -19,11 +19,6 @@ const routes: Routes = [
         loadChildren: () => import('../../pages/poc-home/poc-home.module').then(m => m.PocHomeModule)
       },
       {
-        path: 'poc-provider',
-        data: { preload: true },
-        loadChildren: () => import('../../pages/poc-provider/poc-provider.module').then(m => m.PocProviderModule)
-      },
-      {
         path: 'poc-foreign-exchange',
         data: { preload: true },
         loadChildren: () => import('../../pages/poc-foreign-exchange/poc-foreign-exchange.module').then(m => m.PocForeignExchangeModule)

@@ -155,17 +155,22 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
+          title: 'Application Type',
+          field: '',
+          width: 200
+        },
+        {
           title: 'Brief Introduction',
           field: 'commercialBankIntroduction',
           width: 220
         },
+        // {
+        //   title: 'BN ID',
+        //   field: 'bnCode',
+        //   width: 180
+        // },
         {
-          title: 'BN ID',
-          field: 'bnCode',
-          width: 180
-        },
-        {
-          title: 'Creation Time',
+          title: 'Application Time',
           field: 'createDate',
           pipe: 'timeStamp',
           width: 200
