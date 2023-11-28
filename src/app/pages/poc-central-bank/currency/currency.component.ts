@@ -42,9 +42,11 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   };
   searchParam: Partial<SearchParam> = {
     createTime: [],
-    status: ''
+    status: '',
+    provider: ''
   };
   statusList: any = [];
+  centralBankList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
@@ -52,7 +54,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Central Bank Management','Currency Management'],
+      breadcrumb: ['Central Bank Management', 'Currency Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -76,14 +78,19 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
 
   resetForm(): void {
     this.searchParam = {};
-    this.searchParam.createTime = [],
-      this.searchParam.status = ''
+    this.searchParam.createTime = [];
+    this.searchParam.status = '';
+    this.searchParam.provider = '';
     this.getDataList(this.tableQueryParams);
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'FXPLT_COMMERCIAL_BANK_ REGISTRATION' }).subscribe((res) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'CENTRAL_BANK_MANAGEMENT_STATUS' }).subscribe((res) => {
       this.statusList = res.dataInfo;
+    })
+
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_central_bank_info' }).subscribe((res) => {
+      this.centralBankList = res.dataInfo;
     })
   }
 

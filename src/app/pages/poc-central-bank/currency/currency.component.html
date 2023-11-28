@@ -32,7 +32,11 @@
           <nz-form-item>
             <nz-form-label>Central Bank</nz-form-label>
             <nz-form-control>
-              <input nz-input placeholder="" name="provider" [(ngModel)]="searchParam.provider" />
+              <nz-select nzPlaceHolder="" name="provider" [(ngModel)]="searchParam.provider">
+                <nz-option nzValue="" nzLabel="All"></nz-option>
+                <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode" [nzLabel]="item.centralBankName">
+                </nz-option>
+              </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>

@@ -7,6 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { fnCheckForm } from '@app/utils/tools';
 import { finalize } from 'rxjs';
 import { PocCurrencyService } from '@app/core/services/http/poc-currency/poc-currency.service';
+import { CommonService } from '@app/core/services/http/common/common.service';
 
 @Component({
   selector: 'app-add',
@@ -25,7 +26,16 @@ export class AddComponent implements OnInit {
   info: any = {};
   isLoading: boolean = false;
   tempStatus: boolean = true;
-  constructor(private fb: FormBuilder, public routeInfo: ActivatedRoute, private message: NzMessageService, private pocCurrencyService: PocCurrencyService, private cdr: ChangeDetectorRef, private location: Location) { }
+  centralBankList: any = [];
+  constructor(
+    private fb: FormBuilder, 
+    public routeInfo: ActivatedRoute, 
+    private message: NzMessageService, 
+    private pocCurrencyService: PocCurrencyService, 
+    private cdr: ChangeDetectorRef, 
+    private location: Location,
+    private commonService: CommonService
+  ) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: this.tempStatus === true ? 'Create' : 'Edit',
@@ -40,6 +50,7 @@ export class AddComponent implements OnInit {
     };
   }
   ngOnInit() {
+    this.initSelect();
     this.routeInfo.queryParams.subscribe((params: any) => {
       if (JSON.stringify(params) !== '{}') {
         this.tempStatus = false;
@@ -52,6 +63,12 @@ export class AddComponent implements OnInit {
       contractAddress: [null, [Validators.required, this.contractAddressValidator]],
       provider: [null, [Validators.required]],
       currencyPrecision: [null, [Validators.required, this.currencyPrecisionValidator]]
+    })
+  }
+
+  initSelect() {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_central_bank_info', csePCode: 'FXPLT_CENTRAL_BANK_VAILD' }).subscribe((res) => {
+      this.centralBankList = res.dataInfo;
     })
   }
 

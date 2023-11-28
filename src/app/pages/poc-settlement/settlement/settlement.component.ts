@@ -188,7 +188,7 @@ export class SettlementComponent implements OnInit, AfterViewInit {
         {
           title: 'SP',
           tdTemplate: this.spTpl,
-          width: 540
+          width: 500
         },
         {
           title: 'Model Code',

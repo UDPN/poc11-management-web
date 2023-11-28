@@ -65,7 +65,7 @@ const menuNav: Menu[] = [
     ]
   },
   {
-    menuName: 'Foreign Exchange Model',
+    menuName: 'Fx Rate Mechanism',
     id: 4,
     fatherId: 0,
     icon: 'deployment-unit',

@@ -43,6 +43,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
     status: ''
   };
   statusList: any = [];
+  applicationTypeList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
@@ -85,6 +86,10 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
 
   initSelect() {
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BANK_APPLICATION_TYPE' }).subscribe((res) => {
+      this.applicationTypeList = res.dataInfo;
+    })
+
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BUSINESS_APPLICATION_STATUS' }).subscribe((res) => {
       this.statusList = res.dataInfo;
     })
   }

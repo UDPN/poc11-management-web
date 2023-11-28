@@ -26,7 +26,7 @@
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="status" [(ngModel)]="searchParam.status">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option *ngFor="let item of statusList" [nzValue]="item.cseValue" [nzLabel]="item.cseDesc"></nz-option>
+                <nz-option *ngFor="let item of applicationTypeList" [nzValue]="item.cseValue" [nzLabel]="item.cseDesc"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>

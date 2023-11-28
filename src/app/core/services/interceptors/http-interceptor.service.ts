@@ -99,7 +99,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   private handleSuccess(event: any): HttpResponse<any> {
     const filterCode = [0, '0', 200, 304];
-    const otherFilterCode = ['FXPLT_20223'];
+    const otherFilterCode = ['FXPLT_ELEVEN_20223'];
     if (event instanceof HttpResponse) {
       if (event.url !== undefined && event.url !== null && event.url.indexOf('.json') !== -1) {
         return event;
@@ -136,7 +136,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         //   })
         //   return event;
         // }
-        if (event.body.code !== 'FXPLT_20602') {
+        if (event.body.code !== 'FXPLT_ELEVEN_20602') {
           if (!this.firstCode) {
             this.modal.error({
               nzTitle: 'error',

@@ -87,9 +87,8 @@
             <div nz-row>
               <div nz-col nzSpan="24">
                 <nz-select formControlName="provider">
-                  <nz-option nzValue="" nzLabel="All"></nz-option>
-                  <!-- <nz-option *ngFor="let item of statusList" [nzValue]="item.cseValue" [nzLabel]="item.cseDesc">
-                  </nz-option> -->
+                  <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode" [nzLabel]="item.centralBankName">
+                  </nz-option>
                 </nz-select>
               </div>
             </div>

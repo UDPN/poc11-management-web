@@ -82,7 +82,7 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_exchange_rate_info', csePCode: 'FXSP_EXCHANGE_RATE_VAILD' }).subscribe((res) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_exchange_rate_info', csePCode: 'FXPLT_EXCHANGE_RATE_VAILD' }).subscribe((res) => {
       this.pairedExchangeRateList = res.dataInfo;
       this.pairedExchangeRateList.map((item: any, i: any) => {
         Object.assign(item, { key: i + 1 })
