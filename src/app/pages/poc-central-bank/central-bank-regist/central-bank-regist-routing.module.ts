@@ -15,6 +15,9 @@ const routes: Routes = [
   { 
     path: 'add', component: AddComponent, data: { newTab: 'true', authCode: ActionCode.TabsDetail, title: 'centralBankRegist-Create', key: 'central-bank-regist-add', shouldDetach: 'no' } 
   },
+  { 
+    path: 'edit', component: AddComponent, data: { newTab: 'true', authCode: ActionCode.TabsDetail, title: 'centralBankRegist-Edit', key: 'central-bank-regist-edit', shouldDetach: 'no' } 
+  },
 ];
 
 @NgModule({

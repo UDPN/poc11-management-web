@@ -8,6 +8,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '@app/core/services/http/common/common.service';
+import { CentralBankRegistService } from '@app/core/services/http/poc-central-bank/central-bank-regist/central-bank-regist.service';
 import { PocCommercialBankService } from '@app/core/services/http/poc-commercial-bank/poc-commercial-bank.service';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 
@@ -29,7 +30,7 @@ export class InfoComponent implements OnInit {
   infoMemberLicense: string = '';
   constructor(
     public routeInfo: ActivatedRoute,
-    private pocCommercialBankService: PocCommercialBankService,
+    private centralBankRegistService: CentralBankRegistService,
     private commonService: CommonService,
     private cdr: ChangeDetectorRef
   ) { }
@@ -49,21 +50,15 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getInfo();
+    this.getInfo();
   }
 
   getInfo(): void {
     this.routeInfo.queryParams.subscribe((params) => {
-      this.pocCommercialBankService
-        .info({ commercialBankCode: params['commercialBankCode'] })
+      this.centralBankRegistService
+        .info({ bankCode: params['bankCode'] })
         .subscribe((res: any) => {
           this.info = res;
-          if (res['businessLicenseUrl']) {
-            this.commonService.download({ hash: res['businessLicenseUrl'] }).subscribe(data => {
-              this.infoMemberLicense = 'data:image/jpg;base64,' + data;
-              this.cdr.detectChanges();
-            })
-          }
           this.cdr.markForCheck();
           return;
         });

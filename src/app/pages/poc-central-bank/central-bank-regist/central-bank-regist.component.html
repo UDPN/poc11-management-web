@@ -8,7 +8,7 @@
           <nz-form-item>
             <nz-form-label>Bank ID</nz-form-label>
             <nz-form-control>
-              <input nz-input placeholder="" name="bnCode" [(ngModel)]="searchParam.bnCode" />
+              <input nz-input placeholder="" name="bankCode" [(ngModel)]="searchParam.bankCode" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -24,7 +24,7 @@
           <nz-form-item>
             <nz-form-label>Business Node(BN) ID</nz-form-label>
             <nz-form-control>
-              <input nz-input placeholder="" name="bnId" [(ngModel)]="searchParam.bnId" />
+              <input nz-input placeholder="" name="bnCode" [(ngModel)]="searchParam.bnCode" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -69,21 +69,20 @@
   <app-card-table-wrap [tableTitle]="'Bank List'" [isNormalTable]="true" [btnTpl]="createBtn">
     <app-ant-table (changePageSize)="changePageSize($event)" (changePageNum)="getDataList($event)"
       [tableConfig]="tableConfig" [tableData]="dataList"></app-ant-table>
-    <ng-template #operationTpl let-status="status" let-currencyCode="currencyCode"
-      let-commercialBankCode="commercialBankCode">
-      <ng-container *appAuth="'R0402'">
+    <ng-template #operationTpl let-status="status" let-bankCode="bankCode">
+      <ng-container>
         <span class="operate-text" routerLink="/poc/poc-central-bank/central-bank-regist/edit" *ngIf="status === 1"
-          [queryParams]="{currencyCode}">
+          [queryParams]="{bankCode}">
           Edit
         </span>
       </ng-container>
-      <ng-container *appAuth="status === 1 ? 'R0404' : 'R0403'">
-        <span class="operate-text" (click)="onStatusUpdate(status === 1 ? 0 : 1, currencyCode)">
+      <ng-container>
+        <span class="operate-text" (click)="onStatusUpdate(status === 1 ? 0 : 1, bankCode)">
           {{ status === 1 ? 'Activate' : 'Inactivate' }}
         </span>
       </ng-container>
       <ng-container>
-        <span class="operate-text" routerLink="/poc/poc-central-bank/central-bank-regist/info">
+        <span class="operate-text" routerLink="/poc/poc-central-bank/central-bank-regist/info" [queryParams]="{bankCode}">
           Detail
         </span>
       </ng-container>
@@ -91,7 +90,7 @@
   </app-card-table-wrap>
 </div>
 <ng-template #createBtn>
-  <button routerLink="/poc/poc-central-bank/central-bank-regist/add" *appAuth="'R0601'" nz-button nzType="primary" class="m-r-8">
+  <button routerLink="/poc/poc-central-bank/central-bank-regist/add" nz-button nzType="primary" class="m-r-8">
     <i nz-icon nzType="plus"></i>
     New
   </button>

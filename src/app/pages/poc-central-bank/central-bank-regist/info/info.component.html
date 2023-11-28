@@ -8,16 +8,16 @@
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
       <nz-descriptions-item nzTitle="Bank ID">{{
-        info.commercialBankCode
+        info.bankCode
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Bank Name">{{
-        info.commercialBankName
+        info.bankName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Country of Region">{{
-        info.countryInfo
+        info.country
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Brief Introduction">{{
-        info.commercialBankIntroduction
+        info.bankIntroduction
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Wallet Address">{{
         info.besuWalletAddress
@@ -29,10 +29,10 @@
           (info.fileName + '.' + info.fileExtension) : '' }}<i nz-icon nzType="cloud-download" nzTheme="outline"
             class="m-l-10"></i></a></nz-descriptions-item>
       <nz-descriptions-item nzTitle="Creation Time">{{
-        info.createTime | map: 'timeStamp'
+        info.createDate | map: 'timeStamp'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Status">{{
-        info.status
+        info.status | map:'commercialStatus'
         }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-card>

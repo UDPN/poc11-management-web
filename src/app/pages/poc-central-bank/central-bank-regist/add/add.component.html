@@ -16,7 +16,7 @@
                 <nz-form-control [nzErrorTip]="bankNameError">
                   <div nz-row>
                     <div nz-col nzSpan="24">
-                      <input nz-input formControlName="commercialBankName" [ngClass]="{'onboard-disabled': !tempStatus}"
+                      <input nz-input formControlName="centralBankName" [ngClass]="{'onboard-disabled': !tempStatus}"
                         [readonly]="!tempStatus" />
                     </div>
                   </div>
@@ -59,7 +59,7 @@
           <nz-form-control [nzErrorTip]="introductionError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <input nz-input formControlName="commercialBankIntroduction" maxlength="255" />
+                <input nz-input formControlName="centralBankIntroduction" maxlength="255" />
               </div>
             </div>
             <ng-template #introductionError let-control>

@@ -85,7 +85,7 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'FXPLT_SPINFO_BUSINESS_APPLICATION' }).subscribe((res) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BUSINESS_APPLICATION_STATUS' }).subscribe((res) => {
       this.statusList = res.dataInfo;
     })
 

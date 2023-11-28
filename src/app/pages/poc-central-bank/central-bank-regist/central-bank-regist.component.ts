@@ -1,6 +1,7 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { LoginService } from '@app/core/services/http/login/login.service';
+import { CentralBankRegistService } from '@app/core/services/http/poc-central-bank/central-bank-regist/central-bank-regist.service';
 import { PocCurrencyService } from '@app/core/services/http/poc-currency/poc-currency.service';
 import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
 import { ThemeService } from '@app/core/services/store/common-store/theme.service';
@@ -14,9 +15,9 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize } from 'rxjs';
 
 interface SearchParam {
-  bnCode: string;
+  bankCode: string;
   bankName: string;
-  bnId: string;
+  bnCode: string;
   status: string;
   createTime: any;
 }
@@ -46,7 +47,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private pocCurrencyService: PocCurrencyService, private commonService: CommonService, private modal: NzModalService, private cdr: ChangeDetectorRef, private message: NzMessageService,) { }
+  constructor(private centralBankRegistService: CentralBankRegistService, private commonService: CommonService, private modal: NzModalService, private cdr: ChangeDetectorRef, private message: NzMessageService,) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
@@ -74,13 +75,13 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
 
   resetForm(): void {
     this.searchParam = {};
-    this.searchParam.createTime = [],
-      this.searchParam.status = ''
+    this.searchParam.createTime = [];
+    this.searchParam.status = '';
     this.getDataList(this.tableQueryParams);
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'FXPLT_COMMERCIAL_BANK_ REGISTRATION' }).subscribe((res) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'CENTRAL_BANK_MANAGEMENT_STATUS' }).subscribe((res) => {
       this.statusList = res.dataInfo;
     })
   }
@@ -90,24 +91,24 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   }
 
   getDataList(e?: NzTableQueryParams): void {
-    // this.tableConfig.loading = true;
-    // const params: SearchCommonVO<any> = {
-    //   pageSize: this.tableConfig.pageSize!,
-    //   pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
-    //   filters: this.searchParam
-    // };
-    // this.pocCurrencyService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
-    //   this.tableLoading(false);
-    // })).subscribe((_: any) => {
-    //   this.dataList = _.data;
-    //   this.tableConfig.total = _?.resultPageInfo?.total;
-    //   this.tableConfig.pageIndex = params.pageNum;
-    //   this.tableLoading(false);
-    //   this.cdr.markForCheck();
-    // });
+    this.tableConfig.loading = true;
+    const params: SearchCommonVO<any> = {
+      pageSize: this.tableConfig.pageSize!,
+      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+      filters: this.searchParam
+    };
+    this.centralBankRegistService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
+      this.tableLoading(false);
+    })).subscribe((_: any) => {
+      this.dataList = _.data;
+      this.tableConfig.total = _?.resultPageInfo?.total;
+      this.tableConfig.pageIndex = params.pageNum;
+      this.tableLoading(false);
+      this.cdr.markForCheck();
+    });
   }
 
-  onStatusUpdate(status: any, currencyCode: string): void {
+  onStatusUpdate(status: any, bankCode: string): void {
     let statusValue = '';
     if (status === 1) {
       statusValue = 'inactivate';
@@ -116,16 +117,16 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
     }
     const toolStatus = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
     this.modal.confirm({
-      nzTitle: `Are you sure you want to ${statusValue} this currency ?`,
+      nzTitle: `Are you sure you want to ${statusValue} this bank ?`,
       nzContent: '',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.pocCurrencyService.statusUpdate({ status, currencyCode }).subscribe({
+          this.centralBankRegistService.statusUpdate({ status, bankCode }).subscribe({
             next: res => {
               resolve(true);
               this.cdr.markForCheck();
               if (res) {
-                this.message.success(`${toolStatus} this currency successfully!`, { nzDuration: 1000 });
+                this.message.success(`${toolStatus} this bank successfully!`, { nzDuration: 1000 });
               }
               this.getDataList();
             },
@@ -143,22 +144,22 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
       headers: [
         {
           title: 'Bank ID',
-          field: '',
+          field: 'bankCode',
           width: 280
         },
         {
           title: 'Bank Name',
-          field: '',
+          field: 'bankName',
           width: 150
         },
         {
           title: 'Brief Introduction',
-          field: '',
+          field: 'bankIntroduction',
           width: 300
         },
         {
           title: 'BN ID',
-          field: '',
+          field: 'bnCode',
           width: 300
         },
         {

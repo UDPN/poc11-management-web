@@ -6,10 +6,8 @@ import { Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { fnCheckForm } from '@app/utils/tools';
 import { finalize } from 'rxjs';
-import { UserService } from '@app/core/services/http/poc-system/user/user.service';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { PocCommercialBankService } from '@app/core/services/http/poc-commercial-bank/poc-commercial-bank.service';
-import JSZip from 'jszip';
+import { CentralBankRegistService } from '@app/core/services/http/poc-central-bank/central-bank-regist/central-bank-regist.service';
 
 @Component({
   selector: 'app-add',
@@ -35,7 +33,15 @@ export class AddComponent implements OnInit {
   fileStatus: number = 1;
   fileType: number = 0;
   orignalFileHash: string = '';
-  constructor(private fb: FormBuilder, public routeInfo: ActivatedRoute, private commonService: CommonService, private message: NzMessageService, private pocCommercialBankService: PocCommercialBankService, private cdr: ChangeDetectorRef, private location: Location) { }
+  constructor(
+    private fb: FormBuilder,
+    public routeInfo: ActivatedRoute,
+    private commonService: CommonService,
+    private message: NzMessageService,
+    private centralBankRegistService: CentralBankRegistService,
+    private cdr: ChangeDetectorRef,
+    private location: Location
+  ) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: this.tempStatus === true ? 'Create' : 'Edit',
@@ -54,17 +60,16 @@ export class AddComponent implements OnInit {
     this.routeInfo.queryParams.subscribe((params: any) => {
       if (JSON.stringify(params) !== '{}') {
         this.tempStatus = false;
-        this.getInfo(params['commercialBankCode']);
+        this.getInfo(params['bankCode']);
       }
     })
     this.validateForm = this.fb.group({
-      commercialBankName: [null, [Validators.required, this.commercialBankNameValidator]],
-      countryInfoId: [null, [Validators.required]],
-      // countryInfoString: [null, [Validators.required]],
-      commercialBankIntroduction: [null, [Validators.required]],
-      besuWalletAddress: [null, [Validators.required]],
+      centralBankName: [null, [Validators.required, this.centralBankNameValidator]],
+      centralBankIntroduction: [null, [Validators.required]],
       bnCode: [null, [Validators.required]],
-      agreementUrl: [null, [Validators.required]]
+      agreementUrl: [null, [Validators.required]],
+      countryInfoId: [null, [Validators.required]],
+      besuWalletAddress: [null, [Validators.required]],
     })
   }
 
@@ -104,25 +109,6 @@ export class AddComponent implements OnInit {
           this.fileStatus = 1;
         }
       };
-
-      // let fileName = $event.target.files[0].name;
-      // var zip = new JSZip();
-      // zip.file($event.target.files[0].name, $event.target.files[0]);
-      // zip.generateAsync({ type: "blob" }).then(c => {
-      //   var fils = new File([c], fileName, { type: "zip" });
-      //   var reader = new FileReader();
-      //   reader.readAsDataURL(fils);
-      //   reader.addEventListener('load', () => {
-      //     this.validateForm.get('agreementUrl')?.setValue(fils);
-      //     if (this.validateForm.get('agreementUrl')?.value !== '') {
-      //       this.fileStatus = 2;
-      //     } else {
-      //       this.fileStatus = 1;
-      //     }
-      //   });
-      //   console.log(this.validateForm.get('agreementUrl')?.value);
-
-      // })
     }
   }
 
@@ -133,7 +119,7 @@ export class AddComponent implements OnInit {
     this.validateForm.get('agreementUrl')?.setValue('');
   }
 
-  commercialBankNameValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
+  centralBankNameValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { error: true, required: true };
     } else if (!(/^[^0-9][\s\S]{1,49}$/).test(control.value)) {
@@ -142,12 +128,11 @@ export class AddComponent implements OnInit {
     return {};
   };
 
-  getInfo(commercialBankCode: string): void {
-    this.pocCommercialBankService.info({ commercialBankCode }).subscribe((res: any) => {
+  getInfo(bankCode: string): void {
+    this.centralBankRegistService.info({ bankCode }).subscribe((res: any) => {
       this.info = res;
-      this.validateForm.get('commercialBankName')?.setValue(res.commercialBankName);
-      this.validateForm.get('countryInfoId')?.setValue(res.countryId);
-      this.validateForm.get('commercialBankIntroduction')?.setValue(res.commercialBankIntroduction);
+      this.validateForm.get('centralBankName')?.setValue(res.bankName);
+      this.validateForm.get('centralBankIntroduction')?.setValue(res.bankIntroduction);
       this.validateForm.get('besuWalletAddress')?.setValue(res.besuWalletAddress);
       this.validateForm.get('bnCode')?.setValue(res.bnCode);
       this.validateForm.get('agreementUrl')?.setValue(res.agreementUrl);
@@ -155,6 +140,11 @@ export class AddComponent implements OnInit {
       if (res.agreementUrl) {
         this.fileStatus = 2;
       }
+      this.countryList.forEach((item: any) => {
+        if (item.countryName === res.country) {
+          this.validateForm.get('countryInfoId')?.setValue(item.countryId);
+        }
+      });
       this.cdr.markForCheck();
       return;
     })
@@ -167,71 +157,51 @@ export class AddComponent implements OnInit {
     this.isLoading = true;
     if (this.tempStatus === true) {
       const saveParam = {
-        commercialBankName: this.validateForm.get('commercialBankName')?.value,
+        centralBankName: this.validateForm.get('centralBankName')?.value,
         countryInfoId: this.validateForm.get('countryInfoId')?.value,
-        commercialBankIntroduction: this.validateForm.get('commercialBankIntroduction')?.value,
+        centralBankIntroduction: this.validateForm.get('centralBankIntroduction')?.value,
         besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
         bnCode: this.validateForm.get('bnCode')?.value,
         agreementUrl: this.validateForm.get('agreementUrl')?.value,
       }
-      if (this.validateForm.get('agreementUrl')?.value) {
-        this.commonService.upload(this.fileImgWord).subscribe({
-          next: res => {
-            if (res) {
-              saveParam.agreementUrl = res;
-              this.pocCommercialBankService.add(saveParam).pipe(finalize(() => this.isLoading = false)).subscribe({
-                next: res => {
-                  if (res) {
-                    this.message.success('Add successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-                      this.validateForm.reset();
-                      this.location.back();
-                    });
-                  }
-                  this.isLoading = false;
-                  this.cdr.markForCheck();
-                },
-                error: err => {
-                  this.isLoading = false;
-                  this.cdr.markForCheck();
+      this.commonService.upload(this.fileImgWord).subscribe({
+        next: res => {
+          if (res) {
+            saveParam.agreementUrl = res;
+            this.centralBankRegistService.add(saveParam).pipe(finalize(() => this.isLoading = false)).subscribe({
+              next: res => {
+                if (res) {
+                  this.message.success('Add successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
+                    this.validateForm.reset();
+                    this.location.back();
+                  });
                 }
-              })
-            }
-          },
-          error: err => {
-            this.isLoading = false;
-            this.cdr.markForCheck();
+                this.isLoading = false;
+                this.cdr.markForCheck();
+              },
+              error: err => {
+                this.isLoading = false;
+                this.cdr.markForCheck();
+              }
+            })
           }
-        })
-      } else {
-        this.pocCommercialBankService.add(saveParam).pipe(finalize(() => this.isLoading = false)).subscribe({
-          next: res => {
-            if (res) {
-              this.message.success('Add successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-                this.validateForm.reset();
-                this.location.back();
-              });
-            }
-            this.isLoading = false;
-            this.cdr.markForCheck();
-          },
-          error: err => {
-            this.isLoading = false;
-            this.cdr.markForCheck();
-          }
-        })
-      }
+        },
+        error: err => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        }
+      })
     } else {
       const editParam = {
-        commercialBankCode: this.info.commercialBankCode,
-        commercialBankName: this.validateForm.get('commercialBankName')?.value,
-        countryInfoId: this.validateForm.get('countryInfoId')?.value,
-        commercialBankIntroduction: this.validateForm.get('commercialBankIntroduction')?.value,
-        besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
+        bankCode: this.info.bankCode,
+        centralBankIntroduction: this.validateForm.get('centralBankIntroduction')?.value,
         bnCode: this.validateForm.get('bnCode')?.value,
         agreementUrl: this.validateForm.get('agreementUrl')?.value,
+        countryInfoId: this.validateForm.get('countryInfoId')?.value,
+        besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
       }
       if (!this.validateForm.get('agreementUrl')?.value || this.validateForm.get('agreementUrl')?.value === this.orignalFileHash) {
-        this.pocCommercialBankService.edit(editParam).pipe(finalize(() => this.isLoading = false)).subscribe({
+        this.centralBankRegistService.edit(editParam).pipe(finalize(() => this.isLoading = false)).subscribe({
           next: res => {
             if (res) {
               this.message.success('Edit successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
@@ -251,7 +221,7 @@ export class AddComponent implements OnInit {
         this.commonService.upload(this.fileImgWord).subscribe({
           next: res => {
             editParam.agreementUrl = res;
-            this.pocCommercialBankService.edit(editParam).pipe(finalize(() => this.isLoading = false)).subscribe({
+            this.centralBankRegistService.edit(editParam).pipe(finalize(() => this.isLoading = false)).subscribe({
               next: res => {
                 this.isLoading = false;
                 if (res) {
@@ -276,44 +246,6 @@ export class AddComponent implements OnInit {
       }
     }
   }
-
-  // onSubmit() {
-  //   const saveParam = {
-  //     commercialBankName: this.validateForm.get('commercialBankName')?.value,
-  //     countryInfoId: this.validateForm.get('countryInfoId')?.value,
-  //     countryInfoString: this.validateForm.get('countryInfoString')?.value,
-  //     commercialBankIntroduction: this.validateForm.get('commercialBankIntroduction')?.value,
-  //     besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
-  //     bnCode: this.validateForm.get('bnCode')?.value,
-  //     agreementUrl: '1111111',
-  //   }
-  //   const editParam = {
-  //     commercialBankName: this.validateForm.get('commercialBankName')?.value,
-  //     countryInfoId: this.validateForm.get('countryInfoId')?.value,
-  //     countryInfoString: this.validateForm.get('countryInfoString')?.value,
-  //     commercialBankIntroduction: this.validateForm.get('commercialBankIntroduction')?.value,
-  //     besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
-  //     bnCode: this.validateForm.get('bnCode')?.value,
-  //     agreementUrl: '1111111',
-  //     commercialBankCode: this.info.commercialBankCode
-  //   }
-  //   this.pocCommercialBankService.add(saveParam).pipe(finalize(() => this.isLoading = false)).subscribe({
-  //     next: res => {
-  //       if (res) {
-  //         this.message.success('Add successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-  //           this.validateForm.reset();
-  //           this.location.back();
-  //         });
-  //       }
-  //       this.isLoading = false;
-  //       this.cdr.markForCheck();
-  //     },
-  //     error: err => {
-  //       this.isLoading = false;
-  //       this.cdr.markForCheck();
-  //     }
-  //   })
-  // }
 
   onBack() {
     this.location.back();

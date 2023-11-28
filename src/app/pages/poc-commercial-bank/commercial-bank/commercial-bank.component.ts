@@ -84,30 +84,30 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'FXPLT_COMMERCIAL_BANK_ REGISTRATION' }).subscribe((res) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BANK_APPLICATION_TYPE' }).subscribe((res) => {
       this.statusList = res.dataInfo;
     })
   }
 
   getDataList(e?: NzTableQueryParams): void {
-    this.tableConfig.loading = true;
-    const params: SearchCommonVO<any> = {
-      pageSize: this.tableConfig.pageSize!,
-      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
-      filters: this.searchParam
-    };
-    this.pocCommercialBankService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
-      this.tableLoading(false);
-    })).subscribe((_: any) => {
-      this.dataList = _.data;
-      this.dataList.forEach((item: any, i: any) => {
-        Object.assign(item, { key: (params.pageNum - 1) * 10 + i + 1 })
-      })
-      this.tableConfig.total = _?.resultPageInfo?.total;
-      this.tableConfig.pageIndex = params.pageNum;
-      this.tableLoading(false);
-      this.cdr.markForCheck();
-    });
+    // this.tableConfig.loading = true;
+    // const params: SearchCommonVO<any> = {
+    //   pageSize: this.tableConfig.pageSize!,
+    //   pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+    //   filters: this.searchParam
+    // };
+    // this.pocCommercialBankService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
+    //   this.tableLoading(false);
+    // })).subscribe((_: any) => {
+    //   this.dataList = _.data;
+    //   this.dataList.forEach((item: any, i: any) => {
+    //     Object.assign(item, { key: (params.pageNum - 1) * 10 + i + 1 })
+    //   })
+    //   this.tableConfig.total = _?.resultPageInfo?.total;
+    //   this.tableConfig.pageIndex = params.pageNum;
+    //   this.tableLoading(false);
+    //   this.cdr.markForCheck();
+    // });
   }
 
   onStatusUpdate(status: any, commercialBankCode: string): void {
@@ -157,18 +157,13 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
         {
           title: 'Application Type',
           field: '',
-          width: 200
+          width: 250
         },
         {
           title: 'Brief Introduction',
           field: 'commercialBankIntroduction',
           width: 220
         },
-        // {
-        //   title: 'BN ID',
-        //   field: 'bnCode',
-        //   width: 180
-        // },
         {
           title: 'Application Time',
           field: 'createDate',
@@ -179,7 +174,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           title: 'Status',
           field: 'status',
           pipe: 'applicationStatus',
-          width: 150
+          width: 180
         },
         {
           title: 'Action',

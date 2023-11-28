@@ -7,7 +7,7 @@
   <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
-      <nz-descriptions-item nzTitle="SP Name">{{
+      <nz-descriptions-item nzTitle="Bank Name">{{
         info.spName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Country or Region">{{
@@ -54,7 +54,7 @@
       </nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
-  <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" [nzTitle]="'Voting Information'" class="m-b-10">
+  <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" [nzTitle]="'Approval Information'" class="m-b-10">
     <form nz-form [formGroup]="validateForm">
       <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
         <div nz-col [nzSpan]="24">

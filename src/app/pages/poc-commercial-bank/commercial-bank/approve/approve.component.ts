@@ -36,13 +36,13 @@ export class ApproveComponent implements OnInit {
   constructor(public routeInfo: ActivatedRoute, private router: Router, private pocProviderService: PocProviderService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService,private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Approve`,
+      title: `Approved`,
       breadcrumbs: [
         {
           name: 'Commercial/Settlement Bank Management',
           url: '/poc/poc-commercial-bank/commercial-bank'
         },
-        { name: 'Approve' }
+        { name: 'Approved' }
       ],
       extra: '',
       desc: '',
