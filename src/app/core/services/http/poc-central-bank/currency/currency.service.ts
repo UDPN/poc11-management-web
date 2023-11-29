@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { BaseHttpService } from '../base-http.service';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { timeToTimestamp } from '@app/utils/tools';
+import { BaseHttpService } from '../../base-http.service';
 
 export interface Adata {
   // platform: string;
   currency: string;
   contractAddress: string;
-  provider: string;
+  centralBankCode: string;
   currencyPrecision: string;
 }
 
 export interface Edata {
   currencyCode: string;
   contractAddress: string;
-  provider: string;
+  centralBankCode: string;
 }
 
 export interface Sdata {
@@ -27,7 +27,7 @@ export interface Sdata {
 @Injectable({
   providedIn: 'root'
 })
-export class PocCurrencyService {
+export class CurrencyService {
 
   constructor(private http: BaseHttpService, private https: HttpClient, private date: DatePipe) { }
   public getList(
@@ -37,13 +37,12 @@ export class PocCurrencyService {
   ): Observable<any> {
     const data: any = {
       currencyCode: filters.currencyCode || '',
-      platform: filters.platform || '',
       currency: filters.currency || '',
-      symbol: filters.symbol || '',
+      symbol: filters.currency || '',
       contractAddress: filters.contractAddress || '',
-      provider: filters.provider || '',
+      centralBankCode: filters.centralBankCode || '',
       createBeginDate: filters.createTime[0] ? timeToTimestamp(this.date.transform(filters.createTime[0], 'yyyy-MM-dd')+' 00:00:00') : "",
-      updateEndDate: filters.createTime[1] ? timeToTimestamp(this.date.transform(filters.createTime[1], 'yyyy-MM-dd')+' 23:59:59') : "",
+      createEndDate: filters.createTime[1] ? timeToTimestamp(this.date.transform(filters.createTime[1], 'yyyy-MM-dd')+' 23:59:59') : "",
       status: filters.status,
       pageSize: pageSize,
       pageNum: pageIndex

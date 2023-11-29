@@ -21,7 +21,7 @@ const menuNav: Menu[] = [
     code: 'R0',
   },
   {
-    menuName: 'Commercial/Settlement Bank Management',
+    menuName: 'Commercial/Service Provider Management',
     id: 2,
     fatherId: 0,
     icon: 'user-switch',

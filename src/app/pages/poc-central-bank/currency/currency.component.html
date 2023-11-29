@@ -32,7 +32,7 @@
           <nz-form-item>
             <nz-form-label>Central Bank</nz-form-label>
             <nz-form-control>
-              <nz-select nzPlaceHolder="" name="provider" [(ngModel)]="searchParam.provider">
+              <nz-select nzPlaceHolder="" name="centralBankCode" [(ngModel)]="searchParam.centralBankCode">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode" [nzLabel]="item.centralBankName">
                 </nz-option>
@@ -80,12 +80,9 @@
   <app-card-table-wrap [tableTitle]="'Currency List'" [isNormalTable]="true" [btnTpl]="createBtn">
     <app-ant-table (changePageSize)="changePageSize($event)" (changePageNum)="getDataList($event)"
       [tableConfig]="tableConfig" [tableData]="dataList"></app-ant-table>
-    <ng-template #currencyTpl let-currency="currency" let-platform="platform">
-      <span [title]="currency + '-' + platform">{{ currency + '-' + platform }}</span>
-    </ng-template>
     <ng-template #operationTpl let-status="status" let-currencyCode="currencyCode"
       let-commercialBankCode="commercialBankCode">
-      <ng-container *appAuth="'R0402'">
+      <ng-container>
         <span class="operate-text" routerLink="/poc/poc-central-bank/currency/edit" *ngIf="status === 1"
           [queryParams]="{currencyCode}">
           Edit

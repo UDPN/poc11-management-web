@@ -19,7 +19,6 @@
             </div>
             <ng-template #currencyError let-control>
               <ng-container *ngIf="control.hasError('required')">Please input your Currency</ng-container>
-              <ng-container *ngIf="control.hasError('regular')">2-50 uppercase letters</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -86,7 +85,7 @@
           <nz-form-control [nzErrorTip]="providerError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <nz-select formControlName="provider">
+                <nz-select formControlName="centralBankCode">
                   <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode" [nzLabel]="item.centralBankName">
                   </nz-option>
                 </nz-select>

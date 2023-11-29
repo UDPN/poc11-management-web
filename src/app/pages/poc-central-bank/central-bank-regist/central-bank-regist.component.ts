@@ -1,10 +1,6 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { LoginService } from '@app/core/services/http/login/login.service';
 import { CentralBankRegistService } from '@app/core/services/http/poc-central-bank/central-bank-regist/central-bank-regist.service';
-import { PocCurrencyService } from '@app/core/services/http/poc-currency/poc-currency.service';
-import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
-import { ThemeService } from '@app/core/services/store/common-store/theme.service';
 import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';

@@ -9,7 +9,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Location } from '@angular/common';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { PocProviderService } from '@app/core/services/http/poc-provider/poc-provider.service';
+import { PocCommercialBankService } from '@app/core/services/http/poc-commercial-bank/poc-commercial-bank.service';
 
 @Component({
   selector: 'app-approve',
@@ -33,13 +33,13 @@ export class ApproveComponent implements OnInit {
   isCollapsed$ = this.themesService.getIsCollapsed();
   validateForm!: FormGroup;
   isLoading: boolean = false;
-  constructor(public routeInfo: ActivatedRoute, private router: Router, private pocProviderService: PocProviderService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService,private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
+  constructor(public routeInfo: ActivatedRoute, private router: Router, private pocCommercialBankService: PocCommercialBankService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService, private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Approved`,
       breadcrumbs: [
         {
-          name: 'Commercial/Settlement Bank Management',
+          name: 'Commercial/Service Provider Management',
           url: '/poc/poc-commercial-bank/commercial-bank'
         },
         { name: 'Approved' }
@@ -59,7 +59,7 @@ export class ApproveComponent implements OnInit {
 
   getInfo(): void {
     this.routeInfo.queryParams.subscribe(params => {
-      this.pocProviderService.getInfo({ spCode: params['spCode'] || params['businessApplicationCode'] }).subscribe((res: any) => {
+      this.pocCommercialBankService.getInfo({ spCode: params['spCode'] || params['businessApplicationCode'] }).subscribe((res: any) => {
         this.info = res;
         if (res['businessLicenseUrl']) {
           this.commonService.download({ hash: res['businessLicenseUrl'] }).subscribe(data => {
@@ -78,7 +78,7 @@ export class ApproveComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.pocProviderService.approve({
+    this.pocCommercialBankService.approve({
       spCode: this.info.spCode,
       approvalResult: this.validateForm.get('approvalResult')?.value,
       comments: this.validateForm.get('comments')?.value,

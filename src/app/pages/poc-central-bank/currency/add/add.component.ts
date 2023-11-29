@@ -6,8 +6,8 @@ import { Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { fnCheckForm } from '@app/utils/tools';
 import { finalize } from 'rxjs';
-import { PocCurrencyService } from '@app/core/services/http/poc-currency/poc-currency.service';
 import { CommonService } from '@app/core/services/http/common/common.service';
+import { CurrencyService } from '@app/core/services/http/poc-central-bank/currency/currency.service';
 
 @Component({
   selector: 'app-add',
@@ -31,7 +31,7 @@ export class AddComponent implements OnInit {
     private fb: FormBuilder, 
     public routeInfo: ActivatedRoute, 
     private message: NzMessageService, 
-    private pocCurrencyService: PocCurrencyService, 
+    private currencyService: CurrencyService, 
     private cdr: ChangeDetectorRef, 
     private location: Location,
     private commonService: CommonService
@@ -59,9 +59,9 @@ export class AddComponent implements OnInit {
     })
     this.validateForm = this.fb.group({
       // platform: [null, [Validators.required, this.validator]],
-      currency: [null, [Validators.required, this.currencyValidator]],
+      currency: [null, [Validators.required]],
       contractAddress: [null, [Validators.required, this.contractAddressValidator]],
-      provider: [null, [Validators.required]],
+      centralBankCode: [null, [Validators.required]],
       currencyPrecision: [null, [Validators.required, this.currencyPrecisionValidator]]
     })
   }
@@ -72,14 +72,14 @@ export class AddComponent implements OnInit {
     })
   }
 
-  currencyValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { error: true, required: true };
-    } else if (!(/^[A-Z]{2,50}$/).test(control.value)) {
-      return { regular: true, error: true };
-    }
-    return {};
-  };
+  // currencyValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
+  //   if (!control.value) {
+  //     return { error: true, required: true };
+  //   } else if (!(/^[A-Z]{2,50}$/).test(control.value)) {
+  //     return { regular: true, error: true };
+  //   }
+  //   return {};
+  // };
 
   validator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
@@ -110,12 +110,11 @@ export class AddComponent implements OnInit {
 
 
   getInfo(currencyCode: string): void {
-    this.pocCurrencyService.getInfo({ currencyCode }).subscribe((res: any) => {
+    this.currencyService.getInfo({ currencyCode }).subscribe((res: any) => {
       this.info = res;
-      // this.validateForm.get('platform')?.setValue(res.platform);
       this.validateForm.get('currency')?.setValue(res.currency);
       this.validateForm.get('contractAddress')?.setValue(res.contractAddress);
-      this.validateForm.get('provider')?.setValue(res.provider);
+      this.validateForm.get('centralBankCode')?.setValue(res.centralBankCode);
       this.validateForm.get('currencyPrecision')?.setValue(res.currencyPrecision);
       this.cdr.markForCheck();
       return;
@@ -128,7 +127,7 @@ export class AddComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.tempStatus === true) {
-      this.pocCurrencyService.add(this.validateForm.value).pipe(finalize(() => this.isLoading = false)).subscribe({
+      this.currencyService.add(this.validateForm.value).pipe(finalize(() => this.isLoading = false)).subscribe({
         next: res => {
           if (res) {
             this.message.success('Add successfully!',{ nzDuration: 1000}).onClose.subscribe(() => {
@@ -148,9 +147,9 @@ export class AddComponent implements OnInit {
       const param = {
         currencyCode: this.info.currencyCode,
         contractAddress: this.validateForm.get('contractAddress')?.value,
-        provider: this.validateForm.get('provider')?.value
+        centralBankCode: this.validateForm.get('centralBankCode')?.value
       }
-      this.pocCurrencyService.edit(param).pipe(finalize(() => this.isLoading = false)).subscribe({
+      this.currencyService.edit(param).pipe(finalize(() => this.isLoading = false)).subscribe({
         next: res => {
           if (res) {
             this.message.success('Edit successfully!',{ nzDuration: 1000}).onClose.subscribe(() => {

@@ -1,9 +1,6 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { LoginService } from '@app/core/services/http/login/login.service';
-import { PocCurrencyService } from '@app/core/services/http/poc-currency/poc-currency.service';
-import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
-import { ThemeService } from '@app/core/services/store/common-store/theme.service';
+import { CurrencyService } from '@app/core/services/http/poc-central-bank/currency/currency.service';
 import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
@@ -16,10 +13,9 @@ import { finalize } from 'rxjs';
 interface SearchParam {
   currencyCode: string;
   currency: string;
-  platform: string;
   status: string;
   contractAddress: string;
-  provider: string;
+  centralBankCode: string;
   createTime: any;
 }
 
@@ -32,7 +28,6 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -43,14 +38,14 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   searchParam: Partial<SearchParam> = {
     createTime: [],
     status: '',
-    provider: ''
+    centralBankCode: ''
   };
   statusList: any = [];
   centralBankList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private pocCurrencyService: PocCurrencyService, private commonService: CommonService, private modal: NzModalService, private cdr: ChangeDetectorRef, private message: NzMessageService,) { }
+  constructor(private currencyService: CurrencyService, private commonService: CommonService, private modal: NzModalService, private cdr: ChangeDetectorRef, private message: NzMessageService,) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
@@ -80,7 +75,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
     this.searchParam = {};
     this.searchParam.createTime = [];
     this.searchParam.status = '';
-    this.searchParam.provider = '';
+    this.searchParam.centralBankCode = '';
     this.getDataList(this.tableQueryParams);
   }
 
@@ -105,7 +100,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
       pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
       filters: this.searchParam
     };
-    this.pocCurrencyService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
+    this.currencyService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
       this.tableLoading(false);
     })).subscribe((_: any) => {
       this.dataList = _.data;
@@ -129,7 +124,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
       nzContent: '',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.pocCurrencyService.statusUpdate({ status, currencyCode }).subscribe({
+          this.currencyService.statusUpdate({ status, currencyCode }).subscribe({
             next: res => {
               resolve(true);
               this.cdr.markForCheck();
@@ -156,9 +151,9 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 280
         },
         {
-          title: 'Currency-Platform',
-          tdTemplate: this.currencyTpl,
-          width: 150
+          title: 'Currency',
+          field: 'currency',
+          width: 120
         },
         {
           title: 'Decimal Precision',
@@ -173,7 +168,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
         },
         {
           title: 'Central Bank',
-          field: 'provider',
+          field: 'centralBankName',
           width: 240
         },
         {

@@ -32,14 +32,14 @@ export class InfoComponent implements OnInit {
     private pocCommercialBankService: PocCommercialBankService,
     private commonService: CommonService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Detail`,
       breadcrumbs: [
         {
-          name: 'Commercial/Settlement Bank Management',
+          name: 'Commercial/Service Provider Management',
           url: '/poc/poc-commercial-bank/commercial-bank'
         },
         { name: 'Detail' }
@@ -88,12 +88,12 @@ export class InfoComponent implements OnInit {
   }
 
   private downloadFile(base64: any, fileName: string, fileType: string) {
-    let typeHeader = 'data:application/' + fileType + ';base64,'; 
+    let typeHeader = 'data:application/' + fileType + ';base64,';
 
-    let converedBase64 = typeHeader + base64; 
-    let blob = this.base64ToBlob(converedBase64, fileType); 
+    let converedBase64 = typeHeader + base64;
+    let blob = this.base64ToBlob(converedBase64, fileType);
 
-    this.downloadExportFile(blob, fileName, fileType); 
+    this.downloadExportFile(blob, fileName, fileType);
   }
 
   private downloadExportFile(blob: any, fileName: string, fileType: string) {
@@ -102,15 +102,15 @@ export class InfoComponent implements OnInit {
     if (typeof blob == 'string') {
       downloadElement.target = '_blank';
     } else {
-      href = window.URL.createObjectURL(blob); 
+      href = window.URL.createObjectURL(blob);
     }
     downloadElement.href = href;
-    downloadElement.download = fileName + '.' + fileType; 
+    downloadElement.download = fileName + '.' + fileType;
     document.body.appendChild(downloadElement);
-    downloadElement.click(); 
-    document.body.removeChild(downloadElement); 
+    downloadElement.click();
+    document.body.removeChild(downloadElement);
     if (typeof blob != 'string') {
-      window.URL.revokeObjectURL(href); 
+      window.URL.revokeObjectURL(href);
     }
   }
 

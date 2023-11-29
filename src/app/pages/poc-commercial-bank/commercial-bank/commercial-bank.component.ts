@@ -51,7 +51,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Commercial/Settlement Bank Management'],
+      breadcrumb: ['Commercial/Service Provider Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''

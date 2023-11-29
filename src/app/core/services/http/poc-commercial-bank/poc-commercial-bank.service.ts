@@ -26,6 +26,12 @@ export interface Edata {
   agreementUrl: string;
 }
 
+export interface Apdata {
+  spCode: string;
+  approvalResult: string;
+  comments: string;
+}
+
 export interface Sdata {
   commercialBankCode: string;
   status: string;
@@ -77,4 +83,11 @@ export class PocCommercialBankService {
     return this.http.post(`/v1/fxplt/sys/commercial/bank/manage/status/update`, params);
   }
 
+  public getInfo(params: { spCode: string }): Observable<any> {
+    return this.http.post(`/v1/fxplt/sys/service/provider/manage/detail`, params);
+  }
+
+  public approve(params: Apdata): Observable<any> {
+    return this.http.post(`/v1/fxplt/sys/service/provider/manage/audit`, params);
+  }
 }
