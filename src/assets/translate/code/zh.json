@@ -133,6 +133,7 @@
   "MSG_FXPLT_ELEVEN_20612": "clientName not null",
   "MSG_FXPLT_ELEVEN_20613": "password not null",
   "MSG_FXPLT_ELEVEN_20614": "captchaCode not null",
+  "MSG_FXPLT_ELEVEN_20713": "File does not exist",
 
   "MSG_FXPLT_ELEVEN_20800": "Application type error",
   "MSG_FXPLT_ELEVEN_20801": "Capital Pool does not exist, unable to activate Currency Pair",

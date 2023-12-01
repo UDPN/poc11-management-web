@@ -49,6 +49,11 @@ const routes: Routes = [
         loadChildren: () => import('../../pages/poc-commercial-bank/poc-commercial-bank.module').then(m => m.PocCommercialBankModule)
       },
       {
+        path: 'poc-provider',
+        data: { preload: true },
+        loadChildren: () => import('../../pages/poc-provider/poc-provider.module').then(m => m.PocProviderModule)
+      },
+      {
         path: 'poc-foreign-model',
         data: { preload: true },
         loadChildren: () => import('../../pages/poc-foreign-model/poc-foreign-model.module').then(m => m.PocForeignModelModule)

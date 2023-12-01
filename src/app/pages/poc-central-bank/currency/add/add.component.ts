@@ -58,7 +58,6 @@ export class AddComponent implements OnInit {
       }
     })
     this.validateForm = this.fb.group({
-      // platform: [null, [Validators.required, this.validator]],
       currency: [null, [Validators.required]],
       contractAddress: [null, [Validators.required, this.contractAddressValidator]],
       centralBankCode: [null, [Validators.required]],

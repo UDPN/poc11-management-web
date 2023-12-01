@@ -21,14 +21,14 @@ const menuNav: Menu[] = [
     code: 'R0',
   },
   {
-    menuName: 'Commercial/Service Provider Management',
+    menuName: 'Service Provider Management',
     id: 2,
     fatherId: 0,
     icon: 'user-switch',
     open: false,
     selected: false,
     menuType: 'C',
-    path: '/poc/poc-commercial-bank/commercial-bank',
+    path: '/poc/poc-provider/provider',
     code: 'R0',
   },
   {
