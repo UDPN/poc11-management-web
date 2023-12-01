@@ -124,7 +124,7 @@ export class ApproveComponent implements OnInit {
     this.commonService
       .download({ hash: settlementBankFileHash })
       .subscribe((res) => {
-        this.downloadFile('', fileUrl);
+        this.downloadFile(res, fileUrl);
       });
   }
 
