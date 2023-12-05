@@ -51,15 +51,12 @@ export class PocCommercialBankService {
     const data: any = {
       pageSize: pageSize,
       pageNum: pageIndex,
-      commercialBankCode : filters.commercialBankCode || '',
-      commercialBankName: filters.commercialBankName || '',
-      commercialBankIntroduction: filters.commercialBankIntroduction || '',
-      bnCode: filters.bnCode || '',      
-      status: filters.status,
-      createBeginTime: filters.createTime[0] ? timeToTimestamp(this.date.transform(filters.createTime[0], 'yyyy-MM-dd')+' 00:00:00') : "",
-      createEndTime: filters.createTime[1] ? timeToTimestamp(this.date.transform(filters.createTime[1], 'yyyy-MM-dd')+' 23:59:59') : ""
+      spChainCode : filters.spChainCode || '',
+      spName: filters.spName || '',
+      centralBankChainId: filters.centralBankChainId || '',
+      bankType: filters.bankType || '',
     };
-    return this.https.post('/v1/fxplt/sys/commercial/bank/manage/searches', data)
+    return this.https.post('/v1/fxplt/sys/active/bank/manage/searches', data)
       .pipe(
         map((response: any) => {
           return response;
@@ -67,27 +64,8 @@ export class PocCommercialBankService {
       );
   }
 
-  public info(params: { commercialBankCode: string }): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/commercial/bank/manage/detail`, params);
+  public info(params: { spCode: string }): Observable<any> {
+    return this.http.post(`/v1/fxplt/sys/active/bank/manage/detail`, params);
   }
 
-  public add(params: Adata): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/commercial/bank/manage/save`, params);
-  }
-
-  public edit(params: Edata): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/commercial/bank/manage/edit`, params);
-  }
-
-  public statusUpdate(params: Sdata): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/commercial/bank/manage/status/update`, params);
-  }
-
-  public getInfo(params: { spCode: string }): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/service/provider/manage/detail`, params);
-  }
-
-  public approve(params: Apdata): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/service/provider/manage/audit`, params);
-  }
 }

@@ -1,9 +1,6 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { LoginService } from '@app/core/services/http/login/login.service';
 import { PocCommercialBankService } from '@app/core/services/http/poc-commercial-bank/poc-commercial-bank.service';
-import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
-import { ThemeService } from '@app/core/services/store/common-store/theme.service';
 import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
@@ -14,12 +11,10 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize } from 'rxjs';
 
 interface SearchParam {
-  commercialBankCode: string;
-  commercialBankName: string;
-  commercialBankIntroduction: string;
-  bnCode: string;
-  status: string;
-  createTime: any;
+  spChainCode: string;
+  spName: string;
+  bankType: any;
+  centralBankChainId: any;
 }
 
 @Component({
@@ -39,11 +34,11 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
     footer: ''
   };
   searchParam: Partial<SearchParam> = {
-    createTime: [],
-    status: ''
+    bankType: '',
+    centralBankChainId: ''
   };
-  statusList: any = [];
-  applicationTypeList: any = [];
+  centralBankList: any = [];
+  typeList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
@@ -51,7 +46,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Commercial/Service Provider Management'],
+      breadcrumb: ['Commercial Bank / Service Provider(SP) Query'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -79,18 +74,18 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
 
   resetForm(): void {
     this.searchParam = {};
-    this.searchParam.createTime = [],
-      this.searchParam.status = ''
+    this.searchParam.centralBankChainId = '';
+    this.searchParam.bankType = ''
     this.getDataList(this.tableQueryParams);
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BANK_APPLICATION_TYPE' }).subscribe((res) => {
-      this.applicationTypeList = res.dataInfo;
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BANK_TYPE' }).subscribe((res) => {
+      this.typeList = res.dataInfo;
     })
 
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BUSINESS_APPLICATION_STATUS' }).subscribe((res) => {
-      this.statusList = res.dataInfo;
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_central_bank_info', csePCode: 'FXPLT_CENTRAL_BANK_VAILD' }).subscribe((res) => {
+      this.centralBankList = res.dataInfo;
     })
   }
 
@@ -115,66 +110,34 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onStatusUpdate(status: any, commercialBankCode: string): void {
-    let statusValue = '';
-    if (status === 1) {
-      statusValue = 'inactivate';
-    } else {
-      statusValue = 'activate';
-    }
-    const toolStatus = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
-    this.modal.confirm({
-      nzTitle: `Are you sure you want to ${statusValue} this bank ?`,
-      nzContent: '',
-      nzOnOk: () =>
-        new Promise((resolve, reject) => {
-          this.pocCommercialBankService.statusUpdate({ status, commercialBankCode }).subscribe({
-            next: res => {
-              resolve(true);
-              this.cdr.markForCheck();
-              if (res) {
-                this.message.success(`${toolStatus} this bank successfully!`, { nzDuration: 1000 });
-              }
-              this.getDataList();
-            },
-            error: err => {
-              reject(true);
-              this.cdr.markForCheck();
-            },
-          })
-        }).catch(() => console.log('Oops errors!'))
-    });
-  }
-
   private initTable(): void {
     this.tableConfig = {
       headers: [
         {
-          title: 'Bank ID',
-          field: 'commercialBankCode',
+          title: 'Bank/SP ID',
+          field: 'spChainCode',
           width: 280
         },
         {
-          title: 'Bank Name',
-          field: 'commercialBankName',
+          title: 'Bank/SP Name',
+          field: 'spName',
           width: 180
         },
         {
-          title: 'Brief Introduction',
-          field: 'commercialBankIntroduction',
-          width: 220
+          title: 'Type',
+          field: 'bankType',
+          pipe: 'bankType',
+          width: 180
         },
         {
-          title: 'Application Time',
-          field: 'createDate',
-          pipe: 'timeStamp',
+          title: 'Central Bank',
+          field: 'centralBankName',
           width: 200
         },
         {
-          title: 'Status',
-          field: 'status',
-          pipe: 'applicationStatus',
-          width: 180
+          title: 'Brief Introduction',
+          field: 'spBriefIntroduction',
+          width: 220
         },
         {
           title: 'Action',

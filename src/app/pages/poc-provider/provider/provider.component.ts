@@ -43,7 +43,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: [ 'Service Provider Management'],
+      breadcrumb: [ 'Service Provider(SP) Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -104,12 +104,12 @@ export class ProviderComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Bank ID',
+          title: 'SP ID',
           field: 'spChainCode',
           width: 500
         },
         {
-          title: 'Bank Name',
+          title: 'SP Name',
           field: 'spName',
           width: 180
         },

@@ -86,7 +86,7 @@
       <span>{{ formRateCurrency + '-' + formRatePlatform + '->' + toRateCurrency + '-' + toRatePlatform}}</span>
     </ng-template>
     <ng-template #operationTpl let-settlementModelCode="settlementModelCode">
-      <ng-container *appAuth="'R0501'">
+      <ng-container *appAuth="'R0701'">
         <span class="operate-text" routerLink="/poc/poc-settlement/settlement/info" [queryParams]="{settlementModelCode}">
           Detail
         </span>

@@ -89,7 +89,7 @@
         (fromAmount + ' ' +  formCurrency + '-' + formPlatform + '->' + toAmount + ' ' + toCurrency + '-' + toPlatform) | map:'null' }}</span>
     </ng-template>
     <ng-template #operationTpl let-transactionNo="transactionNo">
-      <ng-container *appAuth="'R0901'">
+      <ng-container *appAuth="'R0601'">
         <span class="operate-text" routerLink="/poc/poc-fx-transactions/fx-transactions/info" [queryParams]="{transactionNo}">
           Detail
         </span>

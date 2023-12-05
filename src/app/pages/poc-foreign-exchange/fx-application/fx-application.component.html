@@ -81,13 +81,13 @@
     <app-ant-table (changePageSize)="changePageSize($event)" (changePageNum)="getDataList($event)"
       [tableConfig]="tableConfig" [tableData]="dataList"></app-ant-table>
     <ng-template #operationTpl let-businessApplicationCode="businessApplicationCode" let-status="status">
-      <ng-container *appAuth="'R0201001'">
+      <ng-container *appAuth="'R0401001'">
         <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-application/approve"
         [queryParams]="{businessApplicationCode}" *ngIf="status === 0">
         Approve
       </span>
       </ng-container>
-      <ng-container *appAuth="'R0201002'">
+      <ng-container *appAuth="'R0401002'">
         <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-application/info"
           [queryParams]="{businessApplicationCode}">
           Detail

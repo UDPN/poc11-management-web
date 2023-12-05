@@ -5,11 +5,13 @@
  * @LastEditTime: 2023-10-25 19:31:34
  * @Description:
  */
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { PocCommercialBankService } from '@app/core/services/http/poc-commercial-bank/poc-commercial-bank.service';
+import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
+import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
 @Component({
   selector: 'app-info',
@@ -17,6 +19,7 @@ import { PageHeaderType } from '@app/shared/components/page-header/page-header.c
   styleUrls: ['./info.component.less']
 })
 export class InfoComponent implements OnInit {
+  @ViewChild('authorizedDebitTpl', { static: true }) authorizedDebitTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumbs: [],
@@ -27,6 +30,9 @@ export class InfoComponent implements OnInit {
   info: any = {};
   agreementUrl: any = '';
   infoMemberLicense: string = '';
+  attachmentsList: any = [];
+  tableConfig!: AntTableConfig;
+  dataList: NzSafeAny[] = [];
   constructor(
     public routeInfo: ActivatedRoute,
     private pocCommercialBankService: PocCommercialBankService,
@@ -39,7 +45,7 @@ export class InfoComponent implements OnInit {
       title: `Detail`,
       breadcrumbs: [
         {
-          name: 'Commercial/Service Provider Management',
+          name: 'Commercial Bank / Service Provider(SP) Query',
           url: '/poc/poc-commercial-bank/commercial-bank'
         },
         { name: 'Detail' }
@@ -51,15 +57,22 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initTable();
     this.getInfo();
+  }
+
+  changePageSize(e: number): void {
+    this.tableConfig.pageSize = e;
   }
 
   getInfo(): void {
     this.routeInfo.queryParams.subscribe((params) => {
       this.pocCommercialBankService
-        .info({ commercialBankCode: params['commercialBankCode'] })
+        .info({ spCode: params['spCode'] })
         .subscribe((res: any) => {
           this.info = res;
+          this.dataList = res.capitalPoolActivationList;
+          this.attachmentsList = res.approvedSpFileList;
           if (res['businessLicenseUrl']) {
             this.commonService.download({ hash: res['businessLicenseUrl'] }).subscribe(data => {
               this.infoMemberLicense = 'data:image/jpg;base64,' + data;
@@ -87,16 +100,15 @@ export class InfoComponent implements OnInit {
     });
   }
 
-  private downloadFile(base64: any, fileName: string, fileType: string) {
+  private downloadFile(base64: any, fileName: string) {
+    const fileType = fileName.slice(fileName.lastIndexOf('.') + 1);
     let typeHeader = 'data:application/' + fileType + ';base64,';
-
     let converedBase64 = typeHeader + base64;
     let blob = this.base64ToBlob(converedBase64, fileType);
-
-    this.downloadExportFile(blob, fileName, fileType);
+    this.downloadExportFile(blob, fileName);
   }
 
-  private downloadExportFile(blob: any, fileName: string, fileType: string) {
+  private downloadExportFile(blob: any, fileName: string) {
     let downloadElement = document.createElement('a');
     let href = blob;
     if (typeof blob == 'string') {
@@ -105,7 +117,7 @@ export class InfoComponent implements OnInit {
       href = window.URL.createObjectURL(blob);
     }
     downloadElement.href = href;
-    downloadElement.download = fileName + '.' + fileType;
+    downloadElement.download = fileName;
     document.body.appendChild(downloadElement);
     downloadElement.click();
     document.body.removeChild(downloadElement);
@@ -114,11 +126,38 @@ export class InfoComponent implements OnInit {
     }
   }
 
-  onLoad() {
+  onLoad(approvedSpFileHash: string, fileUrl: string) {
     this.commonService
-      .downloadEx({ hash: this.info.agreementUrl })
+      .download({ hash: approvedSpFileHash })
       .subscribe((res) => {
-        this.downloadFile(res.data, res.fileName, res.fileExtension);
+        this.downloadFile(res, fileUrl);
       });
+  }
+
+  private initTable(): void {
+    this.tableConfig = {
+      headers: [
+        {
+          title: 'Currency',
+          field: 'applicationCapitalPoolCurrency',
+          width: 180
+        },
+        {
+          title: 'Account/Wallet (Capital Pool Address)',
+          field: 'applicationCapitalPoolAddress',
+          width: 300
+        },
+        {
+          title: 'Pre-authorized Debit',
+          tdTemplate: this.authorizedDebitTpl,
+          width: 120
+        },
+      ],
+      total: 0,
+      showCheckbox: false,
+      loading: false,
+      pageSize: 10,
+      pageIndex: 1,
+    };
   }
 }

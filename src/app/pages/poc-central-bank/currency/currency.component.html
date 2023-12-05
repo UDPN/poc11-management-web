@@ -82,13 +82,13 @@
       [tableConfig]="tableConfig" [tableData]="dataList"></app-ant-table>
     <ng-template #operationTpl let-status="status" let-currencyCode="currencyCode"
       let-commercialBankCode="commercialBankCode">
-      <ng-container>
+      <ng-container *appAuth="'R0202004'">
         <span class="operate-text" routerLink="/poc/poc-central-bank/currency/edit" *ngIf="status === 1"
           [queryParams]="{currencyCode}">
           Edit
         </span>
       </ng-container>
-      <ng-container *appAuth="status === 1 ? 'R0404' : 'R0403'">
+      <ng-container *appAuth="status === 1 ? 'R0202003' : 'R0202002'">
         <span class="operate-text" (click)="onStatusUpdate(status === 1 ? 0 : 1, currencyCode)">
           {{ status === 1 ? 'Activate' : 'Inactivate' }}
         </span>
@@ -97,7 +97,7 @@
   </app-card-table-wrap>
 </div>
 <ng-template #createBtn>
-  <button routerLink="/poc/poc-central-bank/currency/add" *appAuth="'R0401'" nz-button nzType="primary" class="m-r-8">
+  <button routerLink="/poc/poc-central-bank/currency/add" *appAuth="'R0202001'" nz-button nzType="primary" class="m-r-8">
     <i nz-icon nzType="plus"></i>
     New
   </button>

@@ -40,7 +40,7 @@ export class ApproveComponent implements OnInit {
     this.pageHeaderInfo = {
       title: `Approved`,
       breadcrumbs: [
-        { name: 'Service Provider Management', url: '/poc/poc-provider/provider' },
+        { name: 'Service Provider(SP) Management', url: '/poc/poc-provider/provider' },
         { name: 'Approved' }
       ],
       extra: '',

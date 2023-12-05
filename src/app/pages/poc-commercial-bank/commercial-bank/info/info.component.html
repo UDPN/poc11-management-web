@@ -7,11 +7,17 @@
   <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
+      <nz-descriptions-item nzTitle="Bank ID">{{
+        info.spChainCode
+        }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Bank Name">{{
         info.spName
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Country or Region">{{
-        info.countryInfo
+      <nz-descriptions-item nzTitle="Type">{{
+        info.bankType | map:'bankType'
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Central Bank">{{
+        info.centralBankName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
         info.spBriefIntroduction
@@ -25,11 +31,8 @@
       <nz-descriptions-item nzTitle="Wallet Address">{{
         info.spBesuWalletAddress
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Application Date">{{
-        info.createDate| map : 'timeStamp'
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Status">{{
-        info.status | map : 'applicationStatus'
+      <nz-descriptions-item nzTitle="Onboarding Time">{{
+        info.createDate | map:'timeStamp'
         }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
@@ -54,15 +57,27 @@
       </nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
-  <nz-card [nzTitle]="'Approval Information'" [nzBordered]="true" class="m-b-10" *ngIf="info.comments">
-    <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
-      [nzBordered]="true">
-      <nz-descriptions-item nzTitle="Approval Result">{{
-        info.approvalResult | map: 'approvalResult'
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Comments">{{
-        info.comments
-        }}</nz-descriptions-item>
-    </nz-descriptions>
+  <nz-card [nzTitle]="'Capital Pool Information'" [nzBordered]="true" class="m-b-10"
+    [ngStyle]="{'display' : info.bankType === 2 ? '' : 'none'}">
+    <div nz-row nzJustify="center" nzAlign="middle">
+      <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
+        <app-ant-table (changePageSize)="changePageSize($event)" [tableConfig]="tableConfig"
+          [tableData]="dataList"></app-ant-table>
+        <ng-template #authorizedDebitTpl>
+          <span>{{ 'Yes' }}</span>
+        </ng-template>
+      </div>
+    </div>
+  </nz-card>
+  <nz-card [nzTitle]="'Attachments'" [nzBordered]="true" class="m-b-10"
+    *ngIf="info.bankType === 2 && attachmentsList.length > 0">
+    <div nz-row nzJustify="center" nzAlign="middle">
+      <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
+        <label *ngFor="let item of attachmentsList">
+          <button nz-button nzType="primary" class="m-r-25" (click)="onLoad(item.approvedSpFileHash, item.fileUrl)">{{
+            item.fileUrl }}</button>
+        </label>
+      </div>
+    </div>
   </nz-card>
 </div>
