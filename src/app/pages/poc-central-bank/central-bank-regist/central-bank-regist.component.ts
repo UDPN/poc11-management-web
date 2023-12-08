@@ -149,14 +149,19 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           width: 150
         },
         {
+          title: 'BIC',
+          field: 'bic',
+          width: 200
+        },
+        {
           title: 'Brief Introduction',
           field: 'bankIntroduction',
-          width: 300
+          width: 220
         },
         {
           title: 'BN ID',
           field: 'bnCode',
-          width: 300
+          width: 200
         },
         {
           title: 'Creation Time',
@@ -176,7 +181,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           fixed: true,
           fixedDir: 'right',
           showAction: false,
-          width: 160
+          width: 200
 
         },
       ],

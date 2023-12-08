@@ -2,7 +2,7 @@
 <nz-layout class="min-screen-full-height">
   <nz-sider
     [nzTheme]="(themesOptions$ | async)!.theme"
-    [nzWidth]="340"
+    [nzWidth]="320"
     [nzCollapsedWidth]="48"
     nzBreakpoint="lg"
     [nzCollapsed]="isCollapsed$ | async"
@@ -14,7 +14,7 @@
     [class.left-nav-fixed]="isFixedLeftNav"
     *ngIf="!isMixiMode && (themesOptions$ | async)!.mode === 'side' && (isOverMode$ | async) === false && (themesOptions$ | async)!.hasNavArea"
     class="menu-sidebar"
-    [nzWidth]="340"
+    [nzWidth]="320"
     [nzCollapsedWidth]="48"
     [nzTheme]="(themesOptions$ | async)!.theme"
     nzBreakpoint="lg"
@@ -55,7 +55,7 @@
     <nz-sider
       nzNoAnimation
       *ngIf="isFixedLeftNav && isMixiMode && themesOptions.hasNavArea && (isOverMode$ | async) === false && ((mixiModeLeftNav | async)!.length > 0 || !themesOptions.splitNav)"
-      [nzWidth]="340"
+      [nzWidth]="320"
       [nzTheme]="(isNightTheme$ | async) ? 'dark' : 'light'"
       [nzCollapsedWidth]="48"
       nzBreakpoint="lg"
@@ -67,7 +67,7 @@
       [class.mixi-left-nav-fixed]="isFixedLeftNav"
       [class.t-0]="!themesOptions.hasTopArea"
       [nzTheme]="(isNightTheme$ | async) ? 'dark' : 'light'"
-      [nzWidth]="340"
+      [nzWidth]="320"
       [nzCollapsedWidth]="48"
       nzBreakpoint="lg"
       [nzCollapsible]="true"

@@ -7,15 +7,15 @@
   <nz-card [nzBordered]="true" [nzTitle]="'Basic Information'" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
-      <nz-descriptions-item nzTitle="SP" [nzSpan]="3">{{
+      <nz-descriptions-item nzTitle="FX SP" [nzSpan]="3">{{
         (info.spName + '-' + info.spCode) | map:'null'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Transaction No." [nzSpan]="3">{{
         info.transactionNo
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Transaction Hash" [nzSpan]="3">{{
+      <!-- <nz-descriptions-item nzTitle="Transaction Hash" [nzSpan]="3">{{
         info.transactionHash
-        }}</nz-descriptions-item>
+        }}</nz-descriptions-item> -->
       <nz-descriptions-item nzTitle="Currency Pair" [nzSpan]="3">{{
         (info.formCurrency + '-' + info.formPlatform + '->' + info.toCurrency + '-' + info.toPlatform) | map:'null'
         }}</nz-descriptions-item>

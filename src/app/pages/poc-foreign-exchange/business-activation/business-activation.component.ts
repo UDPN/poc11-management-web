@@ -177,12 +177,12 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'SP ID',
+          title: 'FX SP ID',
           field: 'spCode',
           width: 220
         },
         {
-          title: 'SP Name',
+          title: 'FX SP Name',
           field: 'spName',
           width: 220
         },

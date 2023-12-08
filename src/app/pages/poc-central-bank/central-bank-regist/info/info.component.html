@@ -13,10 +13,13 @@
       <nz-descriptions-item nzTitle="Bank Name">{{
         info.bankName
         }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="BIC">{{
+        info.bic
+        }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Country of Region">{{
         info.country
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Brief Introduction">{{
+      <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
         info.bankIntroduction
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Wallet Address">{{

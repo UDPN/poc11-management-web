@@ -13,10 +13,13 @@
       <nz-descriptions-item nzTitle="Bank Name">{{
         info.spName
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Type">{{
-        info.bankType | map:'bankType'
+      <nz-descriptions-item nzTitle="BIC">{{
+        info.bankType
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Central Bank">{{
+        info.centralBankName
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="FX SP">{{
         info.centralBankName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{

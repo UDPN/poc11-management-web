@@ -39,17 +39,17 @@ export class ProviderComponent implements OnInit, AfterViewInit {
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private pocProviderService: PocProviderService,private commonService: CommonService, private cdr: ChangeDetectorRef) { }
+  constructor(private pocProviderService: PocProviderService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: [ 'Service Provider(SP) Management'],
+      breadcrumb: ['FX Service Provider (FX SP)Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
     };
   }
-  
+
   ngOnInit() {
     this.initTable();
     this.initSelect();
@@ -64,11 +64,11 @@ export class ProviderComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = isLoading;
     this.tableChangeDectction();
   }
-  
+
   resetForm(): void {
     this.searchParam = {};
     this.searchParam.createTime = [],
-    this.searchParam.status = ''
+      this.searchParam.status = ''
     this.getDataList(this.tableQueryParams);
   }
 
@@ -77,7 +77,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
       this.statusList = res.dataInfo;
     })
   }
- 
+
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
   }

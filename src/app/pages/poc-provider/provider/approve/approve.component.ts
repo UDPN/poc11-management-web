@@ -35,12 +35,12 @@ export class ApproveComponent implements OnInit {
   validateForm!: FormGroup;
   isLoading: boolean = false;
   attachmentsList: any[] = [];
-  constructor(public routeInfo: ActivatedRoute, private router: Router, private pocProviderService: PocProviderService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService,private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
+  constructor(public routeInfo: ActivatedRoute, private router: Router, private pocProviderService: PocProviderService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService, private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Approved`,
       breadcrumbs: [
-        { name: 'Service Provider(SP) Management', url: '/poc/poc-provider/provider' },
+        { name: 'FX Service Provider (FX SP)Management', url: '/poc/poc-provider/provider' },
         { name: 'Approved' }
       ],
       extra: '',
@@ -159,7 +159,7 @@ export class ApproveComponent implements OnInit {
     this.router.navigate(['/poc/poc-provider/provider']);
   }
 
-  
+
   private initTable(): void {
     this.tableConfig = {
       headers: [

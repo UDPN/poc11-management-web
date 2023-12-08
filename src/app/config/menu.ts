@@ -21,7 +21,7 @@ const menuNav: Menu[] = [
     code: 'R0',
   },
   {
-    menuName: 'Service Provider(SP) Management',
+    menuName: 'FX Service Provider (FX SP)Management',
     id: 2,
     fatherId: 0,
     icon: 'user-switch',
@@ -66,7 +66,7 @@ const menuNav: Menu[] = [
     ]
   },
   {
-    menuName: 'Commercial Bank/Service Provider(SP) Query',
+    menuName: 'Commercial Bank Query',
     id: 4,
     fatherId: 0,
     icon: 'align-left',

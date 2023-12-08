@@ -186,7 +186,7 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'SP',
+          title: 'FX SP',
           tdTemplate: this.spTpl,
           width: 500
         },

@@ -70,6 +70,7 @@ export class AddComponent implements OnInit {
       agreementUrl: [null, [Validators.required]],
       countryInfoId: [null, [Validators.required]],
       besuWalletAddress: [null, [Validators.required]],
+      bic: [null, [Validators.required, this.bicValidator]],
     })
   }
 
@@ -128,6 +129,15 @@ export class AddComponent implements OnInit {
     return {};
   };
 
+  bicValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { error: true, required: true };
+    } else if (!(/^[0-9A-Z]{1,49}$/).test(control.value)) {
+      return { regular: true, error: true };
+    }
+    return {};
+  };
+
   getInfo(bankCode: string): void {
     this.centralBankRegistService.info({ bankCode }).subscribe((res: any) => {
       this.info = res;
@@ -136,6 +146,7 @@ export class AddComponent implements OnInit {
       this.validateForm.get('besuWalletAddress')?.setValue(res.besuWalletAddress);
       this.validateForm.get('bnCode')?.setValue(res.bnCode);
       this.validateForm.get('agreementUrl')?.setValue(res.agreementUrl);
+      this.validateForm.get('bic')?.setValue(res.bic);
       this.orignalFileHash = res.agreementUrl;
       if (res.agreementUrl) {
         this.fileStatus = 2;
@@ -163,6 +174,7 @@ export class AddComponent implements OnInit {
         besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
         bnCode: this.validateForm.get('bnCode')?.value,
         agreementUrl: this.validateForm.get('agreementUrl')?.value,
+        bic: this.validateForm.get('bic')?.value,
       }
       this.commonService.upload(this.fileImgWord).subscribe({
         next: res => {

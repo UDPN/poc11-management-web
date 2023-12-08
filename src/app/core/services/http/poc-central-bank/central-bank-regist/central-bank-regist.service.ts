@@ -9,6 +9,7 @@ export interface Adata {
   centralBankName: string;
   centralBankIntroduction: string;
   bnCode: string;
+  bic: string;
   agreementUrl: string;
   countryInfoId: any;
   besuWalletAddress: string;

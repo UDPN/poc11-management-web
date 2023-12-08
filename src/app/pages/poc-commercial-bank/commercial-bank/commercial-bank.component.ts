@@ -46,7 +46,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Commercial Bank / Service Provider(SP) Query'],
+      breadcrumb: ['Commercial Bank Query'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -114,19 +114,18 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Bank/SP ID',
+          title: 'Bank ID',
           field: 'spChainCode',
           width: 280
         },
         {
-          title: 'Bank/SP Name',
+          title: 'Bank Name',
           field: 'spName',
           width: 180
-        },
+        },   
         {
-          title: 'Type',
-          field: 'bankType',
-          pipe: 'bankType',
+          title: 'Brief Introduction',
+          field: 'spBriefIntroduction',
           width: 180
         },
         {
@@ -135,9 +134,10 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Brief Introduction',
-          field: 'spBriefIntroduction',
-          width: 220
+          title: 'FX SP',
+          field: '',
+          pipe: '',
+          width: 180
         },
         {
           title: 'Action',

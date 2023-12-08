@@ -45,7 +45,7 @@ export class InfoComponent implements OnInit {
       title: `Detail`,
       breadcrumbs: [
         {
-          name: 'Commercial Bank / Service Provider(SP) Query',
+          name: 'Commercial Bank Query',
           url: '/poc/poc-commercial-bank/commercial-bank'
         },
         { name: 'Detail' }

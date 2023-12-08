@@ -30,27 +30,44 @@
             </div>
             <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
               <nz-form-item>
-                <nz-form-label nzRequired nzSpan="24">Country of Region
+                <nz-form-label nzRequired nzSpan="24">BIC
                 </nz-form-label>
-                <nz-form-control [nzErrorTip]="countryError">
+                <nz-form-control [nzErrorTip]="bicError">
                   <div nz-row>
                     <div nz-col nzSpan="24">
-                      <nz-select formControlName="countryInfoId">
-                        <nz-option *ngFor="let item of countryList" [nzValue]="item.countryId"
-                          [nzLabel]="item.countryName">
-                        </nz-option>
-                      </nz-select>
+                      <input nz-input formControlName="bic" [ngClass]="{'onboard-disabled': !tempStatus}"
+                        [readonly]="!tempStatus" />
                     </div>
                   </div>
-                  <ng-template #countryError let-control>
-                    <ng-container *ngIf="control.hasError('required')">Please select your Country of
-                      Region</ng-container>
+                  <ng-template #bicError let-control>
+                    <ng-container *ngIf="control.hasError('required')">Please input your BIC</ng-container>
+                    <ng-container *ngIf="control.hasError('regular')">Incorrect BIC format </ng-container>
                   </ng-template>
                 </nz-form-control>
               </nz-form-item>
             </div>
           </div>
         </div>
+      </div>
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <nz-form-label nzRequired nzSpan="24">Country of Region
+          </nz-form-label>
+          <nz-form-control [nzErrorTip]="countryError">
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-select formControlName="countryInfoId">
+                  <nz-option *ngFor="let item of countryList" [nzValue]="item.countryId" [nzLabel]="item.countryName">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+            <ng-template #countryError let-control>
+              <ng-container *ngIf="control.hasError('required')">Please select your Country of
+                Region</ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">

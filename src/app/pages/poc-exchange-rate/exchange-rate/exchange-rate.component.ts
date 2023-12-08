@@ -169,7 +169,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'SP',
+          title: 'FX SP',
           tdTemplate: this.spTpl,
           pipe: 'nullValue',
           width: 480
