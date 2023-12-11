@@ -20,7 +20,7 @@
         info.centralBankName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="FX SP">{{
-        info.centralBankName
+        info.bankType | map:'bankTypeStatus'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
         info.spBriefIntroduction

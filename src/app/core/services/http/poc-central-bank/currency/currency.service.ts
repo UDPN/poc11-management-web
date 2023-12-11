@@ -16,7 +16,6 @@ export interface Adata {
 export interface Edata {
   currencyCode: string;
   contractAddress: string;
-  centralBankCode: string;
 }
 
 export interface Sdata {

@@ -145,8 +145,7 @@ export class AddComponent implements OnInit {
     } else {
       const param = {
         currencyCode: this.info.currencyCode,
-        contractAddress: this.validateForm.get('contractAddress')?.value,
-        centralBankCode: this.validateForm.get('centralBankCode')?.value
+        contractAddress: this.validateForm.get('contractAddress')?.value
       }
       this.currencyService.edit(param).pipe(finalize(() => this.isLoading = false)).subscribe({
         next: res => {

@@ -80,7 +80,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'BANK_TYPE' }).subscribe((res) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'FX_SP_STATUS' }).subscribe((res) => {
       this.typeList = res.dataInfo;
     })
 
@@ -135,8 +135,8 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
         },
         {
           title: 'FX SP',
-          field: '',
-          pipe: '',
+          field: 'bankType',
+          pipe: 'bankTypeStatus',
           width: 180
         },
         {

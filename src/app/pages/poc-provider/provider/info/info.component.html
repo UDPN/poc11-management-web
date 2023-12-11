@@ -7,13 +7,16 @@
   <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
-      <nz-descriptions-item nzTitle="Bank Name">{{
+      <nz-descriptions-item nzTitle="FX SP Name">{{
         info.spName
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Country or Region">{{
-        info.countryInfo
+      <nz-descriptions-item nzTitle="BIC">{{
+        info.bankBic
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
+      <nz-descriptions-item nzTitle="Central Bank">{{
+        info.centralBankName
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Brief Introduction">{{
         info.spBriefIntroduction
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Description" [nzSpan]="3">{{
@@ -25,7 +28,7 @@
       <nz-descriptions-item nzTitle="Wallet Address">{{
         info.spBesuWalletAddress
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Application Date">{{
+      <nz-descriptions-item nzTitle="Application Time">{{
         info.createDate| map : 'timeStamp'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Status">{{

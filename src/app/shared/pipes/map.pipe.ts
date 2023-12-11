@@ -93,7 +93,7 @@ export const MapSet = {
     1: 'Disabled',
     2: 'Enabled'
   },
-  transactionsStatus:{
+  transactionsStatus: {
     1: 'Success',
     2: 'Failure'
   },
@@ -109,6 +109,10 @@ export const MapSet = {
   bankType: {
     1: 'Commercial Bank',
     2: 'SP'
+  },
+  bankTypeStatus: {
+    1: 'No',
+    2: 'Yes'
   }
 };
 
@@ -173,8 +177,8 @@ export class MapPipe implements PipeTransform {
 
     if (arg.indexOf(':') !== -1) {
       type = arg.substring(0, arg.indexOf(':'));
-      param 
-      = arg.substring(arg.indexOf(':') + 1, arg.length);
+      param
+        = arg.substring(arg.indexOf(':') + 1, arg.length);
     }
     switch (type) {
       case 'date':

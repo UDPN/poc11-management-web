@@ -183,15 +183,15 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           pipe: 'commercialStatus',
           width: 100
         },
-        // {
-        //   title: 'Action',
-        //   tdTemplate: this.operationTpl,
-        //   fixed: true,
-        //   fixedDir: 'right',
-        //   showAction: false,
-        //   width: 160
+        {
+          title: 'Action',
+          tdTemplate: this.operationTpl,
+          fixed: true,
+          fixedDir: 'right',
+          showAction: false,
+          width: 160
 
-        // },
+        },
       ],
       total: 0,
       showCheckbox: false,
