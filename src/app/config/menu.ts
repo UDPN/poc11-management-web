@@ -33,52 +33,8 @@ const menuNav: Menu[] = [
     code: 'R01',
   },
   {
-    menuName: 'Central Bank Management',
-    id: 3,
-    fatherId: 0,
-    icon: 'pic-left',
-    open: false,
-    selected: false,
-    menuType: 'C',
-    path: '/poc/poc-central-bank',
-    code: 'R02',
-    children: [
-      {
-        id: 1,
-        fatherId: 3,
-        menuName: 'Central Bank Registration',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0201',
-        path: '/poc/poc-central-bank/central-bank-regist'
-      },
-      {
-        id: 2,
-        fatherId: 3,
-        menuName: 'Currency Management',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0202',
-        path: '/poc/poc-central-bank/currency'
-      },
-    ]
-  },
-  {
-    menuName: 'Commercial Bank Query',
-    id: 4,
-    fatherId: 0,
-    icon: 'align-left',
-    open: false,
-    selected: false,
-    menuType: 'C',
-    path: '/poc/poc-commercial-bank/commercial-bank',
-    code: 'R09',
-  },
-  {
     menuName: 'Fx Rate Mechanism',
-    id: 5,
+    id: 3,
     fatherId: 0,
     icon: 'deployment-unit',
     open: false,
@@ -89,7 +45,7 @@ const menuNav: Menu[] = [
   },
   {
     menuName: 'Foreign Exchange Management',
-    id: 6,
+    id: 4,
     fatherId: 0,
     icon: 'transaction',
     open: false,
@@ -100,7 +56,7 @@ const menuNav: Menu[] = [
     children: [
       {
         id: 1,
-        fatherId: 6,
+        fatherId: 4,
         menuName: 'FX Application Management',
         open: false,
         selected: false,
@@ -110,7 +66,7 @@ const menuNav: Menu[] = [
       },
       {
         id: 2,
-        fatherId: 6,
+        fatherId: 4,
         menuName: 'Business Activation Query',
         open: false,
         selected: false,
@@ -122,7 +78,7 @@ const menuNav: Menu[] = [
   },
   {
     menuName: 'Exchange Rate Query',
-    id: 7,
+    id: 5,
     fatherId: 0,
     icon: 'pay-circle',
     open: false,
@@ -133,7 +89,7 @@ const menuNav: Menu[] = [
   },
   {
     menuName: 'FX Transactions',
-    id: 8,
+    id: 6,
     fatherId: 0,
     icon: 'schedule',
     open: false,
@@ -143,8 +99,8 @@ const menuNav: Menu[] = [
     code: 'R06',
   },
   {
-    menuName: 'Settlement Model Management',
-    id: 9,
+    menuName: 'Settlement Model Query',
+    id: 7,
     fatherId: 0,
     icon: 'check-square',
     open: false,
@@ -152,6 +108,51 @@ const menuNav: Menu[] = [
     menuType: 'C',
     path: '/poc/poc-settlement/settlement',
     code: 'R07'
+  },
+
+  {
+    menuName: 'Central Bank Management',
+    id: 8,
+    fatherId: 0,
+    icon: 'pic-left',
+    open: false,
+    selected: false,
+    menuType: 'C',
+    path: '/poc/poc-central-bank',
+    code: 'R02',
+    children: [
+      {
+        id: 1,
+        fatherId: 8,
+        menuName: 'Central Bank Registration',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R0201',
+        path: '/poc/poc-central-bank/central-bank-regist'
+      },
+      {
+        id: 2,
+        fatherId: 8,
+        menuName: 'Currency Management',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R0202',
+        path: '/poc/poc-central-bank/currency'
+      },
+    ]
+  },
+  {
+    menuName: 'Commercial Bank Query',
+    id: 9,
+    fatherId: 0,
+    icon: 'align-left',
+    open: false,
+    selected: false,
+    menuType: 'C',
+    path: '/poc/poc-commercial-bank/commercial-bank',
+    code: 'R09',
   },
   {
     menuName: 'System Management',

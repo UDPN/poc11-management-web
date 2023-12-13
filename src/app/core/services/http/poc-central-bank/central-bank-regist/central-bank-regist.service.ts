@@ -47,6 +47,7 @@ export class CentralBankRegistService {
       bankName: filters.bankName || '',
       bnCode: filters.bnCode || '',
       status: filters.status,
+      bic: filters.bic || '',
       createStartDate: filters.createTime[0] ? timeToTimestamp(this.date.transform(filters.createTime[0], 'yyyy-MM-dd')+' 00:00:00') : "",
       createEndDate: filters.createTime[1] ? timeToTimestamp(this.date.transform(filters.createTime[1], 'yyyy-MM-dd')+' 23:59:59') : ""
     };

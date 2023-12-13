@@ -25,7 +25,7 @@ export class InfoComponent implements OnInit {
     this.pageHeaderInfo = {
       title: `Detail`,
       breadcrumbs: [
-        { name: 'Settlement Model Management', url: '/poc/poc-settlement/settlement' },
+        { name: 'Settlement Model Query', url: '/poc/poc-settlement/settlement' },
         { name: 'Detail' }
       ],
       extra: '',

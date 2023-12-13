@@ -22,6 +22,14 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
+            <nz-form-label>BIC</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="" name="bic" [(ngModel)]="searchParam.bic" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+          <nz-form-item>
             <nz-form-label>Business Node(BN) ID</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="bnCode" [(ngModel)]="searchParam.bnCode" />
@@ -49,8 +57,7 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24"
-          class="m-b-8 text-right p-0">
+        <div nz-col [nzSpan]="24" class="m-b-8 text-right p-0">
           <nz-form-item>
             <nz-form-label [nzNoColon]="true"></nz-form-label>
             <nz-form-control>
@@ -82,7 +89,8 @@
         </span>
       </ng-container>
       <ng-container *appAuth="'R0201005'">
-        <span class="operate-text" routerLink="/poc/poc-central-bank/central-bank-regist/info" [queryParams]="{bankCode}">
+        <span class="operate-text" routerLink="/poc/poc-central-bank/central-bank-regist/info"
+          [queryParams]="{bankCode}">
           Detail
         </span>
       </ng-container>
@@ -90,7 +98,8 @@
   </app-card-table-wrap>
 </div>
 <ng-template #createBtn>
-  <button routerLink="/poc/poc-central-bank/central-bank-regist/add" nz-button nzType="primary" class="m-r-8" *appAuth="'R0201001'">
+  <button routerLink="/poc/poc-central-bank/central-bank-regist/add" nz-button nzType="primary" class="m-r-8"
+    *appAuth="'R0201001'">
     <i nz-icon nzType="plus"></i>
     New
   </button>

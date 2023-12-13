@@ -16,6 +16,7 @@ interface SearchParam {
   bnCode: string;
   status: string;
   createTime: any;
+  bic: string;
 }
 
 @Component({

@@ -53,6 +53,7 @@ export class PocCommercialBankService {
       pageNum: pageIndex,
       spChainCode : filters.spChainCode || '',
       spName: filters.spName || '',
+      bankBic: filters.bankBic || '',
       centralBankChainId: filters.centralBankChainId || '',
       bankType: filters.bankType || '',
     };

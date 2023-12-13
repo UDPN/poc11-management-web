@@ -15,6 +15,7 @@ interface SearchParam {
   spName: string;
   bankType: any;
   centralBankChainId: any;
+  bankBic: string;
 }
 
 @Component({
@@ -121,6 +122,11 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
         {
           title: 'Bank Name',
           field: 'spName',
+          width: 180
+        },   
+        {
+          title: 'BIC',
+          field: 'bankBic',
           width: 180
         },   
         {

@@ -73,7 +73,7 @@ export class SettlementComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Settlement Model Management'],
+      breadcrumb: ['Settlement Model Query'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
