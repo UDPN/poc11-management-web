@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       footer: ''
     };
   }
-    
+
   ngOnInit() {
     this.initTable();
   }
@@ -82,10 +82,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onApprove(todoType: string, businessApplicationCode: string) {
-    if (todoType === 'SP Onboarding') {
-      const queryParams = { businessApplicationCode };
+    if (todoType === '3') {
+      const queryParams = { spCode: businessApplicationCode };
       this.router.navigate(['/poc/poc-provider/provider/approve'], { queryParams })
-    } else {
+    } else if (todoType === '2') {
       const queryParams = { businessApplicationCode };
       this.router.navigate(['/poc/poc-foreign-exchange/fx-application/approve'], { queryParams })
     }
@@ -103,6 +103,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         {
           title: 'Type',
           field: 'todoType',
+          pipe: 'todoType',
           width: 220
         },
         {

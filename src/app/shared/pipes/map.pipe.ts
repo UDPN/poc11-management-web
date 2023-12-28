@@ -113,6 +113,11 @@ export const MapSet = {
   bankTypeStatus: {
     1: 'No',
     2: 'Yes'
+  },
+  todoType: {
+    1: 'Commercial bank Onboarding',
+    2: 'Business Application',
+    3: 'Activate Settlement Business',
   }
 };
 
