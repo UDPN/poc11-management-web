@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'a4r-poc11',
+  displayName: 'poc11-management-web',
   preset: './jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: './coverage/a4r-poc11',
+  coverageDirectory: './coverage/poc11-management-web',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
