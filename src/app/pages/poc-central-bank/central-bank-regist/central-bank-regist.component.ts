@@ -141,7 +141,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
       headers: [
         {
           title: 'Bank ID',
-          field: 'bankCode',
+          field: 'chainBankId',
           width: 280
         },
         {
