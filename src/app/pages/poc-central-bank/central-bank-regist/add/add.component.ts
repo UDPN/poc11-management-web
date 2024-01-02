@@ -74,9 +74,14 @@ export class AddComponent implements OnInit {
     })
   }
 
-  initSelect() {
+  initSelect(country?: string) {
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_country_info' }).subscribe((res) => {
       this.countryList = res.dataInfo;
+      this.countryList.forEach((element: any) => {
+        if (country === element.countryName) {
+          this.validateForm.get('countryInfoId')?.setValue(element.countryId);
+        }
+      });
       this.cdr.markForCheck();
     })
 
@@ -151,11 +156,7 @@ export class AddComponent implements OnInit {
       if (res.agreementUrl) {
         this.fileStatus = 2;
       }
-      this.countryList.forEach((item: any) => {
-        if (item.countryName === res.country) {
-          this.validateForm.get('countryInfoId')?.setValue(item.countryId);
-        }
-      });
+      this.initSelect(res.country);
       this.cdr.markForCheck();
       return;
     })
