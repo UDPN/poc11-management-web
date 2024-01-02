@@ -43,7 +43,7 @@ export class CentralBankRegistService {
     const data: any = {
       pageSize: pageSize,
       pageNum: pageIndex,
-      bankCode : filters.bankCode || '',
+      chainBankId : filters.chainBankId || '',
       bankName: filters.bankName || '',
       bnCode: filters.bnCode || '',
       status: filters.status,

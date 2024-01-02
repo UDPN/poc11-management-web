@@ -11,7 +11,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize } from 'rxjs';
 
 interface SearchParam {
-  bankCode: string;
+  chainBankId: string;
   bankName: string;
   bnCode: string;
   status: string;
