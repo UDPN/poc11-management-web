@@ -17,7 +17,10 @@ import { PocProviderService } from '@app/core/services/http/poc-provider/poc-pro
   styleUrls: ['./approve.component.less']
 })
 export class ApproveComponent implements OnInit {
-  @ViewChild('authorizedTpl', { static: true }) authorizedTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('authorizedTpl', { static: true }) 
+  authorizedTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyTpl', { static: true }) 
+  currencyTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumbs: [],
@@ -165,7 +168,7 @@ export class ApproveComponent implements OnInit {
       headers: [
         {
           title: 'Currency',
-          field: 'settlementCapitalPoolCurrency',
+          tdTemplate: this.currencyTpl,
           width: 180
         },
         {

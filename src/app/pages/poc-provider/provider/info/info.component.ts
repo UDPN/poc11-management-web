@@ -13,7 +13,10 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 })
 
 export class InfoComponent implements OnInit {
-  @ViewChild('authorizedTpl', { static: true }) authorizedTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('authorizedTpl', { static: true }) 
+  authorizedTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyTpl', { static: true }) 
+  currencyTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumbs: [],
@@ -120,7 +123,7 @@ export class InfoComponent implements OnInit {
       headers: [
         {
           title: 'Currency',
-          field: 'settlementCapitalPoolCurrency',
+          tdTemplate: this.currencyTpl,
           width: 180
         },
         {
