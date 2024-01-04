@@ -40,7 +40,7 @@ export class ApproveComponent implements OnInit {
     this.pageHeaderInfo = {
       title: `Approved`,
       breadcrumbs: [
-        { name: 'FX Service Provider (FX SP)Management', url: '/poc/poc-provider/provider' },
+        { name: 'FX Service Provider Management', url: '/poc/poc-provider/provider' },
         { name: 'Approved' }
       ],
       extra: '',

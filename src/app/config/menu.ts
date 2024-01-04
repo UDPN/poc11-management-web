@@ -21,7 +21,7 @@ const menuNav: Menu[] = [
     code: 'R0',
   },
   {
-    menuName: 'FX Service Provider (FX SP)Management',
+    menuName: 'FX Service Provider Management',
     id: 2,
     fatherId: 0,
     icon: 'user-switch',

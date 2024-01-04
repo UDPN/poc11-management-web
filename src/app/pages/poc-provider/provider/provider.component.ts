@@ -43,7 +43,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['FX Service Provider (FX SP)Management'],
+      breadcrumb: ['FX Service Provider Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
