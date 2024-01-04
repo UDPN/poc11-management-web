@@ -140,6 +140,7 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
           title: 'Application Time',
           field: 'applicationTime',
           pipe: 'timeStamp',
+          notNeedEllipsis: true,
           width: 180
         },
         {

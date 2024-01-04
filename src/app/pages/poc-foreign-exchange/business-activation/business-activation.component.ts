@@ -163,8 +163,8 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
     })).subscribe((_: any) => {
       this.dataList = _.data;
       this.dataList.map((item: any) => {
-        item.outCapitalPoolActivation = item.outCapitalPoolActivation.toString().split(',');
-        item.outActivationRate = item.outActivationRate.toString().split(',');
+        item.outCapitalPoolActivation = item.outCapitalPoolActivation ? item.outCapitalPoolActivation.toString().split(',') : '';
+        item.outActivationRate = item.outActivationRate ? item.outActivationRate.toString().split(','): '';
       })
       this.tableConfig.total = _?.resultPageInfo?.total;
       this.tableConfig.pageIndex = params.pageNum;

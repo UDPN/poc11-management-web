@@ -188,6 +188,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
           title: 'Date',
           field: 'rateDate',
           pipe: 'timeStamp',
+          notNeedEllipsis: true,
           width: 180
         },
       ],

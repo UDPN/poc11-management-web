@@ -17,16 +17,16 @@
         info.settlementModelName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Currency Pair">{{
-        info.formRateCurrency + '-' + info.formRatePlatform + '->' + info.toRateCurrency + '-' + info.toRatePlatform
+        info.formRateCurrency + '->' + info.toRateCurrency
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Charging Model">{{
         info.chargingModel | map: 'chargingModel'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Commission">{{
-        info.chargingModel === 1 ? info.ratioCommission + '%' : info.regularCommission + ' ' + info.commissionCurrency + '-' + info.commissionPlatform
+        info.chargingModel === 1 ? info.ratioCommission + '%' : info.regularCommission + ' ' + info.commissionCurrency
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Max Commission" *ngIf="info.chargingModel === 1">{{
-        info.maxCommission + '' + info.commissionCurrency + '-' + info.commissionPlatform
+        info.maxCommission + '' + info.commissionCurrency
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Time of Taking Effect">{{
         info.takeEffectDate | map: 'timeStamp'

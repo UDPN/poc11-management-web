@@ -24,7 +24,7 @@
               <nz-select nzPlaceHolder="" name="pairedExchangeRate" [(ngModel)]="searchParam.pairedExchangeRate">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option *ngFor="let item of pairedExchangeRateList" [nzValue]="item.key"
-                  [nzLabel]="item.sourceCurrency + '-' + item.sourcePlatform + '->' + item.targetCurrency + '-' + item.targetPlatform">
+                  [nzLabel]="item.sourceCurrency + '->' + item.targetCurrency">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -64,11 +64,11 @@
     <ng-template #spTpl let-spName="spName" let-spCode="spCode">
       <span [title]="(spName + '-' +  spCode) | map:'null'">{{ (spName + '-' + spCode) | map:'null'}}</span>
     </ng-template>
-    <ng-template #pairedTpl let-formRateCurrency="formRateCurrency" let-formRatePlatform="formRatePlatform"
-      let-toRateCurrency="toRateCurrency" let-toRatePlatform="toRatePlatform">
+    <ng-template #pairedTpl let-formRateCurrency="formRateCurrency"
+      let-toRateCurrency="toRateCurrency">
       <span
-        [title]="(formRateCurrency + '-' + formRatePlatform + '->' + toRateCurrency + '-' + toRatePlatform)  | map:'null'">{{
-        (formRateCurrency + '-' + formRatePlatform + '->' + toRateCurrency + '-' + toRatePlatform) | map:'null' }}</span>
+        [title]="(formRateCurrency + '->' + toRateCurrency)  | map:'null'">{{
+        (formRateCurrency + '->' + toRateCurrency) | map:'null' }}</span>
     </ng-template>
   </nz-card>
 

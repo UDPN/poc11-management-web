@@ -44,7 +44,7 @@
               <nz-select nzPlaceHolder="" name="currency" [(ngModel)]="searchParam.currency">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option *ngFor="let item of currencyList" [nzValue]="item.key"
-                  [nzLabel]="item.sourceCurrency + '-' + item.sourcePlatform + '->' + item.targetCurrency + '-' + item.targetPlatform">
+                  [nzLabel]="item.sourceCurrency + '->' + item.targetCurrency">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -82,11 +82,11 @@
         <span [title]=" (spName + '-' + spCode) | map:'null'">{{ (spName + '-' + spCode) | map:'null'}}</span>
       </ng-container>
     </ng-template>
-    <ng-template #amountTpl let-fromAmount="fromAmount" let-toAmount="toAmount" let-formCurrency="formCurrency" let-formPlatform="formPlatform"
-      let-toCurrency="toCurrency" let-toPlatform="toPlatform">
+    <ng-template #amountTpl let-fromAmount="fromAmount" let-toAmount="toAmount" let-formCurrency="formCurrency"
+      let-toCurrency="toCurrency">
       <span
-        [title]="(fromAmount + ' ' +  formCurrency + '-' + formPlatform + '->' + toAmount + ' ' + toCurrency + '-' + toPlatform) | map:'null' ">{{
-        (fromAmount + ' ' +  formCurrency + '-' + formPlatform + '->' + toAmount + ' ' + toCurrency + '-' + toPlatform) | map:'null' }}</span>
+        [title]="(fromAmount + ' ' +  formCurrency + '->' + toAmount + ' ' + toCurrency) | map:'null' ">{{
+        (fromAmount + ' ' +  formCurrency + '->' + toAmount + ' ' + toCurrency) | map:'null' }}</span>
     </ng-template>
     <ng-template #operationTpl let-transactionNo="transactionNo">
       <ng-container *appAuth="'R0601'">

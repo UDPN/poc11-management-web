@@ -98,7 +98,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
           title: 'Creation Time',
           field: 'createDate',
           pipe: 'timeStamp',
-          width: 180
+          notNeedEllipsis: true,
+          width: 200
         },
         {
           title: 'Type',

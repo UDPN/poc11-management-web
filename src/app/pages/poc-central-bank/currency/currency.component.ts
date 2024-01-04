@@ -175,6 +175,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           title: 'Creation Time',
           field: 'createDate',
           pipe: 'timeStamp',
+          notNeedEllipsis: true,
           width: 160
         },
         {

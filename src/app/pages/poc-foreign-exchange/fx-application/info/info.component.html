@@ -61,10 +61,9 @@
         </app-ant-table>
       </div>
     </div>
-    <ng-template #currencyTpl let-applicationCapitalPoolPlatform="applicationCapitalPoolPlatform"
-      let-applicationCapitalPoolCurrency="applicationCapitalPoolCurrency">
-      <span [title]="applicationCapitalPoolCurrency + '-' +  applicationCapitalPoolPlatform">{{
-        applicationCapitalPoolCurrency + '-' + applicationCapitalPoolPlatform}}</span>
+    <ng-template #currencyTpl let-applicationCapitalPoolCurrency="applicationCapitalPoolCurrency">
+      <span [title]="applicationCapitalPoolCurrency">{{
+        applicationCapitalPoolCurrency }}</span>
     </ng-template>
   </nz-card>
 
@@ -136,15 +135,13 @@
         </div>
       </div>
     </div>
-    <ng-template #sourceCurrencyTpl let-applicationFormRateCurrency="applicationFormRateCurrency"
-      let-applicationFormRatePlatform="applicationFormRatePlatform">
-      <span [title]="applicationFormRateCurrency + '-' +  applicationFormRatePlatform">{{
-        applicationFormRateCurrency + '-' + applicationFormRatePlatform}}</span>
+    <ng-template #sourceCurrencyTpl let-applicationFormRateCurrency="applicationFormRateCurrency">
+      <span [title]="applicationFormRateCurrency">{{
+        applicationFormRateCurrency }}</span>
     </ng-template>
-    <ng-template #targetCurrencyTpl let-applicationToRateCurrency="applicationToRateCurrency"
-      let-applicationToRatePlatform="applicationToRatePlatform">
-      <span [title]="applicationToRateCurrency + '-' +  applicationToRatePlatform">{{
-        applicationToRateCurrency + '-' + applicationToRatePlatform}}</span>
+    <ng-template #targetCurrencyTpl let-applicationToRateCurrency="applicationToRateCurrency">
+      <span [title]="applicationToRateCurrency">{{
+        applicationToRateCurrency }}</span>
     </ng-template>
   </nz-card>
   <nz-card [nzTitle]="'Approval Information'" [nzBordered]="true" class="m-b-10" *ngIf="info.comments">

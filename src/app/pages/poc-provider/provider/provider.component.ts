@@ -122,6 +122,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
           title: 'Application Time',
           field: 'createDate',
           pipe: 'timeStamp',
+          notNeedEllipsis: true,
           width: 180
         },
         {
