@@ -88,6 +88,8 @@ export class NormalLoginComponent implements OnInit {
               this.router.navigateByUrl('/poc/poc-home/home');
             });
         });
+      } else {
+        this.onRefresh();
       }
     })
   }
@@ -125,8 +127,11 @@ export class NormalLoginComponent implements OnInit {
   onRefresh(): void {
     if (environment.production) {
       this.srcUrl = environment.localUrl + '/v1/fxplt/anon/generate/captcha?' + fnRandomString(8, '');
+      this.cdr.markForCheck();
     } else {
       this.srcUrl = environment.localUrl + '/v1/fxplt/anon/generate/captcha?' + fnRandomString(8, '');
+      this.cdr.markForCheck();
+
     }
   }
 
