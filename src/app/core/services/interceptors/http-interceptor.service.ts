@@ -108,6 +108,28 @@ export class HttpInterceptorService implements HttpInterceptor {
         if (filterCode.includes(event.body.code)) {
           return event;
         }
+        if (event.body.code !== 'FXPLT_ELEVEN_20602') {
+          if (!this.firstCode) {
+            this.modal.error({
+              nzTitle: 'error',
+              nzContent: this.translate.instant(`MSG_${event.body.code}`)
+            })
+          }
+        } else {
+          this.windowServe.clearStorage();
+          this.windowServe.clearSessionStorage();
+          this.loginOutService.loginOut().then(_ => {
+            this.router.navigateByUrl('/login/login-modify');
+            if (this.reLoginCode) {
+              this.reLoginCode.close();
+            }
+            this.reLoginCode = this.modal.error({
+              nzTitle: 'Login information expired, log in again',
+              nzContent: '',
+            });
+
+          });
+        }
         if (event.body.code === -1) {
           this.modal.error({
             nzTitle: "Error",
@@ -136,42 +158,6 @@ export class HttpInterceptorService implements HttpInterceptor {
         //   })
         //   return event;
         // }
-        if (event.body.code !== 'FXPLT_ELEVEN_20602') {
-          if (!this.firstCode) {
-            this.modal.error({
-              nzTitle: 'error',
-              nzContent: this.translate.instant(`MSG_${event.body.code}`)
-            })
-          }
-        } else {
-          this.windowServe.clearStorage();
-          this.windowServe.clearSessionStorage();
-          this.loginOutService.loginOut().then(_ => {
-            this.router.navigateByUrl('/login/login-modify');
-            if (this.reLoginCode) {
-              this.reLoginCode.close();
-            }
-            this.reLoginCode = this.modal.error({
-              nzTitle: 'Login information expired, log in again',
-              nzContent: '',
-            });
-
-          });
-          // if (!this.reLoginCode) {
-          //   this.reLoginCode = 
-          //   this.modal.info({
-          //     nzTitle: 'Login information expired, log in again',
-          //     nzContent: '',
-          //     nzOnOk: () => {
-          //       this.windowServe.clearStorage();
-          //       this.windowServe.clearSessionStorage();
-          //       this.loginOutService.loginOut().then(_ => {
-          //         this.router.navigateByUrl('/login/login-modify')
-          //       });
-          //     }
-          //   })
-          // }
-        }
       }
     }
     return event;
