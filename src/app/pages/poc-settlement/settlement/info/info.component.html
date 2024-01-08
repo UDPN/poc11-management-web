@@ -23,10 +23,11 @@
         info.chargingModel | map: 'chargingModel'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Commission">{{
-        info.chargingModel === 1 ? info.ratioCommission + '%' : info.regularCommission + ' ' + info.commissionCurrency
+        info.chargingModel === 1 ? (info.ratioCommission | map: 'toThousandthMark') + ' %' : (info.regularCommission |
+        map: 'toThousandthMark') + ' ' + info.commissionCurrency
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Max Commission" *ngIf="info.chargingModel === 1">{{
-        info.maxCommission + '' + info.commissionCurrency
+        (info.maxCommission | map: 'toThousandthMark') + ' ' + info.commissionCurrency
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Time of Taking Effect">{{
         info.takeEffectDate | map: 'timeStamp'

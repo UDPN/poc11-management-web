@@ -142,7 +142,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
         {
           title: 'Bank ID',
           field: 'chainBankId',
-          width: 280
+          width: 250
         },
         {
           title: 'Bank Name',
@@ -162,14 +162,14 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
         {
           title: 'BN ID',
           field: 'bnCode',
-          width: 200
+          width: 160
         },
         {
           title: 'Creation Time',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
-          width: 160
+          width: 180
         },
         {
           title: 'Status',

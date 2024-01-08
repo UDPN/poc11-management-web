@@ -182,6 +182,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
         {
           title: 'FX Rate',
           field: 'exchangeRate',
+          pipe: 'toThousandRate',
           width: 180
         },
         {
