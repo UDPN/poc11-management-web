@@ -1,0 +1,158 @@
+<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-foreign-exchange/fx-application'"
+  [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+<ng-template #backTpl>
+  <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
+</ng-template>
+<div class="normal-detail-table-wrap">
+  <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
+    <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false" [nzBordered]="true">
+      <nz-descriptions-item nzTitle="Application No.">{{
+        info.businessApplicationCode
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="FX SP ID">{{
+        info.spCode
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="FX SP Name">{{
+        info.spName
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="BIC">{{
+        info.bankBic
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Central Bank">{{
+        info.centralBankName
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Brief Introduction">{{
+        info.spBriefIntroduction
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Description" [nzSpan]="3">{{
+        info.spDescription
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Application Date">{{
+        info.applicationTime | map: 'timeStamp'
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status" [nzSpan]="3">{{
+        info.status | map: 'applicationStatus'
+        }}</nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
+  <nz-card [nzTitle]="'Settlement Information'" [nzBordered]="true" class="m-b-10"
+    [ngStyle]="{'display' : (info.businessType === 2 || info.businessType === 3)  ? '' : 'none'}">
+    <!-- Activate -->
+    <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10" nzGutter="8" class="m-b-20"
+      *ngIf="settlementActivateList && settlementActivateList.length > 0">
+      <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
+        <nz-descriptions [nzColumn]="1" [nzColon]="false" class="card-descriptions m-t-15">
+          <nz-descriptions-item nzTitle="Currency Business Type" [nzSpan]="3">Activate</nz-descriptions-item>
+        </nz-descriptions>
+        <app-ant-table (changePageSize)="changePageSize($event)" [tableConfig]="setTableConfig"
+          [tableData]="settlementActivateList">
+        </app-ant-table>
+      </div>
+    </div>
+    <!-- Reduce -->
+    <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10" nzGutter="8" class="m-t-50 m-b-20"
+      *ngIf="settlementReduceList && settlementReduceList.length > 0">
+      <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
+        <nz-descriptions [nzColumn]="1" [nzColon]="false" class="card-descriptions m-t-15">
+          <nz-descriptions-item nzTitle="Currency Business Type" [nzSpan]="3">Reduce</nz-descriptions-item>
+        </nz-descriptions>
+        <app-ant-table (changePageSize)="changePageSize($event)" [tableConfig]="setTableConfig"
+          [tableData]="settlementReduceList">
+        </app-ant-table>
+      </div>
+    </div>
+    <ng-template #currencyTpl let-applicationCapitalPoolCurrency="applicationCapitalPoolCurrency">
+      <span [title]="applicationCapitalPoolCurrency">{{
+        applicationCapitalPoolCurrency }}</span>
+    </ng-template>
+  </nz-card>
+
+  <nz-card [nzTitle]="'Foreign Exchange Information'" [nzBordered]="true" class="m-b-10"
+    [ngStyle]="{'display' : (info.businessType === 1 || info.businessType === 3)  ? '' : 'none'}">
+    <!-- Activate -->
+    <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10" nzGutter="8"
+      *ngIf="foreignActivateList && foreignActivateList.length > 0">
+      <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
+        <nz-descriptions [nzColumn]="1" [nzColon]="false" class="card-descriptions m-t-15">
+          <nz-descriptions-item nzTitle="Exchange Business Type" [nzSpan]="3">Activate</nz-descriptions-item>
+        </nz-descriptions>
+        <div nz-row nzJustify="center" nzAlign="middle" nzGutter="8">
+          <div nz-col nzSpan="24">
+            <div nz-row nzJustify="space-between" class="m-b-20" nzGutter="8" class="m-b-20">
+              <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24">
+                <app-ant-table (changePageSize)="changePageSizes($event)" [tableConfig]="sourceTableConfig"
+                  [tableData]="foreignActivateList">
+                </app-ant-table>
+              </div>
+              <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="0" [nzMd]="0" [nzSm]="0" [nzXs]="0">
+                <div class="line">
+                  <div class="line-b"></div>
+                  <div class="line-a">
+                    <i nz-icon nzType="right" nzTheme="outline"></i>
+                  </div>
+                </div>
+              </div>
+              <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24">
+                <app-ant-table (changePageSize)="changePageSizes($event)" [tableConfig]="targetTableConfig"
+                  [tableData]="foreignActivateList">
+                </app-ant-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Reduce -->
+    <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10" nzGutter="8" class="m-t-50 m-b-20"
+      *ngIf="foreignReduceList && foreignReduceList.length > 0">
+      <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
+        <nz-descriptions [nzColumn]="1" [nzColon]="false" class="card-descriptions m-t-15">
+          <nz-descriptions-item nzTitle="Exchange Business Type" [nzSpan]="3">Reduce</nz-descriptions-item>
+        </nz-descriptions>
+        <div nz-row nzJustify="center" nzAlign="middle" nzGutter="8">
+          <div nz-col nzSpan="24">
+            <div nz-row nzJustify="space-between" class="m-b-20" nzGutter="8">
+              <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24">
+                <app-ant-table (changePageSize)="changePageSizes($event)" [tableConfig]="sourceTableConfig"
+                  [tableData]="foreignReduceList">
+                </app-ant-table>
+              </div>
+              <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="0" [nzMd]="0" [nzSm]="0" [nzXs]="0">
+                <div class="line">
+                  <div class="line-b"></div>
+                  <div class="line-a">
+                    <i nz-icon nzType="right" nzTheme="outline"></i>
+                  </div>
+                </div>
+              </div>
+              <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24">
+                <app-ant-table (changePageSize)="changePageSizes($event)" [tableConfig]="targetTableConfig"
+                  [tableData]="foreignReduceList">
+                </app-ant-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #sourceCurrencyTpl let-applicationFormRateCurrency="applicationFormRateCurrency">
+      <span [title]="applicationFormRateCurrency">{{
+        applicationFormRateCurrency }}</span>
+    </ng-template>
+    <ng-template #targetCurrencyTpl let-applicationToRateCurrency="applicationToRateCurrency">
+      <span [title]="applicationToRateCurrency">{{
+        applicationToRateCurrency }}</span>
+    </ng-template>
+  </nz-card>
+  <nz-card [nzTitle]="'Approval Information'" [nzBordered]="true" class="m-b-10" *ngIf="info.comments">
+    <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
+      [nzBordered]="true">
+      <nz-descriptions-item nzTitle="Approval Result">{{
+        info.approvalResult | map: 'approvalResult'
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Comments">{{
+        info.comments | map:'null'
+        }}</nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
+</div>

@@ -1,0 +1,12 @@
+{
+  "/v1": {
+    "target": "http://10.0.7.165:18081/",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/fxplt": {
+    "target": "http://10.0.7.165:18081/",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

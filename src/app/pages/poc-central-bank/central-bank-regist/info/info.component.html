@@ -1,0 +1,42 @@
+<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-central-bank/central-bank-regist'"
+  [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+<ng-template #backTpl>
+  <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
+</ng-template>
+<div class="normal-detail-table-wrap">
+  <nz-card [nzBordered]="true" class="m-b-10">
+    <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
+      [nzBordered]="true">
+      <nz-descriptions-item nzTitle="Bank ID">{{
+        info.chainBankId
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Bank Name">{{
+        info.bankName
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="BIC">{{
+        info.bic
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Country of Region">{{
+        info.country
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
+        info.bankIntroduction
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Wallet Address">{{
+        info.besuWalletAddress
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="BN ID">{{
+        info.bnCode
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Agreement"><a class="operate-text" (click)="onLoad()">{{info.fileName ?
+          (info.fileName + '.' + info.fileExtension) : '' }}<i nz-icon nzType="cloud-download" nzTheme="outline"
+            class="m-l-10"></i></a></nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Creation Time">{{
+        info.createDate | map: 'timeStamp'
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status">{{
+        info.status | map:'commercialStatus'
+        }}</nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
+</div>

@@ -1,0 +1,46 @@
+<app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+
+<div class="normal-table-wrap">
+  <nz-card class="m-b-10">
+    <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10 m-t-50" nzGutter="8">
+      <div nz-col nzSpan="20">
+        <div nz-row nzJustify="space-between" nzGutter="24">
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-control>
+                <p class="sp-18" style="font-weight: 500;">In the entire PoC# 11, we provide three exchange rate modes.
+                  You can set the appropriate exchange rate mode for your business.
+                </p>
+                <div class="m-l-50">
+                  <nz-radio-group [(ngModel)]="selectType" nzName="radiogroup">
+                    <div *ngFor="let item of typeList" class="m-t-50">
+                      <label nz-radio [nzValue]="item.value"><span class="sp-16" style="font-weight: 500;">{{
+                          item.title }}</span>
+                        <div class="m-t-30" style="color: #91929E;  font-weight: 500;" *ngFor="let value of item.instruction">
+                          <div>{{ value }}</div>
+                        </div>
+                      </label>
+                    </div>
+                  </nz-radio-group>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10 m-t-50">
+          <nz-form-item nz-col nzSpan="24">
+            <div nz-row>
+              <div nz-col nzSpan="24" style="text-align: end" *appAuth="'R0801'">
+                <nz-space>
+                  <button *nzSpaceItem nz-button [nzSize]="'large'" nzType="primary" (click)="onSubmit()">
+                    Submit
+                  </button>
+                </nz-space>
+              </div>
+            </div>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+  <div>
