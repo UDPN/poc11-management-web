@@ -312,6 +312,32 @@ const thousandRate = function thousandthRate(x: any) {
   return parts.join(".");
 }
 
+const timestampToDate = function timestampToTime(str: string) {
+  str = str.toString();
+  let timeZone = new Date().getTimezoneOffset() / -60;
+
+  const time = str.length > 10 ? new Date(Number(str)) : new Date(Number(str) * 1000);
+  const len = time.getTime();
+  const offset = time.getTimezoneOffset() * 60000;
+  const utcTime = len + offset;
+
+
+  const date = new Date(utcTime + 3600000 * timeZone);
+  const y = date.getFullYear(),
+    mon = date.getMonth() + 1,
+    d = date.getDate(),
+    h = date.getHours(),
+    m = date.getMinutes(),
+    s = date.getSeconds();
+
+  function addZero(value: number) {
+    if (value < 10) return "0" + value;
+    else return value;
+  }
+  const result = y + "-" + addZero(mon) + "-" + addZero(d);
+  return result
+
+}
 
 export {
   fnFormatToHump,
@@ -340,5 +366,6 @@ export {
   objPushKv,
   fnEncrypts,
   thousandthMark,
-  thousandRate
+  thousandRate,
+  timestampToDate
 };

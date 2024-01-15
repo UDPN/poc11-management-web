@@ -9,8 +9,9 @@ import { ComponentsModule } from './components/components.module';
 import { DirectivesModule } from './directives/directives.module';
 import { PipesModule } from './pipes/pipes.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-const MODULES = [CommonModule, FormsModule, ReactiveFormsModule, PipesModule, ComponentsModule, DirectivesModule, CardTableWrapModule, BizComponentsModule,TranslateModule, ...SHARED_ZORRO_MODULES];
+const MODULES = [NgxChartsModule, CommonModule, FormsModule, ReactiveFormsModule, PipesModule, ComponentsModule, DirectivesModule, CardTableWrapModule, BizComponentsModule,TranslateModule, ...SHARED_ZORRO_MODULES];
 
 @NgModule({
   imports: [...MODULES],

@@ -12,7 +12,12 @@ const routes: Routes = [
     data: { shouldDetach: 'no', preload: true },
     canActivateChild: [JudgeLoginGuard, JudgeAuthGuard],
     children: [
-      { path: '', redirectTo: 'poc-home', pathMatch: 'full' },
+      { path: '', redirectTo: 'poc-dashboard', pathMatch: 'full' },
+      {
+        path: 'poc-dashboard',
+        data: { preload: true },
+        loadChildren: () => import('../../pages/poc-dashboard/poc-dashboard.module').then(m => m.PocDashboardModule)
+      },
       {
         path: 'poc-home',
         data: { preload: true },

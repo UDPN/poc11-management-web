@@ -13,6 +13,8 @@ import { SplitNavStoreService } from '@store/common-store/split-nav-store.servic
 import { ThemeService } from '@store/common-store/theme.service';
 import { UserInfoService } from '@store/common-store/userInfo.service';
 import { fnStopMouseEvent } from '@utils/tools';
+import { WindowService } from '@app/core/services/common/window.service';
+import { toDoListLength } from '@app/config/constant';
 
 @Component({
   selector: 'app-nav-bar',
@@ -40,7 +42,7 @@ export class NavBarComponent implements OnInit {
   copyMenus: Menu[] = [];
   authCodeArray: string[] = [];
   subTheme$: Observable<any>;
-
+  total: any = '';
   constructor(
     private router: Router,
     private destroy$: DestroyService,
@@ -52,6 +54,7 @@ export class NavBarComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private themesService: ThemeService,
     private titleServe: Title,
+    private windowSer: WindowService,
     @Inject(DOCUMENT) private doc: Document
   ) {
     this.initMenus();
@@ -306,7 +309,8 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.total = this.windowSer.getSessionStorage(toDoListLength);
+    this.total = Number(this.total);
     this.subTheme$.subscribe(options => {
       if (options.mode === 'top' && !this.isOverMode) {
         this.closeMenu();

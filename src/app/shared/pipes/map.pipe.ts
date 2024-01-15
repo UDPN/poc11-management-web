@@ -118,6 +118,11 @@ export const MapSet = {
     1: 'Commercial bank Onboarding',
     2: 'Business Application',
     3: 'Activate Settlement Business',
+  },
+  dashBoradBankType: {
+    1: 'Central Banks',
+    2: 'Commercial Banks',
+    3: 'FX Service Providers(SPs)',
   }
 };
 

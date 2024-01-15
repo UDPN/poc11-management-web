@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login/login-modify', pathMatch: 'full' },
   { path: 'login', data: { preload: true }, loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'poc', data: { preload: true }, loadChildren: () => import('./layout/default/default.module').then(m => m.DefaultModule) },
-  { path: '**', redirectTo: '/poc/poc-home/home' }
+  { path: '**', redirectTo: '/poc/poc-dashboard/dashboard' }
 ];
 
 @NgModule({
