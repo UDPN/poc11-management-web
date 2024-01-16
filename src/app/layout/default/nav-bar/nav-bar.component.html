@@ -40,7 +40,7 @@
               <i *ngIf="menu.alIcon" nz-icon [nzIconfont]="menu.alIcon"></i>
               <ng-container *ngIf="menu.menuName !== 'To Do List'"><span>{{ menu.menuName }}</span></ng-container>
               <ng-container *ngIf="menu.menuName === 'To Do List'"><span>{{ menu.menuName }}</span><span><nz-badge
-                    [nzCount]="total" nzSize="small" [nzOffset]="[10, -10]">
+                    [nzCount]="total" nzSize="small" nzShowZero [nzOffset]="[10, -10]">
                     <a class="head-example"></a>
                   </nz-badge></span></ng-container>
             </a>
