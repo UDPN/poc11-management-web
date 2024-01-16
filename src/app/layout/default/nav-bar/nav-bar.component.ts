@@ -310,7 +310,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getToDoLength();
-    window.addEventListener('click', () => {
+    window.addEventListener('mousemove', () => {
       this.getToDoLength();
     })
     this.subTheme$.subscribe(options => {

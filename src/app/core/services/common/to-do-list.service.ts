@@ -10,6 +10,7 @@ export class ToDoListService {
     constructor(private pocHomeService: PocHomeService, private windowSer: WindowService) { }
 
     getToDoListLength(): void {
+        this.pocHomeService.getList(1, 500);
         interval(5000)
             .pipe(
                 switchMap((a) => {
