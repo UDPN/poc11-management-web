@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 import { filter, map, mergeMap, share, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { DestroyService } from '@core/services/common/destory.service';
@@ -15,6 +15,7 @@ import { UserInfoService } from '@store/common-store/userInfo.service';
 import { fnStopMouseEvent } from '@utils/tools';
 import { WindowService } from '@app/core/services/common/window.service';
 import { toDoListLength } from '@app/config/constant';
+import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -55,6 +56,7 @@ export class NavBarComponent implements OnInit {
     private themesService: ThemeService,
     private titleServe: Title,
     private windowSer: WindowService,
+    private pocHomeService: PocHomeService,
     @Inject(DOCUMENT) private doc: Document
   ) {
     this.initMenus();
@@ -309,20 +311,22 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getToDoLength();
-    window.addEventListener('mousemove', () => {
-      this.getToDoLength();
-    })
+    interval(5000)
+      .pipe(
+        switchMap((a) => {
+          return sessionStorage.getItem('clientName') ? this.pocHomeService.getList(1, 500) : '';
+        }),
+      )
+      .subscribe(
+        (res: any) => {
+          this.total = res.resultPageInfo.total;
+        }
+      );
     this.subTheme$.subscribe(options => {
       if (options.mode === 'top' && !this.isOverMode) {
         this.closeMenu();
       }
     });
     this.clientName = sessionStorage.getItem('clientName');
-  }
-
-  getToDoLength() {
-    this.total = this.windowSer.getSessionStorage(toDoListLength);
-    this.total = Number(this.total);
   }
 }

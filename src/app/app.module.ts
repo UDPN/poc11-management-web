@@ -93,12 +93,12 @@ const APPINIT_PROVIDES = [
     deps: [SubWindowWithService],
     multi: true,
   },
-  {
-    provide: APP_INITIALIZER,
-    useFactory: ToDoListServiceFactory,
-    deps: [ToDoListService],
-    multi: true,
-  },
+  // {
+  //   provide: APP_INITIALIZER,
+  //   useFactory: ToDoListServiceFactory,
+  //   deps: [ToDoListService],
+  //   multi: true,
+  // },
   {
     provide: APP_INITIALIZER,
     useFactory: (themeService: ThemeSkinService) => () => {
