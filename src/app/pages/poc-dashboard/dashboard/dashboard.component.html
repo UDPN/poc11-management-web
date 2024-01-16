@@ -59,7 +59,7 @@
                 </div>
               </div>
             </nz-card>
-            <nz-card class="card base-card" style="min-height: 180px;">
+            <nz-card class="card base-card" style="min-height: 180px;" *ngIf="items.bankType === 2">
               <div class="m-b-10">
                 <h5 nz-typography>{{ 'Avallable Currency Pair' }} {{ '(' + items.rateNumber + ')'
                   }}</h5>

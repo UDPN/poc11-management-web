@@ -204,8 +204,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     })
   }
 
-
-
   onQueryVolume() {
     this.pocDashBoardService.getVolumeChart(this.volumeForm.value).subscribe((res: any) => {
       if (res) {
