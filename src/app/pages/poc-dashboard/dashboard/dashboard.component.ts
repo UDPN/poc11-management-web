@@ -132,8 +132,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.pocDashBoardService.getBankInfo().subscribe((res: any) => {
       if (res) {
         this.bankInfoList = res;
-        console.log(this.bankInfoList);
-        
         this.cdr.markForCheck();
       }
     });
@@ -149,11 +147,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   getRateCommercialBank() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_sp_bank_info', csePCode: 'FXPLT_SP_BANK_VAILD' }).subscribe((res: any) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_approved_sp_info' }).subscribe((res: any) => {
       if (res) {
         this.rateCommercialBankList = res.dataInfo;
-        console.log(this.rateCommercialBankList);
-        
         this.cdr.markForCheck();
       }
     });
@@ -203,8 +199,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       });
     })
   }
-
-
 
   onQueryVolume() {
     this.pocDashBoardService.getVolumeChart(this.volumeForm.value).subscribe((res: any) => {

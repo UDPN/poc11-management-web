@@ -20,7 +20,7 @@
     <div nz-row [nzGutter]="24" class="m-t-30">
       <div nz-col nzXs="24" nzSm="24" nzXl="12" nzXXl="12" *ngFor="let item of bankInfoList">
         <nz-card [nzTitle]="titleTemplate" [nzExtra]="extraTemplate" class="card base-card"
-          style="background-color: #F4F9FD;">
+          style="background-color: #F4F9FD;height: 650px; overflow: auto;">
           <ng-template #titleTemplate>
             <h4 nz-typography>{{ item.centralBankName }}</h4>
           </ng-template>
@@ -39,7 +39,7 @@
           <div *ngFor="let items of item.outCommercialBankInformationSearches" class="m-t-30">
             <h5 nz-typography style="color: #3c5686;">{{ items.spName }} {{ items.bankType === 2 ? '(FX SP)' : '' }}
             </h5>
-            <nz-card class="card base-card" style="min-height: 180px;">
+            <nz-card class="card base-card">
               <div class="m-b-10">
                 <h5 nz-typography>{{ 'Activaed Currencies' }} {{ '(' + items.currencyNumber + ')'
                   }}</h5>
@@ -59,7 +59,7 @@
                 </div>
               </div>
             </nz-card>
-            <nz-card class="card base-card" style="min-height: 180px;">
+            <nz-card class="card base-card" *ngIf="items.bankType === 2">
               <div class="m-b-10">
                 <h5 nz-typography>{{ 'Avallable Currency Pair' }} {{ '(' + items.rateNumber + ')'
                   }}</h5>
@@ -79,7 +79,7 @@
         </nz-card>
       </div>
     </div>
-    <div>
+    <div class="m-t-10">
       <nz-card class="card base-card" [nzBodyStyle]="{ 'padding-bottom': '50px', 'padding-top': '50px' }"
         style="background-color: #F4F9FD;" nzTitle="Settlement Transaction Volume In the Last 7 Days">
         <form nz-form [formGroup]="volumeForm" nzLayout="vertical" class="m-l-50 m-b-50">
@@ -134,7 +134,7 @@
         </ngx-charts-bar-vertical-2d>
       </nz-card>
     </div>
-    <div>
+    <div class="m-t-25">
       <nz-card class="card base-card" style="background-color: #F4F9FD;"
         nzTitle="Exchange Rate Dynamics In the Last 7 days">
         <form nz-form [formGroup]="rateForm" nzLayout="vertical" class="m-l-50 m-b-50">
@@ -143,7 +143,7 @@
               <div nz-row nzJustify="space-between" [nzGutter]="8">
                 <div nz-col [nzXXl]="8" [nzXl]="12" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
                   <nz-form-item>
-                    <nz-form-label>Commercial Bank</nz-form-label>
+                    <nz-form-label>FX SP</nz-form-label>
                     <nz-form-control>
                       <nz-select nzPlaceHolder="" formControlName="spCode">
                         <nz-option nzValue="" nzLabel="All"></nz-option>
