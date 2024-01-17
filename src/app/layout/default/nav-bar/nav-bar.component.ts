@@ -311,6 +311,8 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.total = this.windowSer.getSessionStorage(toDoListLength);
+    this.total = Number(this.total);
     interval(5000)
       .pipe(
         switchMap((a) => {

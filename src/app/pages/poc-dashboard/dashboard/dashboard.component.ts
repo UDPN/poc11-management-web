@@ -147,7 +147,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   getRateCommercialBank() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_sp_bank_info', csePCode: 'FXPLT_SP_BANK_VAILD' }).subscribe((res: any) => {
+    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_approved_sp_info' }).subscribe((res: any) => {
       if (res) {
         this.rateCommercialBankList = res.dataInfo;
         this.cdr.markForCheck();
