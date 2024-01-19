@@ -28,6 +28,8 @@ export class PocFxTransactionsService {
       toPlatform: filters.toPlatform || '',
       toCurrency: filters.toCurrency || '',
       fromBnId: filters.fromBnId || '',
+      fromBankId: filters.fromBankId || '',
+      fromBankName: filters.fromBankName || '',
       startDate: filters.creation[0] ? timeToTimestamp(this.date.transform(filters.creation[0], 'yyyy-MM-dd')+' 00:00:00') : "",
       endDate: filters.creation[1] ? timeToTimestamp (this.date.transform(filters.creation[1], 'yyyy-MM-dd')+' 23:59:59') : "",
     };

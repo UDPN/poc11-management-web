@@ -18,6 +18,8 @@ interface SearchParam {
   creation: any;
   currency: any;
   transactionHash: any;
+  fromBankId: string;
+  fromBankName: string;
 }
 
 interface ListParam {
@@ -40,7 +42,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
   @ViewChild('spTpl', { static: true }) spTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('amountTpl', { static: true }) amountTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<NzSafeAny>; 
-  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>; 
+  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -55,6 +57,8 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
     fromBnId: '',
     transactionNo: '',
     transactionHash: '',
+    fromBankId: '',
+    fromBankName: ''
   };
   listParam: Partial<ListParam> = {
     spCode: '',
@@ -167,6 +171,8 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
         formCurrency: this.listParam.formRateCurrency,
         toPlatform: this.listParam.toRatePlatform,
         toCurrency: this.listParam.toRateCurrency,
+        fromBankName: this.searchParam.fromBankName,
+        fromBankId: this.searchParam.fromBankId,
         creation: this.searchParam.creation,
         fromBnId: this.searchParam.fromBnId,
         transactionHash: this.searchParam.transactionHash
@@ -186,6 +192,16 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
   private initTable(): void {
     this.tableConfig = {
       headers: [
+        {
+          title: 'Bank ID',
+          field: 'fromBankId',
+          width: 200
+        },
+        {
+          title: 'Bank Name',
+          field: 'fromBankName',
+          width: 150
+        },
         {
           title: 'FX SP',
           tdTemplate: this.spTpl,
