@@ -193,14 +193,14 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Bank ID',
+          title: 'Commercial Bank ID',
           field: 'fromBankId',
           width: 200
         },
         {
-          title: 'Bank Name',
+          title: 'Commercial Bank Name',
           field: 'fromBankName',
-          width: 150
+          width: 200
         },
         {
           title: 'FX SP',
