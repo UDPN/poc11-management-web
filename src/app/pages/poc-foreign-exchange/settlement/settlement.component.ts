@@ -1,6 +1,6 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { PocSettlementService } from '@app/core/services/http/poc-settlement/poc-settlement.service';
+import { SettlementService } from '@app/core/services/http/poc-foreign-exchange/settlement/settlement.service';
 import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
@@ -14,15 +14,16 @@ interface SearchParam {
   settlementModelName: string;
   chargingModel: string;
   pairedExchangeRate: string;
+  bic: any;
 }
 
 interface ListParam {
-  spCode: string,
-  spName: string,
-  formRatePlatform: string,
-  formRateCurrency: string,
-  toRatePlatform: string,
-  toRateCurrency: string,
+  spCode: string;
+  spName: string;
+  formRatePlatform: string;
+  formRateCurrency: string;
+  toRatePlatform: string;
+  toRateCurrency: string;
 }
 
 @Component({
@@ -51,7 +52,8 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     chargingModel: '',
     settlementModelCode: '',
     settlementModelName: '',
-    pairedExchangeRate: ''
+    pairedExchangeRate: '',
+    bic: ''
 
   };
   listParam: Partial<ListParam> = {
@@ -69,11 +71,11 @@ export class SettlementComponent implements OnInit, AfterViewInit {
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private pocSettlementService: PocSettlementService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
+  constructor(private settlementService: SettlementService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Settlement Model Query'],
+      breadcrumb: ['Foreign Exchange Management', 'Settlement Model Query'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -165,10 +167,11 @@ export class SettlementComponent implements OnInit, AfterViewInit {
         toRateCurrency: this.listParam.toRateCurrency,
         settlementModelCode: this.searchParam.settlementModelCode,
         settlementModelName: this.searchParam.settlementModelName,
-        chargingModel: this.searchParam.chargingModel
+        chargingModel: this.searchParam.chargingModel,
+        bic: this.searchParam.bic
       }
     };
-    this.pocSettlementService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
+    this.settlementService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
       this.tableLoading(false);
     })).subscribe((_: any) => {
       this.dataList = _.data;
@@ -186,19 +189,24 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP',
-          tdTemplate: this.spTpl,
-          width: 500
+          title: 'FX SP Name',
+          field: 'spName',
+          width: 150
         },
         {
-          title: 'Model Code',
-          field: 'settlementModelCode',
-          width: 280
+          title: 'BIC',
+          field: 'bankBic',
+          width: 200
         },
+        // {
+        //   title: 'Model Code',
+        //   field: 'settlementModelCode',
+        //   width: 280
+        // },
         {
           title: 'Model Name',
           field: 'settlementModelName',
-          width: 200
+          width: 250
         },
         {
           title: 'Currency Pair',

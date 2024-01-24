@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PocSettlementService } from '@app/core/services/http/poc-settlement/poc-settlement.service';
+import { SettlementService } from '@app/core/services/http/poc-foreign-exchange/settlement/settlement.service';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 
 @Component({
@@ -20,12 +20,13 @@ export class InfoComponent implements OnInit {
   info: any = {};
   documentDid: any = '';
   infoMemberLicense: any = '';
-  constructor(private pocSettlementService: PocSettlementService, public routeInfo: ActivatedRoute, private cdr: ChangeDetectorRef) { }
+  constructor(private settlementService: SettlementService, public routeInfo: ActivatedRoute, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Detail`,
       breadcrumbs: [
-        { name: 'Settlement Model Query', url: '/poc/poc-settlement/settlement' },
+        { name: 'Foreign Exchange Management'},
+        { name: 'Settlement Model Query', url: '/poc/poc-foreign-exchange/settlement' },
         { name: 'Detail' }
       ],
       extra: '',
@@ -39,7 +40,7 @@ export class InfoComponent implements OnInit {
 
   getInfo(): void {
     this.routeInfo.queryParams.subscribe(params => {
-      this.pocSettlementService.getInfo({ settlementModelCode: params['settlementModelCode'] }).subscribe((res: any) => {
+      this.settlementService.getInfo({ settlementModelCode: params['settlementModelCode'] }).subscribe((res: any) => {
         this.info = res;
         this.cdr.markForCheck();
         return;

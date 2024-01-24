@@ -1,4 +1,4 @@
-<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-settlement/settlement'"
+<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-foreign-exchange/settlement'"
   [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
 <ng-template #backTpl>
   <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
@@ -7,11 +7,17 @@
   <nz-card [nzBordered]="true" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
+      <nz-descriptions-item nzTitle="FX SP ID">{{
+        info.spCode
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="FX SP Name">{{
+        info.spName
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="BIC">{{
+        info.bankBic
+        }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Settlement Model Code">{{
         info.settlementModelCode
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="FX SP">{{
-        info.spName + '-' + info.spCode
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Settlement Model Name">{{
         info.settlementModelName

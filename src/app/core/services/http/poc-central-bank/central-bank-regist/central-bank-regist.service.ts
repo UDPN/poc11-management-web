@@ -13,6 +13,7 @@ export interface Adata {
   agreementUrl: string;
   countryInfoId: any;
   besuWalletAddress: string;
+  logoHash: string;
 }
 
 export interface Edata {
@@ -22,6 +23,7 @@ export interface Edata {
   agreementUrl: string;
   countryInfoId: any;
   besuWalletAddress: string;
+  logoHash: string;
 }
 
 export interface Sdata {
@@ -74,4 +76,9 @@ export class CentralBankRegistService {
   public statusUpdate(params: Sdata): Observable<any> {
     return this.http.post(`/v1/fxplt/sys/central/bank/manage/status/update`, params);
   }
+
+  public getWalletAddress(): Observable<any> {
+    return this.http.post(`/v1/fxplt/sys/central/bank/manage/preset/wallet/address/select`, {});
+  }
+  
 }

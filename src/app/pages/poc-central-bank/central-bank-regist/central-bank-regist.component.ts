@@ -29,6 +29,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('bankNameTpl', { static: true }) bankNameTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -100,6 +101,16 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
       this.dataList = _.data;
       this.tableConfig.total = _?.resultPageInfo?.total;
       this.tableConfig.pageIndex = params.pageNum;
+      this.dataList.map((item: any) => {
+        if (item.logoHash) {
+          this.commonService.download({ hash: item.logoHash }).subscribe(data => {
+            Object.assign(item, { logo: 'data:image/jpg;base64,' + data });
+            this.cdr.markForCheck();
+            this.cdr.detectChanges();
+          })
+        }
+      })
+      
       this.tableLoading(false);
       this.cdr.markForCheck();
     });
@@ -139,14 +150,14 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   private initTable(): void {
     this.tableConfig = {
       headers: [
-        {
-          title: 'Bank ID',
-          field: 'chainBankId',
-          width: 250
-        },
+        // {
+        //   title: 'Bank ID',
+        //   field: 'chainBankId',
+        //   width: 250
+        // },
         {
           title: 'Bank Name',
-          field: 'bankName',
+          tdTemplate: this.bankNameTpl,
           width: 150
         },
         {

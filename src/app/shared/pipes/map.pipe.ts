@@ -1,7 +1,7 @@
 
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { thousandRate, thousandthMark, timestampToTime } from '@app/utils/tools';
+import { thousandRate, thousandthMark, timestampToDate, timestampToTime } from '@app/utils/tools';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
@@ -200,6 +200,13 @@ export class MapPipe implements PipeTransform {
         return (value = '--');
       } else {
         return thousandRate(value);
+      }
+    }
+    if (arg === 'dateStamp') {
+      if (!value) {
+        return (value = '--');
+      } else {
+        return timestampToDate(value);
       }
     }
     let type: string = arg;

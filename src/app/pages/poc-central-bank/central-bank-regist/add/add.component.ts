@@ -28,11 +28,15 @@ export class AddComponent implements OnInit {
   tempStatus: boolean = true;
   countryList: any = [];
   bnIdList: any = [];
+  besuWalletAddressList: any = [];
   fileImg: any = '';
+  logoImgWord: any = '';
+  logoImg: any = '';
   fileImgWord: any = '';
   fileStatus: number = 1;
   fileType: number = 0;
   orignalFileHash: string = '';
+  orignalLogoHash: string = '';
   constructor(
     private fb: FormBuilder,
     public routeInfo: ActivatedRoute,
@@ -71,6 +75,8 @@ export class AddComponent implements OnInit {
       countryInfoId: [null, [Validators.required]],
       besuWalletAddress: [null, [Validators.required]],
       bic: [null, [Validators.required, this.bicValidator]],
+      logo: [null, [Validators.required]],
+
     })
   }
 
@@ -89,10 +95,44 @@ export class AddComponent implements OnInit {
       this.bnIdList = res;
       this.cdr.markForCheck();
     })
+
+    this.centralBankRegistService.getWalletAddress().subscribe((res) => {
+      this.besuWalletAddressList = res.presetWalletAddressList;
+      this.cdr.markForCheck();
+    })
   }
 
   onDownload() {
     location.href = '../../../../assets/walletAddress/udpn-besu-sdk-1.0.0.jar';
+  }
+
+  uploadFileImg($event: any) {
+    if ($event.target.files.length === 0) {
+      return;
+    }
+    const isImgType =
+      $event.target.files[0]?.type === 'image/jpeg' ||
+      $event.target.files[0]?.type === 'image/png' ||
+      $event.target.files[0]?.type === 'image/gif' ||
+      $event.target.files[0]?.type === 'image/bmp' ||
+      $event.target.files[0]?.type === 'application/pdf';
+    const isImgSize = $event.target.files[0]?.size! / 1024 / 1024 < 10;
+    if (!isImgType && $event.target.files[0] !== undefined) {
+      this.message.error('You can only upload png/jpg/gif/bmp/jpeg/pdf file !');
+      return;
+    }
+    if (!isImgSize && $event.target.files[0] !== undefined) {
+      this.message.error('Image must smaller than 10MB !');
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL($event.target.files[0]);
+    reader.onload = () => {
+      this.logoImg = reader.result;
+      this.logoImgWord = $event.target.files[0];
+      this.cdr.markForCheck();
+      this.validateForm.get('logo')?.setValue(this.logoImg);
+    };
   }
 
   uploadFileSig($event: any) {
@@ -151,8 +191,15 @@ export class AddComponent implements OnInit {
       this.validateForm.get('besuWalletAddress')?.setValue(res.besuWalletAddress);
       this.validateForm.get('bnCode')?.setValue(res.bnCode);
       this.validateForm.get('agreementUrl')?.setValue(res.agreementUrl);
+      this.validateForm.get('logo')?.setValue(res.logoHash);
       this.validateForm.get('bic')?.setValue(res.bic);
       this.orignalFileHash = res.agreementUrl;
+      this.orignalLogoHash = res.logoHash;
+      this.commonService.download({ hash: res.logoHash }).subscribe(data => {
+        this.logoImg = 'data:image/jpg;base64,' + data;
+        this.cdr.detectChanges();
+        this.cdr.markForCheck();
+      })
       if (res.agreementUrl) {
         this.fileStatus = 2;
       }
@@ -176,21 +223,33 @@ export class AddComponent implements OnInit {
         bnCode: this.validateForm.get('bnCode')?.value,
         agreementUrl: this.validateForm.get('agreementUrl')?.value,
         bic: this.validateForm.get('bic')?.value,
+        logoHash: this.validateForm.get('logo')?.value,
       }
-      this.commonService.upload(this.fileImgWord).subscribe({
+      this.commonService.upload(this.logoImgWord).subscribe({
         next: res => {
           if (res) {
-            saveParam.agreementUrl = res;
-            this.centralBankRegistService.add(saveParam).pipe(finalize(() => this.isLoading = false)).subscribe({
+            saveParam.logoHash = res;
+            this.commonService.upload(this.fileImgWord).subscribe({
               next: res => {
                 if (res) {
-                  this.message.success('Add successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-                    this.validateForm.reset();
-                    this.location.back();
-                  });
+                  saveParam.agreementUrl = res;
+                  this.centralBankRegistService.add(saveParam).pipe(finalize(() => this.isLoading = false)).subscribe({
+                    next: res => {
+                      if (res) {
+                        this.message.success('Add successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
+                          this.validateForm.reset();
+                          this.location.back();
+                        });
+                      }
+                      this.isLoading = false;
+                      this.cdr.markForCheck();
+                    },
+                    error: err => {
+                      this.isLoading = false;
+                      this.cdr.markForCheck();
+                    }
+                  })
                 }
-                this.isLoading = false;
-                this.cdr.markForCheck();
               },
               error: err => {
                 this.isLoading = false;
@@ -212,48 +271,15 @@ export class AddComponent implements OnInit {
         agreementUrl: this.validateForm.get('agreementUrl')?.value,
         countryInfoId: this.validateForm.get('countryInfoId')?.value,
         besuWalletAddress: this.validateForm.get('besuWalletAddress')?.value,
+        logoHash: this.validateForm.get('logo')?.value,
       }
-      if (!this.validateForm.get('agreementUrl')?.value || this.validateForm.get('agreementUrl')?.value === this.orignalFileHash) {
-        this.centralBankRegistService.edit(editParam).pipe(finalize(() => this.isLoading = false)).subscribe({
-          next: res => {
-            if (res) {
-              this.message.success('Edit successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-                this.validateForm.reset();
-                this.location.back();
-              });
-            }
-            this.isLoading = false;
-            this.cdr.markForCheck();
-          },
-          error: err => {
-            this.isLoading = false;
-            this.cdr.markForCheck();
-          }
-        })
+      if (!this.validateForm.get('logo')?.value || this.validateForm.get('logo')?.value === this.orignalLogoHash) {
+        this.getEdit(editParam);
       } else {
-        this.commonService.upload(this.fileImgWord).subscribe({
+        this.commonService.upload(this.logoImgWord).subscribe({
           next: res => {
-            editParam.agreementUrl = res;
-            this.centralBankRegistService.edit(editParam).pipe(finalize(() => this.isLoading = false)).subscribe({
-              next: res => {
-                this.isLoading = false;
-                if (res) {
-                  this.message.success('Edit successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-                    this.validateForm.reset();
-                    this.location.back();
-                  });
-                }
-                this.cdr.markForCheck();
-              },
-              error: err => {
-                this.isLoading = false;
-                this.cdr.markForCheck();
-              }
-            })
-          },
-          error: err => {
-            this.isLoading = false;
-            this.cdr.markForCheck();
+            editParam.logoHash = res;
+            this.getEdit(editParam);
           }
         })
       }
@@ -264,4 +290,50 @@ export class AddComponent implements OnInit {
     this.location.back();
   }
 
+  getEdit(data: any) {
+    if (!this.validateForm.get('agreementUrl')?.value || this.validateForm.get('agreementUrl')?.value === this.orignalFileHash) {
+      this.centralBankRegistService.edit(data).pipe(finalize(() => this.isLoading = false)).subscribe({
+        next: res => {
+          if (res) {
+            this.message.success('Edit successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
+              this.validateForm.reset();
+              this.location.back();
+            });
+          }
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        },
+        error: err => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        }
+      })
+    } else {
+      this.commonService.upload(this.fileImgWord).subscribe({
+        next: res => {
+          data.agreementUrl = res;
+          this.centralBankRegistService.edit(data).pipe(finalize(() => this.isLoading = false)).subscribe({
+            next: res => {
+              this.isLoading = false;
+              if (res) {
+                this.message.success('Edit successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
+                  this.validateForm.reset();
+                  this.location.back();
+                });
+              }
+              this.cdr.markForCheck();
+            },
+            error: err => {
+              this.isLoading = false;
+              this.cdr.markForCheck();
+            }
+          })
+        },
+        error: err => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        }
+      })
+    }
+  }
 }

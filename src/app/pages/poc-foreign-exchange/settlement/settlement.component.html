@@ -6,12 +6,12 @@
       <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP</nz-form-label>
+            <nz-form-label>FX SP Name</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="spId" [(ngModel)]="searchParam.spId">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option *ngFor="let item of spIdList" [nzValue]="item.spKey"
-                  [nzLabel]="item.spName + '-' +  item.spChainCode ">
+                  [nzLabel]="item.spName">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -19,12 +19,20 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
+            <nz-form-label>BIC</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="" name="bic" [(ngModel)]="searchParam.bic" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <!-- <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+          <nz-form-item>
             <nz-form-label>Model Code</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="settlementModelCode" [(ngModel)]="searchParam.settlementModelCode" />
             </nz-form-control>
           </nz-form-item>
-        </div>
+        </div> -->
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
             <nz-form-label>Model Name</nz-form-label>
@@ -86,8 +94,8 @@
       <span>{{ formRateCurrency + '->' + toRateCurrency}}</span>
     </ng-template>
     <ng-template #operationTpl let-settlementModelCode="settlementModelCode">
-      <ng-container *appAuth="'R0701'">
-        <span class="operate-text" routerLink="/poc/poc-settlement/settlement/info" [queryParams]="{settlementModelCode}">
+      <ng-container *appAuth="'R0405001'">
+        <span class="operate-text" routerLink="/poc/poc-foreign-exchange/settlement/info" [queryParams]="{settlementModelCode}">
           Detail
         </span>
       </ng-container>

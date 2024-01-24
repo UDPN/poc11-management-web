@@ -146,14 +146,14 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
+          title: 'Currency Name',
+          field: 'currency',
+          width: 120
+        },
+        {
           title: 'Currency ID',
           field: 'currencyCode',
           width: 280
-        },
-        {
-          title: 'Currency',
-          field: 'currency',
-          width: 120
         },
         {
           title: 'Decimal Precision',

@@ -4,14 +4,14 @@
   <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
     <form nz-form nzLayout="vertical">
       <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+        <!-- <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
             <nz-form-label>Commercial Bank ID</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="fromBankId" [(ngModel)]="searchParam.fromBankId" />
             </nz-form-control>
           </nz-form-item>
-        </div>
+        </div> -->
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
             <nz-form-label>Commercial Bank Name</nz-form-label>
@@ -22,14 +22,22 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP</nz-form-label>
+            <nz-form-label>FX SP Name</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="spId" [(ngModel)]="searchParam.spId">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option *ngFor="let item of spIdList" [nzValue]="item.spKey"
-                  [nzLabel]="item.spName + '-' +  item.spChainCode ">
+                  [nzLabel]="item.spName">
                 </nz-option>
               </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+          <nz-form-item>
+            <nz-form-label>BIC</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="" name="bic" [(ngModel)]="searchParam.bic" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -107,8 +115,8 @@
         }}</span>
     </ng-template>
     <ng-template #operationTpl let-transactionNo="transactionNo">
-      <ng-container *appAuth="'R0601'">
-        <span class="operate-text" routerLink="/poc/poc-fx-transactions/fx-transactions/info"
+      <ng-container *appAuth="'R0404001'">
+        <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-transactions/info"
           [queryParams]="{transactionNo}">
           Detail
         </span>
