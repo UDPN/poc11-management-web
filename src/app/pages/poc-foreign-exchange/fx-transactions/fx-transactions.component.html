@@ -6,9 +6,9 @@
       <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>Commercial Bank ID</nz-form-label>
+            <nz-form-label>Transaction No.</nz-form-label>
             <nz-form-control>
-              <input nz-input placeholder="" name="fromBankId" [(ngModel)]="searchParam.fromBankId" />
+              <input nz-input placeholder="" name="transactionNo" [(ngModel)]="searchParam.transactionNo" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -22,12 +22,20 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP</nz-form-label>
+            <nz-form-label>Receiving Bank Name</nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="" name="toBankName" [(ngModel)]="searchParam.toBankName" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+          <nz-form-item>
+            <nz-form-label>FX SP Name</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="spId" [(ngModel)]="searchParam.spId">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option *ngFor="let item of spIdList" [nzValue]="item.spKey"
-                  [nzLabel]="item.spName + '-' +  item.spChainCode ">
+                  [nzLabel]="item.spName">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -47,15 +55,7 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>Transaction No.</nz-form-label>
-            <nz-form-control>
-              <input nz-input placeholder="" name="transactionNo" [(ngModel)]="searchParam.transactionNo" />
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
-          <nz-form-item>
-            <nz-form-label>Transaction Currency</nz-form-label>
+            <nz-form-label>Currency Pair</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="currency" [(ngModel)]="searchParam.currency">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
@@ -107,8 +107,8 @@
         }}</span>
     </ng-template>
     <ng-template #operationTpl let-transactionNo="transactionNo">
-      <ng-container *appAuth="'R0601'">
-        <span class="operate-text" routerLink="/poc/poc-fx-transactions/fx-transactions/info"
+      <ng-container *appAuth="'R0404001'">
+        <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-transactions/info"
           [queryParams]="{transactionNo}">
           Detail
         </span>

@@ -1,7 +1,6 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { LoginService } from '@app/core/services/http/login/login.service';
-import { PocExchangeRateService } from '@app/core/services/http/poc-exchange-rate/poc-exchange-rate.service';
 import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
 import { ThemeService } from '@app/core/services/store/common-store/theme.service';
 import { SearchCommonVO } from '@app/core/services/types';

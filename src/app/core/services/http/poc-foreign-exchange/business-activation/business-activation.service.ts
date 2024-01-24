@@ -25,7 +25,8 @@ export class BusinessActivationService {
       applicationToRatePlatform: filters.applicationToRatePlatform || '',
       applicationToRateCurrency: filters.applicationToRateCurrency || '',
       platform: filters.platform || '',
-      currency: filters.currency || ''
+      currency: filters.currency || '',
+      bic: filters.bic || '',
     };
     return this.https.post('/v1/fxplt/sys/business/activation/searches', data)
       .pipe(

@@ -23,6 +23,8 @@ import { finalize, takeUntil } from 'rxjs';
 export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyPairTpl', { static: true }) currencyPairTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -77,6 +79,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     centralBankCode: '',
     commercialBankCode: ''
   };
+  tableConfig!: AntTableConfig;
+  dataList: NzSafeAny[] = [];
   constructor(private fb: FormBuilder, private commonService: CommonService, private dataService: LoginService, private destroy$: DestroyService, private router: Router, private pocDashBoardService: PocDashBoardService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.centralBankChange();
@@ -92,6 +96,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   // @HostListener('window:resize', ['$event'])
   ngOnInit() {
+    this.initTable();
     this.volumeForm = this.fb.group({
       centralBankCode: [''],
       commercialBankCode: [''],
@@ -117,6 +122,37 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.legend = false;
       this.view = [300, 300];
     }
+  }
+
+  changePageSize(e: number): void {
+    this.tableConfig.pageSize = e;
+  }
+
+  tableChangeDectction(): void {
+    this.dataList = [...this.dataList];
+    this.cdr.detectChanges();
+  }
+
+  tableLoading(isLoading: boolean): void {
+    this.tableConfig.loading = isLoading;
+    this.tableChangeDectction();
+  }
+
+  getDataList(e?: NzTableQueryParams): void {
+    this.tableConfig.loading = true;
+    const params: SearchCommonVO<any> = {
+      pageSize: this.tableConfig.pageSize!,
+      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+    };
+    this.pocDashBoardService.getSpList(params.pageNum, params.pageSize).pipe(finalize(() => {
+      this.tableLoading(false);
+    })).subscribe((_: any) => {
+      this.dataList = _.data;
+      this.tableConfig.total = _?.resultPageInfo?.total;
+      this.tableConfig.pageIndex = params.pageNum;
+      this.tableLoading(false);
+      this.cdr.markForCheck();
+    });
   }
 
   getBankNumber() {
@@ -287,4 +323,47 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       });
   }
 
+  private initTable(): void {
+    this.tableConfig = {
+      headers: [
+        {
+          title: 'FX SP Name',
+          field: 'spName',
+          width: 200
+        },
+        {
+          title: 'BIC',
+          field: 'spBic',
+          width: 200
+        },
+        {
+          title: 'Central Bank',
+          field: 'centralBankName',
+          width: 200
+        },
+        {
+          title: 'Active Time',
+          field: 'activeTime',
+          pipe: 'timeStamp',
+          notNeedEllipsis: true,
+          width: 220
+        },
+        {
+          title: 'Currency',
+          tdTemplate: this.currencyTpl,
+          width: 150
+        },
+        {
+          title: 'Currency Pair',
+          tdTemplate: this.currencyPairTpl,
+          width: 150
+        },
+      ],
+      total: 0,
+      showCheckbox: false,
+      loading: false,
+      pageSize: 10,
+      pageIndex: 1,
+    };
+  }
 }

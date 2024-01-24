@@ -114,11 +114,11 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
   private initTable(): void {
     this.tableConfig = {
       headers: [
-        {
-          title: 'Bank ID',
-          field: 'spChainCode',
-          width: 280
-        },
+        // {
+        //   title: 'Bank ID',
+        //   field: 'spChainCode',
+        //   width: 280
+        // },
         {
           title: 'Bank Name',
           field: 'spName',
@@ -130,14 +130,14 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 180
         },   
         {
-          title: 'Brief Introduction',
-          field: 'spBriefIntroduction',
-          width: 180
-        },
-        {
           title: 'Central Bank',
           field: 'centralBankName',
           width: 200
+        },
+        {
+          title: 'Brief Introduction',
+          field: 'spBriefIntroduction',
+          width: 350
         },
         {
           title: 'FX SP',
@@ -151,7 +151,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           fixed: true,
           fixedDir: 'right',
           showAction: false,
-          width: 200
+          width: 150
         },
       ],
       total: 0,

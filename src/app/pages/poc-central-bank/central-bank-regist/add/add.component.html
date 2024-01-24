@@ -51,6 +51,36 @@
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <nz-form-label nzRequired nzSpan="24">Logo
+          </nz-form-label>
+          <nz-form-control [nzErrorTip]="logoError">
+            <div nz-row [formGroup]="validateForm">
+              <div nz-col nzSpan="24" style="text-align: left;" class="m-b-20">
+                <button nz-button [nzSize]="'large'" nzType="primary" (click)='upFiles.click()'>Upload</button>
+                <input type="file" accept="image/png" hidden #upFiles (change)="uploadFileImg($event)" />
+              </div>
+              <div nz-col nzSpan="24" class="m-b-10">
+                <div class="onboard-div onboard-postion">
+                  <input type="text" hidden formControlName="logo" nz-input />
+                  <img nz-image width="160px" height="160px" [nzSrc]="logoImg" *ngIf="logoImg" alt="" />
+                </div>
+              </div>
+              <div nz-col nzSpan="12">
+                <div class="onboard-div-info">
+                  It is recommended to provide pictures with 160 * 160 (PNG / JPG / GIF / BMP /
+                  JPEG)
+                  pixels and size less than 10M.
+                </div>
+              </div>
+            </div>
+            <ng-template #logoError let-control>
+              <ng-container *ngIf="control.hasError('required')">Please upload your Logo</ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <nz-form-label nzRequired nzSpan="24">Country of Region
           </nz-form-label>
           <nz-form-control [nzErrorTip]="countryError">
@@ -76,7 +106,7 @@
           <nz-form-control [nzErrorTip]="introductionError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <input nz-input formControlName="centralBankIntroduction" maxlength="255" />
+                <textarea nz-input formControlName="centralBankIntroduction" maxlength="255"></textarea>
               </div>
             </div>
             <ng-template #introductionError let-control>
@@ -88,18 +118,31 @@
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <nz-form-label nzRequired nzSpan="10">
-            Wallet Address(Besu)<i class="m-l-5" nz-icon nzType="question-circle" nzTooltipPlacement="right"
+            Preset Wallet Address(Besu)<i class="m-l-5" nz-icon nzType="question-circle" nzTooltipPlacement="right"
               nzTheme="outline" nz-tooltip [nzTooltipTitle]="titleTemplate" nzTooltipColor="#F5F5F5"
               nzTooltipTrigger="click" nzTooltipOverlayClassName="buils"></i>
           </nz-form-label>
           <nz-form-control [nzErrorTip]="besuWalletAddressError">
-            <div nz-row>
-              <div nz-col nzSpan="24">
-                <input nz-input formControlName="besuWalletAddress" maxlength="255" />
+            <ng-container *ngIf="!tempStatus">
+              <div nz-row>
+                <div nz-col nzSpan="24">
+                  <input nz-input formControlName="besuWalletAddress" [ngClass]="{'onboard-disabled': !tempStatus}"
+                    [readonly]="!tempStatus" />
+                </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-container *ngIf="tempStatus">
+              <div nz-row>
+                <div nz-col nzSpan="24">
+                  <nz-select formControlName="besuWalletAddress">
+                    <nz-option *ngFor="let item of besuWalletAddressList" [nzValue]="item" [nzLabel]="item">
+                    </nz-option>
+                  </nz-select>
+                </div>
+              </div>
+            </ng-container>
             <ng-template #besuWalletAddressError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Wallet Address(Besu)</ng-container>
+              <ng-container *ngIf="control.hasError('required')">{{'Please ' + (tempStatus ?  'select' : 'input') + ' your Wallet Address(Besu)'}}</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>

@@ -43,29 +43,29 @@
     </ng-template>
     <ng-template #operationTpl let-lockable="lockable" let-superUser="superUser" let-userId="userId"
       let-userName="userName" let-realName="realName">
-      <ng-container *appAuth="'R0801002'">
+      <ng-container *appAuth="'R0501002'">
         <span class="operate-text" *ngIf="superUser === 2" routerLink="/poc/poc-system/user/edit"
           [queryParams]="{userId}">
           Edit
         </span>
       </ng-container>
-      <ng-container *appAuth="lockable === 2 ? 'R0801004' : 'R0801003'">
+      <ng-container *appAuth="lockable === 2 ? 'R0501004' : 'R0501003'">
         <span class="operate-text" *ngIf="superUser === 2"
           (click)="onStatusUpdate(userId, lockable === 1 ? 2 : 1, userName)">
           {{ lockable === 2 ? 'Disable' : 'Enable' }}
         </span>
       </ng-container>
-      <ng-container *appAuth="'R0801005'">
+      <ng-container *appAuth="'R0501005'">
         <span class="operate-text" routerLink="/poc/poc-system/user/info" [queryParams]="{userId}">
           View
         </span>
       </ng-container>
-      <ng-container *appAuth="'R0801006'">
+      <ng-container *appAuth="'R0501006'">
         <span class="operate-text" *ngIf="lockable === 1" (click)="onDelete(userId)">
           Delete
         </span>
       </ng-container>
-      <ng-container *appAuth="'R0801007'">
+      <ng-container *appAuth="'R0501007'">
         <span class="operate-text" (click)="onResetPassword(userId, userName, realName)">
           Reset Password
         </span>
@@ -74,7 +74,7 @@
   </app-card-table-wrap>
 </div>
 <ng-template #createBtn>
-  <button routerLink="/poc/poc-system/user/add" *appAuth="'R0801001'" nz-button nzType="primary" class="m-r-8">
+  <button routerLink="/poc/poc-system/user/add" *appAuth="'R0501001'" nz-button nzType="primary" class="m-r-8">
     <i nz-icon nzType="plus"></i>
     Add
   </button>

@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { BaseHttpService } from '../base-http.service';
 import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { timeToTimestamp } from '@app/utils/tools';
+import { BaseHttpService } from '../../base-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PocSettlementService {
+export class ExchangeRateService {
 
-  constructor(private http: BaseHttpService, private https: HttpClient) { }
+  constructor(private http: BaseHttpService, private https: HttpClient, private date: DatePipe) { }
   public getList(
     pageIndex: number,
     pageSize: number,
@@ -17,26 +19,23 @@ export class PocSettlementService {
     const data: any = {
       pageSize: pageSize,
       pageNum: pageIndex,
-      settlementModelCode : filters.settlementModelCode || '',
-      settlementModelName: filters.settlementModelName || '',
       spCode: filters.spCode || '',
       spName: filters.spName || '',
       formRatePlatform: filters.formRatePlatform || '',
       formRateCurrency: filters.formRateCurrency || '',
       toRatePlatform: filters.toRatePlatform || '',
       toRateCurrency: filters.toRateCurrency || '',
-      chargingModel: filters.chargingModel || ''
+      bic: filters.bic || '',
+      beginDate: filters.createTime[0] ? timeToTimestamp(this.date.transform(filters.createTime[0], 'yyyy-MM-dd')+' 00:00:00') : "",
+      endDate: filters.createTime[1] ? timeToTimestamp (this.date.transform(filters.createTime[1], 'yyyy-MM-dd')+' 23:59:59') : "",
     };
-    return this.https.post('/v1/fxplt/sys/settlement/model/manage/searches', data)
+    return this.https.post('/v1/fxplt/sys/exchange/rate/searches', data)
       .pipe(
         map((response: any) => {
           return response;
         })
       );
   }
-
-  public getInfo(params: { settlementModelCode: string }): Observable<any> {
-    return this.http.post(`/v1/fxplt/sys/settlement/model/manage/detail/search`, params);
-  }
-
+  
+  
 }

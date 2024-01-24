@@ -1,7 +1,7 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { LoginService } from '@app/core/services/http/login/login.service';
-import { PocExchangeRateService } from '@app/core/services/http/poc-exchange-rate/poc-exchange-rate.service';
+import { PocFxTransactionsService } from '@app/core/services/http/poc-fx-transactions/poc-fx-transactions.service';
 import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
 import { ThemeService } from '@app/core/services/store/common-store/theme.service';
 import { SearchCommonVO } from '@app/core/services/types';
@@ -12,9 +12,16 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize } from 'rxjs';
 
 interface SearchParam {
-  spId: any,
-  pairedExchangeRate: any,
-  createTime: any
+  spId: string;
+  fromBnId: string;
+  transactionNo: string;
+  creation: any;
+  currency: any;
+  transactionHash: any;
+  fromBankId: string;
+  fromBankName: string;
+  bic: string;
+  toBankName: string;
 }
 
 interface ListParam {
@@ -27,15 +34,17 @@ interface ListParam {
 }
 
 @Component({
-  selector: 'app-exchange-rate',
-  templateUrl: './exchange-rate.component.html',
-  styleUrls: ['./exchange-rate.component.less'],
+  selector: 'app-fx-transactions',
+  templateUrl: './fx-transactions.component.html',
+  styleUrls: ['./fx-transactions.component.less'],
 })
-export class ExchangeRateComponent implements OnInit, AfterViewInit {
+export class FxTransactionsComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('spTpl', { static: true }) spTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('pairedTpl', { static: true }) pairedTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('amountTpl', { static: true }) amountTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<NzSafeAny>; 
+  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -44,9 +53,16 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     footer: ''
   };
   searchParam: Partial<SearchParam> = {
+    creation: [],
+    currency: '',
     spId: '',
-    pairedExchangeRate: '',
-    createTime: []
+    fromBnId: '',
+    transactionNo: '',
+    transactionHash: '',
+    fromBankId: '',
+    fromBankName: '',
+    toBankName: '',
+    bic: ''
   };
   listParam: Partial<ListParam> = {
     spCode: '',
@@ -56,27 +72,27 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     toRatePlatform: '',
     toRateCurrency: ''
   };
-  pairedExchangeRateList: any = [];
-  spIdList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
+  currencyList: any = [];
+  spIdList: any = [];
+  bnIdList: any = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private pocExchangeRateService: PocExchangeRateService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
+  constructor(private pocFxTransactionsService: PocFxTransactionsService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Exchange Rate Query'],
+      breadcrumb: ['Foreign Exchange Management', 'FX Transactions'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
     };
   }
-
+  
   ngOnInit() {
     this.initTable();
     this.initSelect();
   }
-
   tableChangeDectction(): void {
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
@@ -86,28 +102,31 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = isLoading;
     this.tableChangeDectction();
   }
-
-  changePageSize(e: number): void {
-    this.tableConfig.pageSize = e;
-  }
-
+  
   resetForm(): void {
     this.searchParam = {};
     this.listParam = {};
+    this.searchParam.creation = [],
+    this.searchParam.currency = '',
     this.searchParam.spId = '',
-      this.searchParam.pairedExchangeRate = '',
-      this.searchParam.createTime = [],
-      this.getDataList(this.tableQueryParams);
+    this.searchParam.fromBnId = ''
+    this.getDataList(this.tableQueryParams);
   }
-
+  
   initSelect() {
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_exchange_rate_info' }).subscribe((res) => {
-      this.pairedExchangeRateList = res.dataInfo;
-      this.pairedExchangeRateList.map((item: any, i: any) => {
+      this.currencyList = res.dataInfo;
+      this.currencyList.map((item: any, i: any) => {
         Object.assign(item, { key: i + 1 })
       })
       this.cdr.markForCheck();
     })
+
+    this.commonService.getBnId().subscribe((res) => {
+      this.bnIdList = res;
+      this.cdr.markForCheck();
+    })
+
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_sp_bank_info', csePCode: 'FXPLT_SP_BANK_VAILD' }).subscribe((res) => {
       this.spIdList = res.dataInfo;
       this.spIdList.map((item: any, i: any) => {
@@ -117,14 +136,18 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     })
   }
 
+  changePageSize(e: number): void {
+    this.tableConfig.pageSize = e;
+  }
+
   getDataList(e?: NzTableQueryParams): void {
-    this.pairedExchangeRateList.map((item: any) => {
-      if (this.searchParam.pairedExchangeRate === item.key) {
+    this.currencyList.map((item: any) => {
+      if (this.searchParam.currency === item.key) {
         this.listParam.formRatePlatform = item.sourcePlatform,
         this.listParam.formRateCurrency = item.sourceCurrency,
         this.listParam.toRatePlatform = item.targetPlatform,
         this.listParam.toRateCurrency = item.targetCurrency
-      } else if (this.searchParam.pairedExchangeRate === '') {
+      } else if (this.searchParam.currency === '') {
         this.listParam.formRatePlatform = '',
         this.listParam.formRateCurrency = '',
         this.listParam.toRatePlatform = '',
@@ -147,14 +170,21 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
       filters: {
         spCode: this.listParam.spCode,
         spName: this.listParam.spName,
-        formRatePlatform: this.listParam.formRatePlatform,
-        formRateCurrency: this.listParam.formRateCurrency,
-        toRatePlatform: this.listParam.toRatePlatform,
-        toRateCurrency: this.listParam.toRateCurrency,
-        createTime: this.searchParam.createTime
+        transactionNo: this.searchParam.transactionNo,
+        formPlatform: this.listParam.formRatePlatform,
+        formCurrency: this.listParam.formRateCurrency,
+        toPlatform: this.listParam.toRatePlatform,
+        toCurrency: this.listParam.toRateCurrency,
+        fromBankName: this.searchParam.fromBankName,
+        toBankName: this.searchParam.toBankName,
+        fromBankId: this.searchParam.fromBankId,
+        creation: this.searchParam.creation,
+        fromBnId: this.searchParam.fromBnId,
+        transactionHash: this.searchParam.transactionHash,
+        bankBic: this.searchParam.bic
       }
     };
-    this.pocExchangeRateService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
+    this.pocFxTransactionsService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
       this.tableLoading(false);
     })).subscribe((_: any) => {
       this.dataList = _.data;
@@ -169,28 +199,58 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP',
-          tdTemplate: this.spTpl,
+          title: 'Transaction No.',
+          field: 'transactionNo',
+          width: 200
+        },
+        {
+          title: 'Commercial Bank Name',
+          field: 'fromBankName',
           pipe: 'nullValue',
-          width: 480
+          width: 200
         },
         {
-          title: 'Currency Pair',
-          tdTemplate: this.pairedTpl,
-          width: 180
+          title: 'Receiving Bank Name',
+          field: 'toBankName',
+          pipe: 'nullValue',
+          width: 200
         },
         {
-          title: 'FX Rate',
-          field: 'exchangeRate',
-          pipe: 'toThousandRate',
-          width: 180
+          title: 'FX SP Name',
+          field: 'spName',
+          width: 150
+        },
+        {
+          title: 'BN ID',
+          field: 'fromBnId',
+          pipe: 'nullValue',
+          width: 120
+        },
+        {
+          title: 'Amount',
+          tdTemplate: this.amountTpl,
+          width: 200
         },
         {
           title: 'Date',
-          field: 'rateDate',
+          field: 'transactionDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
           width: 180
+        },
+        {
+          title: 'Status',
+          field: 'status',
+          pipe: 'transactionsStatus',
+          width: 120
+        },
+        {
+          title: 'Action',
+          tdTemplate: this.operationTpl,
+          fixed: true,
+          fixedDir: 'right',
+          showAction: false,
+          width: 150
         },
       ],
       total: 0,

@@ -120,11 +120,11 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
           field: 'businessApplicationCode',
           width: 280
         },
-        {
-          title: 'FX SP ID',
-          field: 'spCode',
-          width: 320
-        },
+        // {
+        //   title: 'FX SP ID',
+        //   field: 'spCode',
+        //   width: 320
+        // },
         {
           title: 'FX SP Name',
           field: 'spName',
