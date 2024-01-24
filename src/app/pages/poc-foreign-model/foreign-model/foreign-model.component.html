@@ -14,7 +14,7 @@
                 <div class="m-l-50">
                   <nz-radio-group [(ngModel)]="selectType" nzName="radiogroup">
                     <div *ngFor="let item of typeList" class="m-t-50">
-                      <label nz-radio [nzValue]="item.value"><span class="sp-16" style="font-weight: 500;">{{
+                      <label nz-radio  [nzDisabled]="item.value !== '1'" [nzValue]="item.value"><span class="sp-16" style="font-weight: 500;">{{
                           item.title }}</span>
                         <div class="m-t-30" style="color: #91929E;  font-weight: 500;" *ngFor="let value of item.instruction">
                           <div>{{ value }}</div>
