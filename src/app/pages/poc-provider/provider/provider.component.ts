@@ -104,11 +104,6 @@ export class ProviderComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP ID',
-          field: 'spChainCode',
-          width: 500
-        },
-        {
           title: 'FX SP Name',
           field: 'spName',
           width: 180
@@ -123,7 +118,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
-          width: 180
+          width: 220
         },
         {
           title: 'Status',

@@ -15,26 +15,23 @@
   <nz-card [nzBordered]="true" [nzTitle]="'Basic Information'" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
-      <nz-descriptions-item nzTitle="Commercial Bank ID" [nzSpan]="3">{{
-        info.fromBankId | map:'null'
+      <nz-descriptions-item nzTitle="Transaction No." [nzSpan]="3">{{
+        info.transactionNo
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Transaction Hash" [nzSpan]="3">{{
+        info.transactionHash
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Commercial Bank Name" [nzSpan]="3">{{
         info.fromBankName | map:'null'
+        }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Receiving Bank Name" [nzSpan]="3">{{
+        info.toBankName | map:'null'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="FX SP ID" [nzSpan]="3">{{
         info.spCode | map:'null'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="FX SP Name" [nzSpan]="3">{{
         info.spName | map:'null'
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="BIC" [nzSpan]="3">{{
-        info.bankBic
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Transaction No." [nzSpan]="3">{{
-        info.transactionNo
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Transaction Hash" [nzSpan]="3">{{
-        info.transactionHash
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Currency Pair" [nzSpan]="3">{{
         (info.formCurrency + '->' + info.toCurrency) | map:'null'

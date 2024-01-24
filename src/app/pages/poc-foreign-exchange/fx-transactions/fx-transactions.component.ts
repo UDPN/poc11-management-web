@@ -21,6 +21,7 @@ interface SearchParam {
   fromBankId: string;
   fromBankName: string;
   bic: string;
+  toBankName: string;
 }
 
 interface ListParam {
@@ -60,6 +61,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
     transactionHash: '',
     fromBankId: '',
     fromBankName: '',
+    toBankName: '',
     bic: ''
   };
   listParam: Partial<ListParam> = {
@@ -174,6 +176,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
         toPlatform: this.listParam.toRatePlatform,
         toCurrency: this.listParam.toRateCurrency,
         fromBankName: this.searchParam.fromBankName,
+        toBankName: this.searchParam.toBankName,
         fromBankId: this.searchParam.fromBankId,
         creation: this.searchParam.creation,
         fromBnId: this.searchParam.fromBnId,
@@ -195,24 +198,26 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
   private initTable(): void {
     this.tableConfig = {
       headers: [
-        // {
-        //   title: 'Commercial Bank ID',
-        //   field: 'fromBankId',
-        //   width: 200
-        // },
         {
-          title: 'Commercial Bank Name',
-          field: 'fromBankName',
+          title: 'Transaction No.',
+          field: 'transactionNo',
           width: 200
         },
         {
-          title: 'FX SP',
-          field: 'spName',
-          width: 150
+          title: 'Commercial Bank Name',
+          field: 'fromBankName',
+          pipe: 'nullValue',
+          width: 200
         },
         {
-          title: 'BIC',
-          field: 'bankBic',
+          title: 'Receiving Bank Name',
+          field: 'toBankName',
+          pipe: 'nullValue',
+          width: 200
+        },
+        {
+          title: 'FX SP Name',
+          field: 'spName',
           width: 150
         },
         {
@@ -220,11 +225,6 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
           field: 'fromBnId',
           pipe: 'nullValue',
           width: 120
-        },
-        {
-          title: 'Transaction No.',
-          field: 'transactionNo',
-          width: 200
         },
         {
           title: 'Amount',
