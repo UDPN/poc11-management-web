@@ -20,7 +20,7 @@ export class LoginGuard implements CanActivateChild {
       return this.router.parseUrl('/onboarding/bn-onboarding-details');
     }
     if (isLogin) {
-        return this.router.parseUrl('/poc/poc-home/home');
+        return this.router.parseUrl('/poc/poc-dashboard/dashboard');
     }
     return true;
   }

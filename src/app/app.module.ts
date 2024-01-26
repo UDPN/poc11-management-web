@@ -21,6 +21,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { ToDoListService } from './core/services/common/to-do-list.service';
 
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
@@ -47,6 +48,12 @@ export function SubWindowWithServiceFactory(
 ) {
   return () => subWindowWithService.subWindowWidth();
 }
+
+export function ToDoListServiceFactory(
+  toDoListService: ToDoListService
+) {
+  return () => toDoListService.getToDoListLength();
+};
 
 registerLocaleData(en);
 
@@ -80,14 +87,18 @@ const APPINIT_PROVIDES = [
     deps: [InitThemeService],
     multi: true,
   },
-  
   {
     provide: APP_INITIALIZER,
     useFactory: SubWindowWithServiceFactory,
     deps: [SubWindowWithService],
     multi: true,
   },
-  
+  {
+    provide: APP_INITIALIZER,
+    useFactory: ToDoListServiceFactory,
+    deps: [ToDoListService],
+    multi: true,
+  },
   {
     provide: APP_INITIALIZER,
     useFactory: (themeService: ThemeSkinService) => () => {

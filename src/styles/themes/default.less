@@ -1,5 +1,4 @@
-@import (multiple)
-  '../../../node_modules/ng-zorro-antd/src/style/themes/variable.less';
+@import (multiple) '../../../node_modules/ng-zorro-antd/src/style/themes/variable.less';
 @import './base';
 
 @layout-header-background: @component-background;
@@ -7,9 +6,11 @@
 @layout-sider-background: @menu-dark-bg;
 @primary-color: #3c5686;
 @primary-color-hover: #60769e;
+
 .operate-text {
   color: @primary-color;
 }
+
 *::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -37,6 +38,7 @@
   margin-bottom: 0px !important;
   height: 47px !important;
 }
+
 .ant-menu-item {
   margin-bottom: 0px !important;
 }
@@ -54,18 +56,22 @@
     font-weight: 500 !important;
   }
 }
+
 .ant-menu-submenu-open {
-  a > span {
+  a>span {
     font-weight: 400 !important;
   }
 }
+
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: @primary-color;
 }
+
 .ant-menu-item-selected a,
 .ant-menu-item-selected a:hover {
   color: white !important;
 }
+
 .ant-tabs-tab:hover {
   color: @primary-color;
 }
@@ -80,6 +86,7 @@
   font-weight: 500;
   font-size: 16px;
 }
+
 .onboarding-card {
   .ant-card-head {
     background-color: @primary-color;
@@ -87,21 +94,20 @@
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
   }
+
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
 }
 
-.ant-form-item-label > label::after {
+.ant-form-item-label>label::after {
   content: none;
 }
-.ant-form-item-label
-  > label.ant-form-item-required:not(
-    .ant-form-item-required-mark-optional
-  )::before {
+
+.ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   font-weight: 800;
 }
 
-.ant-form-item-label > label {
+.ant-form-item-label>label {
   font-weight: 700;
   color: #7d8592;
   margin-right: 8px;
@@ -111,6 +117,7 @@
   .ant-form-item-control-input-content {
     text-align: end;
   }
+
   .anticon-info-circle {
     color: @primary-color;
   }
@@ -138,22 +145,27 @@
 }
 
 .n-modal {
+
   .ant-modal-content,
   .ant-modal-header {
     border-radius: 25px;
   }
+
   .ant-modal-header {
     border-bottom: none;
     padding: 40px 60px;
+
     .ant-modal-title {
       font-size: 22px;
       font-weight: 700;
     }
   }
+
   .ant-modal-footer {
     border-top: none;
   }
 }
+
 .custom-select {
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     height: 48px;
@@ -162,6 +174,7 @@
     border: 1px solid #d8e0f0;
     box-shadow: 0px 1px 2px rgba(184, 200, 224, 0.222055);
   }
+
   .ant-select-selection-item {
     line-height: 46px !important;
     text-align: left;
@@ -173,16 +186,15 @@
     background-color: #f7f9fe;
   }
 }
-.ant-select-status-error.ant-select:not(.ant-select-disabled):not(
-    .ant-select-customize-input
-  )
-  .ant-select-selector {
+
+.ant-select-status-error.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector {
   border-color: #d8e0f0 !important;
 }
+
 .onboarding {
   .ant-btn {
     border-radius: 14px !important;
-    
+
     line-height: 0px;
   }
 }
@@ -194,30 +206,33 @@
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: @primary-color;
 }
+
 .ant-menu-item-selected a,
 .ant-menu-item-selected a:hover {
   color: white !important;
 }
+
 .ant-tabs-tab:hover {
   color: @primary-color;
 }
 
-.ctx-desc{
+.ctx-desc {
   color: @primary-color;
   font-weight: 500;
   font-size: 16px;
 }
 
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
-  background:  #3C4658 !important;
+  background: #3C4658 !important;
 }
 
 .ant-menu-dark .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background:  #a59999 !important;
+  background: #a59999 !important;
   color: #3c5686 !important
 }
-.cust-page-header{
-  .ant-page-header-heading{
+
+.cust-page-header {
+  .ant-page-header-heading {
     display: none;
   }
 }
@@ -298,4 +313,33 @@
 
 .ant-modal-confirm-body .ant-modal-confirm-title {
   font-size: 18px !important;
+}
+
+.dashborad-card {
+  border: none !important;
+  border-radius: 12px !important;
+  background-position: 100% !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% !important;
+}
+
+.dashborad-image-1 {
+  background-image: url(../../assets/imgs/dashboard_1.png) !important;
+}
+
+.dashborad-image-2 {
+  background-image: url(../../assets/imgs/dashboard_2.png) !important;
+}
+
+.dashborad-image-3 {
+  background-image: url(../../assets/imgs/dashboard_3.png) !important;
+}
+
+.ngx-charts .grid-panel.odd rect {
+  fill: #F4F9FD !important;
+}
+
+.chart-legend .legend-labels {
+  width: 80% !important;
+  background-color: #fff !important;
 }

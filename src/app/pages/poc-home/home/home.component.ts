@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Home'],
+      breadcrumb: ['To Do List'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''

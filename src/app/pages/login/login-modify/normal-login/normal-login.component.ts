@@ -85,7 +85,7 @@ export class NormalLoginComponent implements OnInit {
           this.message
             .success('Login successfully!', { nzDuration: 1000 })
             .onClose!.subscribe(() => {
-              this.router.navigateByUrl('/poc/poc-home/home');
+              this.router.navigateByUrl('/poc/poc-dashboard/dashboard');
             });
         });
       } else {

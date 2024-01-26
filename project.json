@@ -50,6 +50,7 @@
           "node_modules/driver.js/dist/driver.min.js"
         ],
         "allowedCommonJsDependencies": [
+          "rfdc",
           "jwt-encode",
           "@env/environment",
           "jszip",

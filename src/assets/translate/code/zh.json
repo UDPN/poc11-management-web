@@ -13,6 +13,7 @@
   "MSG_FXPLT_ELEVEN_20011": "file url cannot be empty",
   "MSG_FXPLT_ELEVEN_20012": "file code cannot be empty",
   "MSG_FXPLT_ELEVEN_20013": "The SPApplicationFormInfo of contract is empty",
+  "MSG_FXPLT_ELEVEN_20014": "The WalletApplicationFormInfo of contract is empty",
 
   "MSG_FXPLT_ELEVEN_20200": "Description Failed to call bn remotely",
   "MSG_FXPLT_ELEVEN_20201": "The authorized bn is empty",
@@ -134,7 +135,6 @@
   "MSG_FXPLT_ELEVEN_20482": "Exchange rate update failed",
   "MSG_FXPLT_ELEVEN_20483": "Failed to update service activation data",
   "MSG_FXPLT_ELEVEN_20485": "Chain rate apply id does not exist",
-
   "MSG_FXPLT_ELEVEN_20600": "Account is locked and cannot be used",
   "MSG_FXPLT_ELEVEN_20601": "The account has been deleted and cannot be used",
   "MSG_FXPLT_ELEVEN_20602": "Please log in first",
@@ -147,20 +147,16 @@
   "MSG_FXPLT_ELEVEN_20609": "Your passwords do not match",
   "MSG_FXPLT_ELEVEN_20610": "Please enter the login account correctly",
   "MSG_FXPLT_ELEVEN_20611": "Verification code error",
-
   "MSG_FXPLT_ELEVEN_20800": "Application type error",
   "MSG_FXPLT_ELEVEN_20801": "Capital Pool does not exist, unable to activate Currency Pair",
   "MSG_FXPLT_ELEVEN_20802": "Currency Pair already exists, unable to delete the Capital Pool",
-
   "MSG_FXPLT_ELEVEN_20300": "Receipt abnormal state",
   "MSG_FXPLT_ELEVEN_20301": "Failure to obtain receipt",
   "MSG_FXPLT_ELEVEN_20302": "File upload call failed",
   "MSG_FXPLT_ELEVEN_20303": "File download call failed",
   "MSG_FXPLT_ELEVEN_20304": "File does not exist",
-  
   "MSG_FXPLT_ELEVEN_22000": "CentralBankCode cannot be empty",
   "MSG_FXPLT_ELEVEN_22001": "Approved bank does not exist",
-
   "MSG_FXPLT_ELEVEN_22600": "Bank name is not empty",
   "MSG_FXPLT_ELEVEN_22601": "Brief introduction is not empty",
   "MSG_FXPLT_ELEVEN_22602": "Bn id is not empty",
@@ -181,7 +177,6 @@
   "MSG_FXPLT_ELEVEN_22617": "Fail to edit",
   "MSG_FXPLT_ELEVEN_22618": "Central bank bic is not empty",
   "MSG_FXPLT_ELEVEN_22619": "Bic already exists",
-  
   "MSG_FXPLT_ELEVEN_40100000": "Unauthorized access",
   "MSG_FXPLT_ELEVEN_40100001": "The user has been disabled",
   "MSG_FXPLT_ELEVEN_40100002": "The user has been deleted"

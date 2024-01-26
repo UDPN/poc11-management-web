@@ -12,7 +12,12 @@ const routes: Routes = [
     data: { shouldDetach: 'no', preload: true },
     canActivateChild: [JudgeLoginGuard, JudgeAuthGuard],
     children: [
-      { path: '', redirectTo: 'poc-home', pathMatch: 'full' },
+      { path: '', redirectTo: 'poc-dashboard', pathMatch: 'full' },
+      {
+        path: 'poc-dashboard',
+        data: { preload: true },
+        loadChildren: () => import('../../pages/poc-dashboard/poc-dashboard.module').then(m => m.PocDashboardModule)
+      },
       {
         path: 'poc-home',
         data: { preload: true },
@@ -24,24 +29,9 @@ const routes: Routes = [
         loadChildren: () => import('../../pages/poc-foreign-exchange/poc-foreign-exchange.module').then(m => m.PocForeignExchangeModule)
       },
       {
-        path: 'poc-exchange-rate',
-        data: { preload: true },
-        loadChildren: () => import('../../pages/poc-exchange-rate/poc-exchange-rate.module').then(m => m.PocExchangeRateModule)
-      },
-      {
-        path: 'poc-settlement',
-        data: { preload: true },
-        loadChildren: () => import('../../pages/poc-settlement/poc-settlement.module').then(m => m.PocSettlementModule)
-      },
-      {
         path: 'poc-central-bank',
         data: { preload: true },
         loadChildren: () => import('../../pages/poc-central-bank/poc-central-bank.module').then(m => m.PocCentralBankModule)
-      },
-      {
-        path: 'poc-fx-transactions',
-        data: { preload: true },
-        loadChildren: () => import('../../pages/poc-fx-transactions/poc-fx-transactions.module').then(m => m.PocFxTransactionsModule)
       },
       {
         path: 'poc-commercial-bank',

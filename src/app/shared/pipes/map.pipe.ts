@@ -1,7 +1,7 @@
 
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { thousandRate, thousandthMark, timestampToTime } from '@app/utils/tools';
+import { thousandRate, thousandthMark, timestampToDate, timestampToTime } from '@app/utils/tools';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
@@ -118,6 +118,11 @@ export const MapSet = {
     1: 'Commercial bank Onboarding',
     2: 'Business Application',
     3: 'Activate Settlement Business',
+  },
+  dashBoradBankType: {
+    1: 'Central Banks',
+    2: 'Commercial Banks',
+    3: 'FX Service Providers(SPs)',
   }
 };
 
@@ -195,6 +200,13 @@ export class MapPipe implements PipeTransform {
         return (value = '--');
       } else {
         return thousandRate(value);
+      }
+    }
+    if (arg === 'dateStamp') {
+      if (!value) {
+        return (value = '--');
+      } else {
+        return timestampToDate(value);
       }
     }
     let type: string = arg;

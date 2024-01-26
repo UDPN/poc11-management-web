@@ -22,6 +22,7 @@
     "@auth0/angular-jwt": "^5.1.2",
     "@ngx-translate/core": "^15.0.0",
     "@nx/angular": "16.6.0",
+    "@swimlane/ngx-charts": "^20.5.0",
     "@types/jwt-encode": "^1.0.2",
     "@types/lodash": "^4.14.184",
     "angular-password-strength-meter": "^6.0.0",
