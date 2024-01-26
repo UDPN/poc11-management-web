@@ -96,7 +96,7 @@
       </ng-container>
     </ng-template>
     <ng-template #bankNameTpl let-bankName="bankName" let-logo="logo">
-      <img nz-image style="width: 40px; height: 20px" [nzSrc]="logo" *ngIf="logo" alt=""><span class="m-l-10">{{
+      <img nz-image style="width: 50px; height: 40px" [nzSrc]="logo" *ngIf="logo" alt=""><span class="m-l-10" [title]="bankName">{{
         bankName }}</span>
     </ng-template>
   </app-card-table-wrap>
