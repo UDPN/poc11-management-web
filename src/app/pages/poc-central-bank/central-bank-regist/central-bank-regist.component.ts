@@ -158,7 +158,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
         {
           title: 'Bank Name',
           tdTemplate: this.bankNameTpl,
-          width: 150
+          width: 250
         },
         {
           title: 'BIC',
@@ -194,7 +194,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           fixed: true,
           fixedDir: 'right',
           showAction: false,
-          width: 200
+          width: 150
 
         },
       ],
