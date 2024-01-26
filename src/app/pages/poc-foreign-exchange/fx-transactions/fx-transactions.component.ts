@@ -220,12 +220,12 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
           field: 'spName',
           width: 150
         },
-        {
-          title: 'BN ID',
-          field: 'fromBnId',
-          pipe: 'nullValue',
-          width: 120
-        },
+        // {
+        //   title: 'BN ID',
+        //   field: 'fromBnId',
+        //   pipe: 'nullValue',
+        //   width: 120
+        // },
         {
           title: 'Amount',
           tdTemplate: this.amountTpl,

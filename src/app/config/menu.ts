@@ -87,7 +87,7 @@ const menuNav: Menu[] = [
     code: 'R01',
   },
   {
-    menuName: 'Fx Rate Mechanism',
+    menuName: 'FX Rate Mechanism',
     id: 6,
     fatherId: 0,
     icon: 'deployment-unit',
@@ -121,7 +121,7 @@ const menuNav: Menu[] = [
       {
         id: 2,
         fatherId: 7,
-        menuName: 'FX Activation Query',
+        menuName: 'FX Provider Query',
         open: false,
         selected: false,
         menuType: 'C',
