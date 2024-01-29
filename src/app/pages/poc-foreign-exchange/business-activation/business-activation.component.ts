@@ -71,7 +71,7 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Foreign Exchange Management', 'FX Activation Query'],
+      breadcrumb: ['Foreign Exchange Management', 'FX Provider Query'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
