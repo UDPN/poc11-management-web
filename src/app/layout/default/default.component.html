@@ -23,8 +23,8 @@
       <ng-template #topHeadTpl>
         <div class="left-start-center flex-1" style="z-index: 100">
           <ng-container *ngIf="(themeOptions$ | async)!.hasNavHeadArea">
-            <span class="m-l-20" [style]="{color: '#3c5686'}" [ngClass]="{'logo': !(isCollapsed$ | async)}">
-              <img src="../../../assets/imgs/logo.png" alt="" style="width: 100px; height: 40px" class="m-r-20">
+            <span class="m-l-20" style="display: flex; align-items: center;color: #3c5686" [ngClass]="{'logo': !(isCollapsed$ | async)}">
+              <img src="../../../assets/imgs/BIS.png" alt="" style="width: 90px;height:25px" class="m-r-20">
               <span *ngIf="!isCollapsed">{{'Multiple Wholesale CBDC Settlement Platform Management System'}}</span>
             </span>
           </ng-container>
@@ -48,8 +48,8 @@
 
       <ng-container left *ngIf="!isOverMode">
         <div class="left-start-center flex-1" style="z-index: 100">
-          <span class="m-l-20" [style]="{ color: '#3c5686' }" [ngClass]="{'logo': !(isCollapsed$ | async)}">
-            <img src="../../../assets/imgs/logo.png" alt="" style="width: 100px; height: 40px" class="m-r-20">
+          <span class="m-l-20" style="display: flex; align-items: center;color: #3c5686" [ngClass]="{'logo': !(isCollapsed$ | async)}">
+            <img src="../../../assets/imgs/BIS.png" alt="" style="width: 90px;height:25px" class="m-r-20">
             <span *ngIf="!isCollapsed">{{'Multiple Wholesale CBDC Settlement Platform Management System'}}</span>
           </span>
           <!-- <span class="sp-18 m-r-25"></span> -->
