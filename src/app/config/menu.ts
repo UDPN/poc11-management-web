@@ -194,6 +194,18 @@ const menuNav: Menu[] = [
   //   code: 'R06',
   // },
   {
+    menuName: 'Network Fees',
+    id: 8,
+    fatherId: 0,
+    icon: 'schedule',
+    open: false,
+    selected: false,
+    menuType: 'C',
+    disabled: true,
+    path: '1111',
+    code: 'R0',
+  },
+  {
     menuName: 'System Management',
     id: 8,
     fatherId: 0,
