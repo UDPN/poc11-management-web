@@ -73,4 +73,8 @@ export class LoginService {
   public loginOut(): Observable<any> {
     return this.https.get(`/fxplt/logout/user`);
   }
+  
+  public getCaptcha(url: any): Observable<any> {
+    return this.https.get(url, { responseType: 'text', observe: "response" });
+  }
 }
