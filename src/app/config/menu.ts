@@ -194,18 +194,6 @@ const menuNav: Menu[] = [
   //   code: 'R06',
   // },
   {
-    menuName: 'Network Fees',
-    id: 8,
-    fatherId: 0,
-    icon: 'schedule',
-    open: false,
-    selected: false,
-    menuType: 'C',
-    disabled: true,
-    path: '1111',
-    code: 'R0',
-  },
-  {
     menuName: 'System Management',
     id: 8,
     fatherId: 0,
@@ -219,6 +207,17 @@ const menuNav: Menu[] = [
       {
         id: 1,
         fatherId: 8,
+        menuName: 'Network Fees',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R0',
+        disabled: true,
+        path: '111111'
+      },
+      {
+        id: 2,
+        fatherId: 8,
         menuName: 'User Management',
         open: false,
         selected: false,
@@ -227,7 +226,7 @@ const menuNav: Menu[] = [
         path: '/poc/poc-system/user'
       },
       {
-        id: 2,
+        id: 3,
         fatherId: 8,
         menuName: 'Role Management',
         open: false,

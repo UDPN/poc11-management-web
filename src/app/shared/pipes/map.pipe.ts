@@ -104,7 +104,7 @@ export const MapSet = {
   },
   currencyBusinessType: {
     0: 'Activate',
-    1: 'Reduce'
+    1: 'Deactivate'
   },
   bankType: {
     1: 'Commercial Bank',
