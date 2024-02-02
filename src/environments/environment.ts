@@ -8,7 +8,10 @@ export const localUrl = ``;
 
 export const environment = {
   production: false,
-  localUrl: localUrl
+  localUrl: localUrl,
+  clientName: 'admin',
+  password: 'Abcd1234'
+
 };
 
 /*
