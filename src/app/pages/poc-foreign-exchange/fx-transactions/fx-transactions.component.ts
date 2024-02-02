@@ -1,6 +1,9 @@
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { PocSettlementService } from '@app/core/services/http/poc-settlement/poc-settlement.service';
+import { LoginService } from '@app/core/services/http/login/login.service';
+import { PocFxTransactionsService } from '@app/core/services/http/poc-fx-transactions/poc-fx-transactions.service';
+import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
+import { ThemeService } from '@app/core/services/store/common-store/theme.service';
 import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
@@ -10,10 +13,15 @@ import { finalize } from 'rxjs';
 
 interface SearchParam {
   spId: string;
-  settlementModelCode: string;
-  settlementModelName: string;
-  chargingModel: string;
-  pairedExchangeRate: string;
+  fromBnId: string;
+  transactionNo: string;
+  creation: any;
+  currency: any;
+  transactionHash: any;
+  fromBankId: string;
+  fromBankName: string;
+  bic: string;
+  toBankName: string;
 }
 
 interface ListParam {
@@ -26,19 +34,17 @@ interface ListParam {
 }
 
 @Component({
-  selector: 'app-settlement',
-  templateUrl: './settlement.component.html',
-  styleUrls: ['./settlement.component.less'],
+  selector: 'app-fx-transactions',
+  templateUrl: './fx-transactions.component.html',
+  styleUrls: ['./fx-transactions.component.less'],
 })
-export class SettlementComponent implements OnInit, AfterViewInit {
+export class FxTransactionsComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
-  @ViewChild('operationTpl', { static: true })
-  operationTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('spTpl', { static: true })
-  spTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('pairedTpl', { static: true })
-  pairedTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('spTpl', { static: true }) spTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('amountTpl', { static: true }) amountTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<NzSafeAny>; 
+  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -47,12 +53,16 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     footer: ''
   };
   searchParam: Partial<SearchParam> = {
+    creation: [],
+    currency: '',
     spId: '',
-    chargingModel: '',
-    settlementModelCode: '',
-    settlementModelName: '',
-    pairedExchangeRate: ''
-
+    fromBnId: '',
+    transactionNo: '',
+    transactionHash: '',
+    fromBankId: '',
+    fromBankName: '',
+    toBankName: '',
+    bic: ''
   };
   listParam: Partial<ListParam> = {
     spCode: '',
@@ -62,29 +72,27 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     toRatePlatform: '',
     toRateCurrency: ''
   };
-  spIdList: any = [];
-  pairedExchangeRateList: any = [];
-  pairedValue: any = '';
-  chargingModelList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
+  currencyList: any = [];
+  spIdList: any = [];
+  bnIdList: any = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private pocSettlementService: PocSettlementService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
+  constructor(private pocFxTransactionsService: PocFxTransactionsService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Settlement Model Query'],
+      breadcrumb: ['Foreign Exchange Management', 'FX Transactions'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
     };
   }
-
+  
   ngOnInit() {
-    this.initTable()
+    this.initTable();
     this.initSelect();
   }
-
   tableChangeDectction(): void {
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
@@ -94,33 +102,36 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = isLoading;
     this.tableChangeDectction();
   }
-
+  
   resetForm(): void {
     this.searchParam = {};
     this.listParam = {};
+    this.searchParam.creation = [],
+    this.searchParam.currency = '',
     this.searchParam.spId = '',
-    this.searchParam.pairedExchangeRate = '',
-    this.searchParam.chargingModel = '',
+    this.searchParam.fromBnId = ''
     this.getDataList(this.tableQueryParams);
   }
-
+  
   initSelect() {
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_exchange_rate_info' }).subscribe((res) => {
-      this.pairedExchangeRateList = res.dataInfo;
-      this.pairedExchangeRateList.map((item: any, i: any) => {
+      this.currencyList = res.dataInfo;
+      this.currencyList.map((item: any, i: any) => {
         Object.assign(item, { key: i + 1 })
       })
       this.cdr.markForCheck();
     })
+
+    this.commonService.getBnId().subscribe((res) => {
+      this.bnIdList = res;
+      this.cdr.markForCheck();
+    })
+
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_sp_bank_info', csePCode: 'FXPLT_SP_BANK_VAILD' }).subscribe((res) => {
       this.spIdList = res.dataInfo;
       this.spIdList.map((item: any, i: any) => {
         Object.assign(item, { spKey: i + 1 })
       })
-      this.cdr.markForCheck();
-    })
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'FXPLT_CHARGING_MODEL' }).subscribe((res) => {
-      this.chargingModelList = res.dataInfo;
       this.cdr.markForCheck();
     })
   }
@@ -130,13 +141,13 @@ export class SettlementComponent implements OnInit, AfterViewInit {
   }
 
   getDataList(e?: NzTableQueryParams): void {
-    this.pairedExchangeRateList.map((item: any) => {
-      if (this.searchParam.pairedExchangeRate === item.key) {
+    this.currencyList.map((item: any) => {
+      if (this.searchParam.currency === item.key) {
         this.listParam.formRatePlatform = item.sourcePlatform,
         this.listParam.formRateCurrency = item.sourceCurrency,
         this.listParam.toRatePlatform = item.targetPlatform,
         this.listParam.toRateCurrency = item.targetCurrency
-      } else if (this.searchParam.pairedExchangeRate === '') {
+      } else if (this.searchParam.currency === '') {
         this.listParam.formRatePlatform = '',
         this.listParam.formRateCurrency = '',
         this.listParam.toRatePlatform = '',
@@ -147,10 +158,10 @@ export class SettlementComponent implements OnInit, AfterViewInit {
       if (this.searchParam.spId === item.spKey) {
         this.listParam.spCode = item.spChainCode,
         this.listParam.spName = item.spName
-      } else if (this.searchParam.spId === '') {
+      } else if (this.searchParam.spId === ''){
         this.listParam.spCode = '',
         this.listParam.spName = ''
-      }
+      }    
     })
     this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
@@ -159,22 +170,24 @@ export class SettlementComponent implements OnInit, AfterViewInit {
       filters: {
         spCode: this.listParam.spCode,
         spName: this.listParam.spName,
-        formRatePlatform: this.listParam.formRatePlatform,
-        formRateCurrency: this.listParam.formRateCurrency,
-        toRatePlatform: this.listParam.toRatePlatform,
-        toRateCurrency: this.listParam.toRateCurrency,
-        settlementModelCode: this.searchParam.settlementModelCode,
-        settlementModelName: this.searchParam.settlementModelName,
-        chargingModel: this.searchParam.chargingModel
+        transactionNo: this.searchParam.transactionNo,
+        formPlatform: this.listParam.formRatePlatform,
+        formCurrency: this.listParam.formRateCurrency,
+        toPlatform: this.listParam.toRatePlatform,
+        toCurrency: this.listParam.toRateCurrency,
+        fromBankName: this.searchParam.fromBankName,
+        toBankName: this.searchParam.toBankName,
+        fromBankId: this.searchParam.fromBankId,
+        creation: this.searchParam.creation,
+        fromBnId: this.searchParam.fromBnId,
+        transactionHash: this.searchParam.transactionHash,
+        bankBic: this.searchParam.bic
       }
     };
-    this.pocSettlementService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
+    this.pocFxTransactionsService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
       this.tableLoading(false);
     })).subscribe((_: any) => {
       this.dataList = _.data;
-      this.dataList.forEach((item: any, i: any) => {
-        Object.assign(item, { key: (params.pageNum - 1) * 10 + i + 1 })
-      })
       this.tableConfig.total = _?.resultPageInfo?.total;
       this.tableConfig.pageIndex = params.pageNum;
       this.tableLoading(false);
@@ -186,30 +199,50 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP',
-          tdTemplate: this.spTpl,
-          width: 500
-        },
-        {
-          title: 'Model Code',
-          field: 'settlementModelCode',
-          width: 280
-        },
-        {
-          title: 'Model Name',
-          field: 'settlementModelName',
+          title: 'Transaction No.',
+          field: 'transactionNo',
           width: 200
         },
         {
-          title: 'Currency Pair',
-          tdTemplate: this.pairedTpl,
+          title: 'Commercial Bank Name',
+          field: 'fromBankName',
+          pipe: 'nullValue',
+          width: 200
+        },
+        {
+          title: 'Receiving Bank Name',
+          field: 'toBankName',
+          pipe: 'nullValue',
+          width: 200
+        },
+        {
+          title: 'FX SP Name',
+          field: 'spName',
+          width: 150
+        },
+        // {
+        //   title: 'BN ID',
+        //   field: 'fromBnId',
+        //   pipe: 'nullValue',
+        //   width: 120
+        // },
+        {
+          title: 'Amount',
+          tdTemplate: this.amountTpl,
+          width: 200
+        },
+        {
+          title: 'Date',
+          field: 'transactionDate',
+          pipe: 'timeStamp',
+          notNeedEllipsis: true,
           width: 180
         },
         {
-          title: 'Charging Model',
-          field: 'chargingModel',
-          pipe: 'chargingModel',
-          width: 200
+          title: 'Status',
+          field: 'status',
+          pipe: 'transactionsStatus',
+          width: 120
         },
         {
           title: 'Action',
@@ -218,7 +251,6 @@ export class SettlementComponent implements OnInit, AfterViewInit {
           fixedDir: 'right',
           showAction: false,
           width: 150
-
         },
       ],
       total: 0,

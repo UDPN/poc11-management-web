@@ -15,6 +15,7 @@ interface SearchParam {
   spCode: string;
   spName: string;
   currency: any,
+  bic: any,
   pairedExchangeRate: any,
 }
 
@@ -49,6 +50,7 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
     spName: '',
     currency: '',
     pairedExchangeRate: '',
+    bic: '',
   };
 
   listParam: Partial<ListParam> = {
@@ -69,7 +71,7 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Foreign Exchange Management', 'Business Activation Query'],
+      breadcrumb: ['Foreign Exchange Management', 'FX Provider Query'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -155,7 +157,8 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
         applicationToRatePlatform: this.listParam.applicationToRatePlatform,
         applicationToRateCurrency: this.listParam.applicationToRateCurrency,
         platform: this.listParam.platform,
-        currency: this.listParam.currency
+        currency: this.listParam.currency,
+        bic: this.searchParam.bic
       }
     };
     this.businessActivationService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
@@ -176,14 +179,19 @@ export class BusinessActivationComponent implements OnInit, AfterViewInit {
   private initTable(): void {
     this.tableConfig = {
       headers: [
-        {
-          title: 'FX SP ID',
-          field: 'spCode',
-          width: 220
-        },
+        // {
+        //   title: 'FX SP ID',
+        //   field: 'spCode',
+        //   width: 220
+        // },
         {
           title: 'FX SP Name',
           field: 'spName',
+          width: 220
+        },
+        {
+          title: 'BIC',
+          field: 'bankBic',
           width: 220
         },
         {

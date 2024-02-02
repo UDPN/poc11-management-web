@@ -10,23 +10,17 @@ export class ToDoListService {
     constructor(private pocHomeService: PocHomeService, private windowSer: WindowService) { }
 
     getToDoListLength(): void {
-        this.pocHomeService.getList(1, 500)
+        interval(5000)
+            .pipe(
+                switchMap((a) => {
+                    return sessionStorage.getItem('clientName') ? this.pocHomeService.getList(1, 500) : '';
+                }),
+            )
             .subscribe(
                 (res: any) => {
                     this.windowSer.setSessionStorage(toDoListLength, res.resultPageInfo.total);
                 }
             );
-        // interval(5000)
-        //     .pipe(
-        //         switchMap((a) => {
-        //             return sessionStorage.getItem('clientName') ? this.pocHomeService.getList(1, 500) : '';
-        //         }),
-        //     )
-        //     .subscribe(
-        //         (res: any) => {
-        //             this.windowSer.setSessionStorage(toDoListLength, res.resultPageInfo.total);
-        //         }
-        //     );
 
     }
 }

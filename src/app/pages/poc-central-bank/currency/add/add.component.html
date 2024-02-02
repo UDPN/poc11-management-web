@@ -8,7 +8,7 @@
     <form nz-form [formGroup]="validateForm">
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">Currency
+          <nz-form-label nzRequired nzSpan="10">Currency Name
           </nz-form-label>
           <nz-form-control [nzErrorTip]="currencyError">
             <div nz-row>
@@ -43,7 +43,9 @@
       </div> -->
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">Decimal Precision
+          <nz-form-label nzRequired nzSpan="10">Decimal Precision<i class="m-l-5" nz-icon nzType="question-circle"
+              nzTooltipPlacement="right" nzTheme="outline" nz-tooltip [nzTooltipTitle]="titleTemplate"
+              nzTooltipColor="#F5F5F5" nzTooltipTrigger="click" nzTooltipOverlayClassName="buils"></i>
           </nz-form-label>
           <nz-form-control [nzErrorTip]="precisionError">
             <div nz-row>
@@ -86,7 +88,8 @@
             <div nz-row>
               <div nz-col nzSpan="24">
                 <nz-select formControlName="centralBankCode">
-                  <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode" [nzLabel]="item.centralBankName">
+                  <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode"
+                    [nzLabel]="item.centralBankName">
                   </nz-option>
                 </nz-select>
               </div>
@@ -116,3 +119,9 @@
     </form>
   </nz-card>
 </div>
+<ng-template #titleTemplate let-thing>
+  <div style="color: #3c5686">
+    {{'This refers to the precision of the currency, which must be aninteger greater than 0. For example, if you enter 3
+    here, theaccuracy of the currency will be rounded to three decimal places.'}}
+  </div>
+</ng-template>

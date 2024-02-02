@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { BaseHttpService } from '../base-http.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -49,6 +49,22 @@ export class PocDashBoardService {
 
   public getBankInfo(): Observable<any> {
     return this.http.post(`/v1/fxplt/sys/dashboard/centralBank/information/statistics/searches`, {});
+  }
+
+  public getSpList(
+    pageIndex: number,
+    pageSize: number
+  ): Observable<any> {
+    const data: any = {
+      pageSize: pageSize,
+      pageNum: pageIndex
+    };
+    return this.https.post('/v1/fxplt/sys/dashboard/splist/searches', data)
+      .pipe(
+        map((response: any) => {
+          return response;
+        })
+      );
   }
 
   

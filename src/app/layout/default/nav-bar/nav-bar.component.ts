@@ -313,17 +313,11 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.total = this.windowSer.getSessionStorage(toDoListLength);
     this.total = Number(this.total);
-    interval(5000)
-      .pipe(
-        switchMap((a) => {
-          return sessionStorage.getItem('clientName') ? this.pocHomeService.getList(1, 500) : '';
-        }),
-      )
-      .subscribe(
-        (res: any) => {
-          this.total = res.resultPageInfo.total;
-        }
-      );
+    interval(1000).subscribe(res => {
+      this.total = this.windowSer.getSessionStorage(toDoListLength);
+      this.total = Number(this.total);
+      this.cdr.markForCheck();
+    })
     this.subTheme$.subscribe(options => {
       if (options.mode === 'top' && !this.isOverMode) {
         this.closeMenu();
@@ -331,4 +325,5 @@ export class NavBarComponent implements OnInit {
     });
     this.clientName = sessionStorage.getItem('clientName');
   }
+
 }
