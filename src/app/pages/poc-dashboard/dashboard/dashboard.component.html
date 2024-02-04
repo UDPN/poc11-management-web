@@ -180,7 +180,7 @@
                     <nz-form-label>FX SP</nz-form-label>
                     <nz-form-control>
                       <nz-select nzPlaceHolder="" formControlName="spCode">
-                        <nz-option nzValue="" nzLabel="All"></nz-option>
+                        <!-- <nz-option nzValue="" nzLabel="All"></nz-option> -->
                         <nz-option *ngFor="let item of rateCommercialBankList" [nzValue]="item.spChainCode"
                           [nzLabel]="item.spName">
                         </nz-option>
