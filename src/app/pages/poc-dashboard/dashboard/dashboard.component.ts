@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('currencyPairTpl', { static: true }) currencyPairTpl!: TemplateRef<NzSafeAny>;
-  
+
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -329,7 +329,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           width: 200
         },

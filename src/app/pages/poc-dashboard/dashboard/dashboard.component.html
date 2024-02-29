@@ -41,7 +41,7 @@
             </h5>
             <nz-card class="card base-card">
               <div class="m-b-10">
-                <h5 nz-typography>{{ 'Activated Currencies' }} {{ '(' + items.currencyNumber + ')'
+                <h5 nz-typography>{{ 'Activated Currency' }} {{ '(' + items.currencyNumber + ')'
                   }}</h5>
               </div>
               <div nz-row [nzGutter]="24" class="m-t-25">
@@ -51,7 +51,7 @@
                       <h5 nz-typography>{{ 'Currency Code:' }}</h5>
                     </div>
                     <div class="m-t-10">
-                      <span nz-typography nzType="secondary">{{ 'Active Date:' }}</span>
+                      <span nz-typography nzType="secondary">{{ 'Activated On:' }}</span>
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@
         <ng-template #currencyTpl let-currencyList="currencyList">
           <ng-container *ngIf="currencyList">
             <span *ngFor="let item of currencyList">
-              <span [title]="item">{{ item  }}</span>
+              <span [title]="item">{{ item }}</span>
               <br>
             </span>
           </ng-container>

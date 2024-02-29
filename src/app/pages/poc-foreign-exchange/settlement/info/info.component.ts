@@ -23,11 +23,11 @@ export class InfoComponent implements OnInit {
   constructor(private settlementService: SettlementService, public routeInfo: ActivatedRoute, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Detail`,
+      title: `Details`,
       breadcrumbs: [
-        { name: 'Foreign Exchange Management'},
+        { name: 'Foreign Exchange Management' },
         { name: 'Settlement Model Query', url: '/poc/poc-foreign-exchange/settlement' },
-        { name: 'Detail' }
+        { name: 'Details' }
       ],
       extra: '',
       desc: '',

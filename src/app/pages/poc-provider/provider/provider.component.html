@@ -6,7 +6,7 @@
       <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP Name</nz-form-label>
+            <nz-form-label>FX SP</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="spName" [(ngModel)]="searchParam.spName" />
             </nz-form-control>
@@ -14,9 +14,10 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label [nzNoColon]="true">Application Date</nz-form-label>
+            <nz-form-label [nzNoColon]="true">Created On</nz-form-label>
             <nz-form-control>
-              <nz-range-picker style="width: 100%" name="createTime" [(ngModel)]="searchParam.createTime"></nz-range-picker>
+              <nz-range-picker style="width: 100%" name="createTime"
+                [(ngModel)]="searchParam.createTime"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -26,11 +27,7 @@
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="status" [(ngModel)]="searchParam.status">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option
-                  *ngFor="let item of statusList"
-                  [nzValue]="item.cseValue"
-                  [nzLabel]="item.cseDesc"
-                >
+                <nz-option *ngFor="let item of statusList" [nzValue]="item.cseValue" [nzLabel]="item.cseDesc">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -59,13 +56,14 @@
       [tableConfig]="tableConfig" [tableData]="dataList"></app-ant-table>
     <ng-template #operationTpl let-status="status" let-spCode="spCode">
       <ng-container *appAuth="'R0101'">
-        <span class="operate-text" routerLink="/poc/poc-provider/provider/approve" [queryParams]="{spCode}" *ngIf="status === 0">
-          Approve
+        <span class="operate-text" routerLink="/poc/poc-provider/provider/approve" [queryParams]="{spCode}"
+          *ngIf="status === 0">
+          Approval
         </span>
       </ng-container>
       <ng-container *appAuth="'R0102'">
         <span class="operate-text" routerLink="/poc/poc-provider/provider/info" [queryParams]="{spCode}">
-          Detail
+          Details
         </span>
       </ng-container>
     </ng-template>

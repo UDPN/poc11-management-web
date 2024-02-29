@@ -10,16 +10,16 @@
       <nz-descriptions-item nzTitle="Bank ID">{{
         info.chainBankId
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Bank Name">{{
+      <nz-descriptions-item nzTitle="Central Bank">{{
         info.bankName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BIC">{{
         info.bic
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Country of Region">{{
+      <nz-descriptions-item nzTitle="Region">{{
         info.country
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
+      <nz-descriptions-item nzTitle="Bank Description" [nzSpan]="3">{{
         info.bankIntroduction
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Wallet Address">{{
@@ -31,7 +31,7 @@
       <nz-descriptions-item nzTitle="Agreement"><a class="operate-text" (click)="onLoad()">{{info.fileName ?
           (info.fileName + '.' + info.fileExtension) : '' }}<i nz-icon nzType="cloud-download" nzTheme="outline"
             class="m-l-10"></i></a></nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Creation Time">{{
+      <nz-descriptions-item nzTitle="Created On">{{
         info.createDate | map: 'timeStamp'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Status">{{

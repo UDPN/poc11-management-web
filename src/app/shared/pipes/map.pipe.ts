@@ -82,7 +82,7 @@ export const MapSet = {
     2: 'Fixed Charges'
   },
   approvalResult: {
-    0: 'Agree',
+    0: 'Approve',
     1: 'Reject',
   },
   commercialStatus: {
@@ -122,7 +122,7 @@ export const MapSet = {
   dashBoradBankType: {
     1: 'Central Banks',
     2: 'Commercial Banks',
-    3: 'FX Service Providers(SPs)',
+    3: 'FX Service Providers(FX SPs)',
   }
 };
 

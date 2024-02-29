@@ -161,7 +161,7 @@ export class RoleComponent implements OnInit {
           width: 200
         },
         {
-          title: 'Description',
+          title: 'Request Description',
           field: 'description',
           width: 320
         },
@@ -172,7 +172,7 @@ export class RoleComponent implements OnInit {
           width: 200
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

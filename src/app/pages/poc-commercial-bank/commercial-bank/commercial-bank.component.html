@@ -14,7 +14,7 @@
         </div> -->
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>Bank Name</nz-form-label>
+            <nz-form-label>Commercial Bank</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="spName" [(ngModel)]="searchParam.spName" />
             </nz-form-control>
@@ -34,8 +34,9 @@
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="centralBankChainId" [(ngModel)]="searchParam.centralBankChainId">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option *ngFor="let item of centralBankList" [nzValue]="item.chainBankId" [nzLabel]="item.centralBankName"></nz-option>
-                </nz-select>
+                <nz-option *ngFor="let item of centralBankList" [nzValue]="item.chainBankId"
+                  [nzLabel]="item.centralBankName"></nz-option>
+              </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -50,7 +51,8 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="16" [nzXl]="16" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24" class="m-b-8 text-right p-0">
+        <div nz-col [nzXXl]="16" [nzXl]="16" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24"
+          class="m-b-8 text-right p-0">
           <nz-form-item>
             <nz-form-label [nzNoColon]="true"></nz-form-label>
             <nz-form-control>
@@ -72,7 +74,7 @@
     <ng-template #operationTpl let-spCode="spCode">
       <ng-container *appAuth="'R0601'">
         <span class="operate-text" routerLink="/poc/poc-commercial-bank/commercial-bank/info" [queryParams]="{spCode}">
-          Detail
+          Details
         </span>
       </ng-container>
     </ng-template>

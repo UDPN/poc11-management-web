@@ -45,11 +45,11 @@ export class ApproveComponent implements OnInit {
   constructor(public routeInfo: ActivatedRoute, private router: Router, private fxApplicationService: FxApplicationService, private message: NzMessageService, private location: Location, private themesService: ThemeService, private cdr: ChangeDetectorRef, private fb: FormBuilder) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Approve`,
+      title: `Approval`,
       breadcrumbs: [
         { name: 'Foreign Exchange Management' },
         { name: 'FX Application Management', url: '/poc/poc-foreign-exchange/fx-application' },
-        { name: 'Approve' }
+        { name: 'Approval' }
       ],
       extra: '',
       desc: '',
