@@ -32,11 +32,11 @@ export class InfoComponent implements OnInit {
   constructor(public routeInfo: ActivatedRoute, private fxApplicationService: FxApplicationService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Detail`,
+      title: `Details`,
       breadcrumbs: [
         { name: 'Foreign Exchange Management' },
         { name: 'FX Application Management', url: '/poc/poc-foreign-exchange/fx-application' },
-        { name: 'Detail' }
+        { name: 'Details' }
       ],
       extra: '',
       desc: '',

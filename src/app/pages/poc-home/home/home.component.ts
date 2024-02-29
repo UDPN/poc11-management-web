@@ -95,7 +95,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Creation Time',
+          title: 'Created On',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -108,8 +108,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
           width: 220
         },
         {
-          title: 'SP',
-          tdTemplate: this.spTpl,
+          title: 'FX SP',
+          field: 'spName',
           width: 450
         },
         {
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           width: 120
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

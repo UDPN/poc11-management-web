@@ -13,9 +13,9 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 })
 
 export class InfoComponent implements OnInit {
-  @ViewChild('authorizedTpl', { static: true }) 
+  @ViewChild('authorizedTpl', { static: true })
   authorizedTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('currencyTpl', { static: true }) 
+  @ViewChild('currencyTpl', { static: true })
   currencyTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
@@ -33,10 +33,10 @@ export class InfoComponent implements OnInit {
   constructor(public routeInfo: ActivatedRoute, private cdr: ChangeDetectorRef, private pocProviderService: PocProviderService, private commonService: CommonService) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Detail`,
+      title: `Details`,
       breadcrumbs: [
         { name: 'FX Service Provider Management', url: '/poc/poc-provider/provider' },
-        { name: 'Detail' }
+        { name: 'Details' }
       ],
       extra: '',
       desc: '',

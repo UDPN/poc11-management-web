@@ -44,7 +44,7 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-label nzSpan="24" class=""
-                  >Description</nz-form-label
+                  >Request Description</nz-form-label
                 >
                 <nz-form-control [nzErrorTip]="descriptionError">
                   <div nz-row>
@@ -58,7 +58,7 @@
                   </div>
                   <ng-template #descriptionError let-control>
                     <ng-container *ngIf="control.hasError('required')"
-                      >Please input your Description</ng-container
+                      >Please input your Request Description</ng-container
                     >
                   </ng-template>
                 </nz-form-control>
@@ -183,7 +183,8 @@
                       "
                       (click)="onSubmit()"
                     >
-                      {{ this.tempStatus === true ? 'Save' : 'Edit' }}
+                      <!-- {{ this.tempStatus === true ? 'Save' : 'Edit' }} -->
+                      {{ 'Save' }}
                     </button></nz-space
                   >
                 </div>

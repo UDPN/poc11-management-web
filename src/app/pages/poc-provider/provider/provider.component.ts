@@ -104,17 +104,17 @@ export class ProviderComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           width: 180
         },
         {
-          title: 'Brief Introduction',
+          title: 'Bank Description',
           field: 'spBriefIntroduction',
           width: 300
         },
         {
-          title: 'Application Time',
+          title: 'Created On',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -127,7 +127,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

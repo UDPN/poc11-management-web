@@ -146,12 +146,12 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Currency Name',
+          title: 'wCBDC',
           field: 'currency',
           width: 120
         },
         {
-          title: 'Currency ID',
+          title: 'wCBDC ID',
           field: 'currencyCode',
           width: 280
         },
@@ -172,7 +172,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 240
         },
         {
-          title: 'Creation Time',
+          title: 'Created On',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -185,7 +185,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 100
         },
         // {
-        //   title: 'Action',
+        //   title: 'Actions',
         //   tdTemplate: this.operationTpl,
         //   fixed: true,
         //   fixedDir: 'right',
