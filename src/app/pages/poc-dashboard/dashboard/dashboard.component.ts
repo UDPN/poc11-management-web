@@ -344,7 +344,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Active Time',
+          title: 'Activated On',
           field: 'activeTime',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
