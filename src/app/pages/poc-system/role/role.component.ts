@@ -161,7 +161,7 @@ export class RoleComponent implements OnInit {
           width: 200
         },
         {
-          title: 'Request Description',
+          title: 'Description',
           field: 'description',
           width: 320
         },
