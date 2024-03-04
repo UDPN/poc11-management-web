@@ -90,8 +90,8 @@ export const MapSet = {
     1: 'Inactive'
   },
   lockable: {
-    1: 'Disabled',
-    2: 'Enabled'
+    1: 'Inactive',
+    2: 'Active'
   },
   transactionsStatus: {
     1: 'Success',
