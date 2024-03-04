@@ -1,3 +1,11 @@
+/*
+ * @Author: chenyuting 89172243+chenyuting12@users.noreply.github.com
+ * @Date: 2024-01-23 15:56:27
+ * @LastEditors: chenyuting 89172243+chenyuting12@users.noreply.github.com
+ * @LastEditTime: 2024-03-04 14:05:22
+ * @FilePath: \poc11-management-web\src\app\pages\poc-foreign-exchange\exchange-rate\exchange-rate.component.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { LoginService } from '@app/core/services/http/login/login.service';
@@ -195,7 +203,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Date',
+          title: 'Created On',
           field: 'rateDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
