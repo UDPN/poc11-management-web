@@ -41,10 +41,10 @@ export class ApproveComponent implements OnInit {
   constructor(public routeInfo: ActivatedRoute, private router: Router, private pocProviderService: PocProviderService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService, private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Approved`,
+      title: `Approval`,
       breadcrumbs: [
         { name: 'FX Service Provider Management', url: '/poc/poc-provider/provider' },
-        { name: 'Approved' }
+        { name: 'Approval' }
       ],
       extra: '',
       desc: '',

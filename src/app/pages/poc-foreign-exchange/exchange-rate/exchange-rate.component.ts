@@ -1,3 +1,11 @@
+/*
+ * @Author: chenyuting 89172243+chenyuting12@users.noreply.github.com
+ * @Date: 2024-01-23 15:56:27
+ * @LastEditors: chenyuting 89172243+chenyuting12@users.noreply.github.com
+ * @LastEditTime: 2024-03-04 14:05:22
+ * @FilePath: \poc11-management-web\src\app\pages\poc-foreign-exchange\exchange-rate\exchange-rate.component.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { LoginService } from '@app/core/services/http/login/login.service';
@@ -123,24 +131,24 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     this.pairedExchangeRateList.map((item: any) => {
       if (this.searchParam.pairedExchangeRate === item.key) {
         this.listParam.formRatePlatform = item.sourcePlatform,
-        this.listParam.formRateCurrency = item.sourceCurrency,
-        this.listParam.toRatePlatform = item.targetPlatform,
-        this.listParam.toRateCurrency = item.targetCurrency
+          this.listParam.formRateCurrency = item.sourceCurrency,
+          this.listParam.toRatePlatform = item.targetPlatform,
+          this.listParam.toRateCurrency = item.targetCurrency
       } else if (this.searchParam.pairedExchangeRate === '') {
         this.listParam.formRatePlatform = '',
-        this.listParam.formRateCurrency = '',
-        this.listParam.toRatePlatform = '',
-        this.listParam.toRateCurrency = ''
+          this.listParam.formRateCurrency = '',
+          this.listParam.toRatePlatform = '',
+          this.listParam.toRateCurrency = ''
       }
     })
     this.spIdList.map((item: any) => {
       if (this.searchParam.spId === item.spKey) {
         this.listParam.spCode = item.spChainCode,
-        this.listParam.spName = item.spName
-      } else if (this.searchParam.spId === ''){
+          this.listParam.spName = item.spName
+      } else if (this.searchParam.spId === '') {
         this.listParam.spCode = '',
-        this.listParam.spName = ''
-      }    
+          this.listParam.spName = ''
+      }
     })
     this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
@@ -172,7 +180,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           // tdTemplate: this.spTpl,
           pipe: 'nullValue',
@@ -195,7 +203,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Date',
+          title: 'Created On',
           field: 'rateDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,

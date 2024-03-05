@@ -66,18 +66,18 @@ export class InfoComponent implements OnInit {
   constructor(public routeInfo: ActivatedRoute, private roleService: RoleService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Detail`,
+      title: `Details`,
       breadcrumbs: [
         { name: 'System Management' },
         { name: 'Role Management', url: '/poc/poc-system/role' },
-        { name: 'Detail' }
+        { name: 'Details' }
       ],
       extra: '',
       desc: '',
       footer: ''
     };
   }
-  
+
   ngOnInit() {
     this.getInfo();
   }

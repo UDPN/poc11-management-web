@@ -11,7 +11,7 @@
           <div nz-row nzJustify="space-between" nzGutter="8">
             <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
               <nz-form-item>
-                <nz-form-label nzRequired nzSpan="24">Bank Name
+                <nz-form-label nzRequired nzSpan="24">Central Bank
                 </nz-form-label>
                 <nz-form-control [nzErrorTip]="bankNameError">
                   <div nz-row>
@@ -21,7 +21,7 @@
                     </div>
                   </div>
                   <ng-template #bankNameError let-control>
-                    <ng-container *ngIf="control.hasError('required')">Please input your Bank Name</ng-container>
+                    <ng-container *ngIf="control.hasError('required')">Please input your Central Bank</ng-container>
                     <ng-container *ngIf="control.hasError('regular')">Characters of 2 ~ 50 letters or numbers, cannot
                       start with numbers</ng-container>
                   </ng-template>
@@ -81,7 +81,7 @@
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="24">Country of Region
+          <nz-form-label nzRequired nzSpan="24">Region
           </nz-form-label>
           <nz-form-control [nzErrorTip]="countryError">
             <div nz-row>
@@ -101,7 +101,7 @@
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">Brief Introduction
+          <nz-form-label nzRequired nzSpan="10">Bank Description
           </nz-form-label>
           <nz-form-control [nzErrorTip]="introductionError">
             <div nz-row>
@@ -110,7 +110,7 @@
               </div>
             </div>
             <ng-template #introductionError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Brief Introduction</ng-container>
+              <ng-container *ngIf="control.hasError('required')">Please input your Bank Description</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -142,7 +142,8 @@
               </div>
             </ng-container>
             <ng-template #besuWalletAddressError let-control>
-              <ng-container *ngIf="control.hasError('required')">{{'Please ' + (tempStatus ?  'select' : 'input') + ' your Wallet Address(Besu)'}}</ng-container>
+              <ng-container *ngIf="control.hasError('required')">{{'Please ' + (tempStatus ? 'select' : 'input') + '
+                your Wallet Address(Besu)'}}</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -201,7 +202,8 @@
                 </button>
                 <button *nzSpaceItem nz-button [nzSize]="'large'" nzType="primary" [nzLoading]="isLoading"
                   [disabled]="!this.validateForm.valid" (click)="onSubmit()">
-                  {{ this.tempStatus === true ? 'Save' : 'Edit' }}
+                  <!-- {{ this.tempStatus === true ? 'Save' : 'Edit' }} -->
+                  {{ 'Save' }}
                 </button></nz-space>
             </div>
           </div>

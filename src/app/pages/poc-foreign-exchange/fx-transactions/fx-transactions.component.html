@@ -30,12 +30,11 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP Name</nz-form-label>
+            <nz-form-label>FX SP</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="spId" [(ngModel)]="searchParam.spId">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option *ngFor="let item of spIdList" [nzValue]="item.spKey"
-                  [nzLabel]="item.spName">
+                <nz-option *ngFor="let item of spIdList" [nzValue]="item.spKey" [nzLabel]="item.spName">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -68,13 +67,14 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label [nzNoColon]="true">Date</nz-form-label>
+            <nz-form-label [nzNoColon]="true">Created On</nz-form-label>
             <nz-form-control>
               <nz-range-picker style="width: 100%" name="creation" [(ngModel)]="searchParam.creation"></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="24" [nzXl]="24" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24" class="m-b-8 text-right p-0">
+        <div nz-col [nzXXl]="24" [nzXl]="24" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24"
+          class="m-b-8 text-right p-0">
           <nz-form-item>
             <nz-form-label [nzNoColon]="true"></nz-form-label>
             <nz-form-control>
@@ -110,7 +110,7 @@
       <ng-container *appAuth="'R0404001'">
         <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-transactions/info"
           [queryParams]="{transactionNo}">
-          Detail
+          Details
         </span>
       </ng-container>
     </ng-template>

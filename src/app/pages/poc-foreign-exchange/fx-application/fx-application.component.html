@@ -22,7 +22,7 @@
         </div> -->
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP Name</nz-form-label>
+            <nz-form-label>FX SP</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="spName" [(ngModel)]="searchParam.spName" />
             </nz-form-control>
@@ -42,7 +42,7 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label [nzNoColon]="true">Application Date</nz-form-label>
+            <nz-form-label [nzNoColon]="true">Created On</nz-form-label>
             <nz-form-control>
               <nz-range-picker style="width: 100%" name="createTime"
                 [(ngModel)]="searchParam.createTime"></nz-range-picker>
@@ -61,7 +61,7 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24"  class="m-b-8 text-right p-0">
+        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24" class="m-b-8 text-right p-0">
           <nz-form-item>
             <nz-form-label [nzNoColon]="true"></nz-form-label>
             <nz-form-control>
@@ -83,14 +83,14 @@
     <ng-template #operationTpl let-businessApplicationCode="businessApplicationCode" let-status="status">
       <ng-container *appAuth="'R0401001'">
         <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-application/approve"
-        [queryParams]="{businessApplicationCode}" *ngIf="status === 0">
-        Approve
-      </span>
+          [queryParams]="{businessApplicationCode}" *ngIf="status === 0">
+          Approval
+        </span>
       </ng-container>
       <ng-container *appAuth="'R0401002'">
         <span class="operate-text" routerLink="/poc/poc-foreign-exchange/fx-application/info"
           [queryParams]="{businessApplicationCode}">
-          Detail
+          Details
         </span>
       </ng-container>
     </ng-template>

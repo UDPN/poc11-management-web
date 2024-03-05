@@ -7,10 +7,10 @@
   <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
-      <nz-descriptions-item nzTitle="Bank ID">{{
+      <nz-descriptions-item nzTitle="Commercial Bank ID">{{
         info.spChainCode
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Bank Name">{{
+      <nz-descriptions-item nzTitle="Commercial Bank">{{
         info.spName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BIC">{{
@@ -22,10 +22,10 @@
       <nz-descriptions-item nzTitle="FX SP">{{
         info.bankType | map:'bankTypeStatus'
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Brief Introduction" [nzSpan]="3">{{
+      <nz-descriptions-item nzTitle="Bank Description" [nzSpan]="3">{{
         info.spBriefIntroduction
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Description" [nzSpan]="3">{{
+      <nz-descriptions-item nzTitle="Request Description" [nzSpan]="3">{{
         info.spDescription
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BN ID">{{
@@ -34,7 +34,7 @@
       <nz-descriptions-item nzTitle="Wallet Address">{{
         info.spBesuWalletAddress
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Onboarding Time">{{
+      <nz-descriptions-item nzTitle="Onboarded On">{{
         info.createDate | map:'timeStamp'
         }}</nz-descriptions-item>
     </nz-descriptions>
@@ -78,8 +78,8 @@
       <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
         <label *ngFor="let item of attachmentsList">
           <button nz-button nzType="text" class="m-t-15 m-r-25"
-            (click)="onLoad(item.approvedSpFileHash, item.fileUrl)">{{ item.fileUrl }}<span nz-icon
-              nzType="download" class="m-l-15"></span></button>
+            (click)="onLoad(item.approvedSpFileHash, item.fileUrl)">{{ item.fileUrl }}<span nz-icon nzType="download"
+              class="m-l-15"></span></button>
         </label>
       </div>
     </div>

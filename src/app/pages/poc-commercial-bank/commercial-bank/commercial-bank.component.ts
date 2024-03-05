@@ -120,22 +120,22 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
         //   width: 280
         // },
         {
-          title: 'Bank Name',
+          title: 'Commercial Bank',
           field: 'spName',
           width: 180
-        },   
+        },
         {
           title: 'BIC',
           field: 'bankBic',
           width: 180
-        },   
+        },
         {
           title: 'Central Bank',
           field: 'centralBankName',
           width: 200
         },
         {
-          title: 'Brief Introduction',
+          title: 'Bank Description',
           field: 'spBriefIntroduction',
           width: 350
         },
@@ -146,7 +146,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',
