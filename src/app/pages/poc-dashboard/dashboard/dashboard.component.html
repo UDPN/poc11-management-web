@@ -41,7 +41,7 @@
             </h5>
             <nz-card class="card base-card">
               <div class="m-b-10">
-                <h5 nz-typography>{{ 'Activaed Currencies' }} {{ '(' + items.currencyNumber + ')'
+                <h5 nz-typography>{{ 'Activated Currencies' }} {{ '(' + items.currencyNumber + ')'
                   }}</h5>
               </div>
               <div nz-row [nzGutter]="24" class="m-t-25">
@@ -180,7 +180,7 @@
                     <nz-form-label>FX SP</nz-form-label>
                     <nz-form-control>
                       <nz-select nzPlaceHolder="" formControlName="spCode">
-                        <nz-option nzValue="" nzLabel="All"></nz-option>
+                        <!-- <nz-option nzValue="" nzLabel="All"></nz-option> -->
                         <nz-option *ngFor="let item of rateCommercialBankList" [nzValue]="item.spChainCode"
                           [nzLabel]="item.spName">
                         </nz-option>

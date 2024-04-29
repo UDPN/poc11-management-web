@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('currencyPairTpl', { static: true }) currencyPairTpl!: TemplateRef<NzSafeAny>;
+  
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -110,7 +111,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getVolumeSelectBank();
     this.getRateCommercialBank();
     this.onQueryVolume();
-    this.onQueryRate();
     this.getScreenWidth = window.innerWidth;
     if (this.getScreenWidth > 900) {
       this.legend = true;
@@ -186,6 +186,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_approved_sp_info' }).subscribe((res: any) => {
       if (res) {
         this.rateCommercialBankList = res.dataInfo;
+        this.rateForm.get('spCode')?.setValue(this.rateCommercialBankList[0].spChainCode);
         this.cdr.markForCheck();
       }
     });
@@ -212,6 +213,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           this.listParam.targetCurrency = '';
           this.listParam.targetPlatform = '';
         };
+        this.onQueryRate();
         this.cdr.markForCheck();
       }
     });
