@@ -101,9 +101,9 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.searchParam = {};
     this.listParam = {};
     this.searchParam.spId = '',
-    this.searchParam.pairedExchangeRate = '',
-    this.searchParam.chargingModel = '',
-    this.getDataList(this.tableQueryParams);
+      this.searchParam.pairedExchangeRate = '',
+      this.searchParam.chargingModel = '',
+      this.getDataList(this.tableQueryParams);
   }
 
   initSelect() {
@@ -135,23 +135,23 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.pairedExchangeRateList.map((item: any) => {
       if (this.searchParam.pairedExchangeRate === item.key) {
         this.listParam.formRatePlatform = item.sourcePlatform,
-        this.listParam.formRateCurrency = item.sourceCurrency,
-        this.listParam.toRatePlatform = item.targetPlatform,
-        this.listParam.toRateCurrency = item.targetCurrency
+          this.listParam.formRateCurrency = item.sourceCurrency,
+          this.listParam.toRatePlatform = item.targetPlatform,
+          this.listParam.toRateCurrency = item.targetCurrency
       } else if (this.searchParam.pairedExchangeRate === '') {
         this.listParam.formRatePlatform = '',
-        this.listParam.formRateCurrency = '',
-        this.listParam.toRatePlatform = '',
-        this.listParam.toRateCurrency = ''
+          this.listParam.formRateCurrency = '',
+          this.listParam.toRatePlatform = '',
+          this.listParam.toRateCurrency = ''
       }
     })
     this.spIdList.map((item: any) => {
       if (this.searchParam.spId === item.spKey) {
         this.listParam.spCode = item.spChainCode,
-        this.listParam.spName = item.spName
+          this.listParam.spName = item.spName
       } else if (this.searchParam.spId === '') {
         this.listParam.spCode = '',
-        this.listParam.spName = ''
+          this.listParam.spName = ''
       }
     })
     this.tableConfig.loading = true;
@@ -189,7 +189,7 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           width: 150
         },
@@ -220,7 +220,7 @@ export class SettlementComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

@@ -43,7 +43,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
   @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('spTpl', { static: true }) spTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('amountTpl', { static: true }) amountTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<NzSafeAny>; 
+  @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
@@ -88,7 +88,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
       footer: ''
     };
   }
-  
+
   ngOnInit() {
     this.initTable();
     this.initSelect();
@@ -102,17 +102,17 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = isLoading;
     this.tableChangeDectction();
   }
-  
+
   resetForm(): void {
     this.searchParam = {};
     this.listParam = {};
     this.searchParam.creation = [],
-    this.searchParam.currency = '',
-    this.searchParam.spId = '',
-    this.searchParam.fromBnId = ''
+      this.searchParam.currency = '',
+      this.searchParam.spId = '',
+      this.searchParam.fromBnId = ''
     this.getDataList(this.tableQueryParams);
   }
-  
+
   initSelect() {
     this.commonService.getSelect({ dropDownTypeCode: 'drop_down_exchange_rate_info' }).subscribe((res) => {
       this.currencyList = res.dataInfo;
@@ -144,24 +144,24 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
     this.currencyList.map((item: any) => {
       if (this.searchParam.currency === item.key) {
         this.listParam.formRatePlatform = item.sourcePlatform,
-        this.listParam.formRateCurrency = item.sourceCurrency,
-        this.listParam.toRatePlatform = item.targetPlatform,
-        this.listParam.toRateCurrency = item.targetCurrency
+          this.listParam.formRateCurrency = item.sourceCurrency,
+          this.listParam.toRatePlatform = item.targetPlatform,
+          this.listParam.toRateCurrency = item.targetCurrency
       } else if (this.searchParam.currency === '') {
         this.listParam.formRatePlatform = '',
-        this.listParam.formRateCurrency = '',
-        this.listParam.toRatePlatform = '',
-        this.listParam.toRateCurrency = ''
+          this.listParam.formRateCurrency = '',
+          this.listParam.toRatePlatform = '',
+          this.listParam.toRateCurrency = ''
       }
     })
     this.spIdList.map((item: any) => {
       if (this.searchParam.spId === item.spKey) {
         this.listParam.spCode = item.spChainCode,
-        this.listParam.spName = item.spName
-      } else if (this.searchParam.spId === ''){
+          this.listParam.spName = item.spName
+      } else if (this.searchParam.spId === '') {
         this.listParam.spCode = '',
-        this.listParam.spName = ''
-      }    
+          this.listParam.spName = ''
+      }
     })
     this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
@@ -216,7 +216,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           width: 150
         },
@@ -232,7 +232,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Date',
+          title: 'Created On',
           field: 'transactionDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -245,7 +245,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
           width: 120
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

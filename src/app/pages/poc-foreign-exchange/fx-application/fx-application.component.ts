@@ -46,11 +46,11 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private fxApplicationService: FxApplicationService,private commonService: CommonService, private cdr: ChangeDetectorRef) { }
+  constructor(private fxApplicationService: FxApplicationService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: [ 'Foreign Exchange Management', 'FX Application Management'],
+      breadcrumb: ['Foreign Exchange Management', 'FX Application Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -71,15 +71,15 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = isLoading;
     this.tableChangeDectction();
   }
-    
+
   resetForm(): void {
     this.searchParam = {};
     this.searchParam.createTime = [],
-    this.searchParam.status = '',
-    this.searchParam.businessType = '',
-    this.getDataList(this.tableQueryParams);
+      this.searchParam.status = '',
+      this.searchParam.businessType = '',
+      this.getDataList(this.tableQueryParams);
   }
-  
+
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
   }
@@ -93,7 +93,7 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
       this.businessTypeList = res.dataInfo;
     })
   }
-  
+
   getDataList(e?: NzTableQueryParams): void {
     this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
@@ -126,7 +126,7 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
         //   width: 320
         // },
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           width: 180
         },
@@ -137,7 +137,7 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Application Time',
+          title: 'Created On',
           field: 'applicationTime',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -150,7 +150,7 @@ export class FxApplicationComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

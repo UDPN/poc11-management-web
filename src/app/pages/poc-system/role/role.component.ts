@@ -172,7 +172,7 @@ export class RoleComponent implements OnInit {
           width: 200
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',

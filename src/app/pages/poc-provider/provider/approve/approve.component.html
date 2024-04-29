@@ -7,7 +7,7 @@
   <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
     <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
       [nzBordered]="true">
-      <nz-descriptions-item nzTitle="FX SP Name">{{
+      <nz-descriptions-item nzTitle="FX SP">{{
         info.spName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BIC">{{
@@ -16,10 +16,10 @@
       <nz-descriptions-item nzTitle="Central Bank">{{
         info.centralBankName
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Brief Introduction">{{
+      <nz-descriptions-item nzTitle="Bank Description">{{
         info.spBriefIntroduction
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Description" [nzSpan]="3">{{
+      <nz-descriptions-item nzTitle="Request Description" [nzSpan]="3">{{
         info.spDescription
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BN ID">{{
@@ -28,7 +28,7 @@
       <nz-descriptions-item nzTitle="Wallet Address">{{
         info.spBesuWalletAddress
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Application Date">{{
+      <nz-descriptions-item nzTitle="Created On">{{
         info.createDate| map : 'timeStamp'
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Status">{{
@@ -66,7 +66,8 @@
           <span>{{ 'Yes' }}</span>
         </ng-template>
         <ng-template #currencyTpl let-settlementCapitalPoolCurrency="settlementCapitalPoolCurrency">
-          <span>{{ settlementCapitalPoolCurrency.split('-')[0] + '-' + settlementCapitalPoolCurrency.split('-')[1] }}</span>
+          <span>{{ settlementCapitalPoolCurrency.split('-')[0] + '-' + settlementCapitalPoolCurrency.split('-')[1]
+            }}</span>
         </ng-template>
       </div>
     </div>
@@ -92,7 +93,7 @@
             <nz-form-control [nzXXl]="16" [nzXl]="16" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24">
               <nz-radio-group formControlName="approvalResult" name="radioValue">
                 <div>
-                  <label nz-radio [nzValue]="0">Agree</label>
+                  <label nz-radio [nzValue]="0">Approve</label>
                   <label nz-radio [nzValue]="1">Reject</label>
                 </div>
               </nz-radio-group>

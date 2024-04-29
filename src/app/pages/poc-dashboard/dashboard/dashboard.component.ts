@@ -1,4 +1,19 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
+/*
+ * @Author: chenyuting
+ * @Date: 2024-01-11 11:22:36
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-04-26 17:58:41
+ * @Description:
+ */
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectorRef,
+  HostListener
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DestroyService } from '@app/core/services/common/destory.service';
@@ -9,23 +24,30 @@ import { ThemeService } from '@app/core/services/store/common-store/theme.servic
 import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
-import { timestampToDate } from '@app/utils/tools';
+import { thousandthMark, timestampToDate } from '@app/utils/tools';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import * as echarts from 'echarts';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize, takeUntil } from 'rxjs';
-
+import map from 'src/assets/map/map.json';
+echarts.registerMap('map', map as any); /* 注册world地图 */
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.less'],
+  styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
-  @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
-  @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('currencyPairTpl', { static: true }) currencyPairTpl!: TemplateRef<NzSafeAny>;
-  
+  @ViewChild('headerContent', { static: false })
+  headerContent!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerExtra', { static: false })
+  headerExtra!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyTpl', { static: true })
+  currencyTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyPairTpl', { static: true })
+  currencyPairTpl!: TemplateRef<NzSafeAny>;
+
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -61,6 +83,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   centralBankList: any = [];
   commercialBankList: any = [];
   bankInfoList: any = [];
+  maplist: any = [];
+  mapBankInfo: any;
   getScreenWidth: any;
   colorScheme: Color = {
     domain: ['#5AA454', '#E44D25', '#7aa3e5', '#a8385d', '#aae3f5'],
@@ -82,7 +106,34 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   };
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
-  constructor(private fb: FormBuilder, private commonService: CommonService, private dataService: LoginService, private destroy$: DestroyService, private router: Router, private pocDashBoardService: PocDashBoardService, private cdr: ChangeDetectorRef) { }
+  centralToolTip: any = [
+    {
+      currency: 'w-HKD',
+      amount: 3000000
+    },
+    {
+      currency: 'w-EUR',
+      amount: 1120000
+    },
+    {
+      currency: 'w-THB',
+      amount: 8000000
+    },
+    {
+      currency: 'w-THB',
+      amount: 8000000
+    }
+  ];
+  constructor(
+    private fb: FormBuilder,
+    private commonService: CommonService,
+    private dataService: LoginService,
+    private destroy$: DestroyService,
+    private router: Router,
+    private pocDashBoardService: PocDashBoardService,
+    private nzMessageService: NzMessageService,
+    private cdr: ChangeDetectorRef
+  ) {}
   ngAfterViewInit(): void {
     this.centralBankChange();
     this.rateCommercialBankChange();
@@ -93,21 +144,32 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       desc: this.headerContent,
       footer: ''
     };
+    setTimeout(() => {
+      this.getEcharts();
+    }, 300);
   }
-
-  // @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', ['$event'])
   ngOnInit() {
     this.initTable();
     this.volumeForm = this.fb.group({
       centralBankCode: [''],
-      commercialBankCode: [''],
+      commercialBankCode: ['']
     });
     this.rateForm = this.fb.group({
       spCode: [''],
-      currency: [''],
+      currency: ['']
     });
+    const fn = () => {
+      const myChart: any = echarts.init(
+        document.getElementById('chart-container')
+      );
+      myChart.resize();
+    };
+    window.addEventListener('resize', fn);
+
     this.getBankNumber();
     this.getBankInfo();
+    this.getMap();
     this.getVolumeSelectBank();
     this.getRateCommercialBank();
     this.onQueryVolume();
@@ -123,6 +185,117 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.view = [300, 300];
     }
   }
+  // --------------------------- //
+  getEcharts() {
+    const visualMapRange = [
+      { min: 3, max: 3, color: '#204c7d', label: 'Central Bank' },
+      { min: 1, max: 2, color: '#ff0000', label: 'Commercial Bank' }
+    ];
+    var dom: any = document.getElementById('chart-container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var data: any = [];
+    this.maplist.map((item: any) => {
+      data.push({
+        name: item.bankName,
+        value: [item.longitude, item.latitude, item.bankType]
+      });
+    });
+    var option;
+    option = {
+      backgroundColor: '#CEE3F5',
+      geo: {
+        show: true,
+        roam: false,
+        map: 'map',
+        emphasis: {
+          label: {
+            show: true
+          },
+          itemStyle: {
+            areaColor: '#CEE3F5'
+          }
+        },
+        center: [0, 15],
+        zoom: 1.2
+      },
+      tooltip: {
+        show: false,
+        triggerOn: `click`,
+        trigger: `item`,
+        enterable: true
+      },
+      visualMap: {
+        type: 'piecewise',
+        min: 1,
+        max: 3,
+        calculable: true,
+        inRange: {
+          color: visualMapRange.map((item) => item.color)
+        },
+        pieces: visualMapRange.map((item) => ({
+          min: item.min,
+          max: item.max,
+          label: item.label
+        })),
+        textStyle: {
+          color: '#000'
+        }
+      },
+      series: [
+        {
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          mapType: 'world',
+          data: data,
+          label: {
+            show: true,
+            formatter: (params: any) => {
+              return params.data.name;
+            },
+            position: 'insideLeft',
+            color: '#000'
+          },
+          tooltip: {
+            show: true,
+            extraCssText: 'max-width:60%;max-height:60%;overflow: auto;',
+            formatter: (params: any) => {
+              this.maplist.map((item: any, index: number) => {
+                if (params.data.name === item.bankName) {
+                  this.mapBankInfo = item;
+                  if (item.bankLogoHash) {
+                    this.commonService
+                      .download({ hash: item.bankLogoHash })
+                      .subscribe((data) => {
+                        Object.assign(item, {
+                          logo: 'data:image/jpg;base64,' + data
+                        });
+                        this.cdr.markForCheck();
+                        this.cdr.detectChanges();
+                      });
+                  }
+                }
+              });
+              var container: any = document.getElementById('container');
+              return container.innerHTML;
+            }
+          },
+          symbolSize: 10,
+          rippleEffect: {
+            brushType: 'stroke'
+          },
+          hoverAnimation: true
+        }
+      ]
+    };
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+  }
+
+  // ============================//
 
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
@@ -142,17 +315,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
       pageSize: this.tableConfig.pageSize!,
-      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+      pageNum: e?.pageIndex || this.tableConfig.pageIndex!
     };
-    this.pocDashBoardService.getSpList(params.pageNum, params.pageSize).pipe(finalize(() => {
-      this.tableLoading(false);
-    })).subscribe((_: any) => {
-      this.dataList = _.data;
-      this.tableConfig.total = _?.resultPageInfo?.total;
-      this.tableConfig.pageIndex = params.pageNum;
-      this.tableLoading(false);
-      this.cdr.markForCheck();
-    });
+    this.pocDashBoardService
+      .getSpList(params.pageNum, params.pageSize)
+      .pipe(
+        finalize(() => {
+          this.tableLoading(false);
+        })
+      )
+      .subscribe((_: any) => {
+        this.dataList = _.data;
+        this.tableConfig.total = _?.resultPageInfo?.total;
+        this.tableConfig.pageIndex = params.pageNum;
+        this.tableLoading(false);
+        this.cdr.markForCheck();
+      });
   }
 
   getBankNumber() {
@@ -173,6 +351,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getMap() {
+    this.pocDashBoardService.getMapList().subscribe((res: any) => {
+      if (res) {
+        this.maplist = res;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
   getVolumeSelectBank() {
     this.pocDashBoardService.getVolumeSelectBank().subscribe((res: any) => {
       if (res) {
@@ -183,51 +371,60 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   getRateCommercialBank() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_approved_sp_info' }).subscribe((res: any) => {
-      if (res) {
-        this.rateCommercialBankList = res.dataInfo;
-        this.rateForm.get('spCode')?.setValue(this.rateCommercialBankList[0].spChainCode);
-        this.cdr.markForCheck();
-      }
-    });
+    this.commonService
+      .getSelect({ dropDownTypeCode: 'drop_down_approved_sp_info' })
+      .subscribe((res: any) => {
+        if (res) {
+          this.rateCommercialBankList = res.dataInfo;
+          this.rateForm
+            .get('spCode')
+            ?.setValue(this.rateCommercialBankList[0].spChainCode);
+          this.cdr.markForCheck();
+        }
+      });
   }
 
   getRateCurrency(currencyCode: any) {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_linked_exchange_rate_pair', csePCode: currencyCode }).subscribe((res: any) => {
-      if (res) {
-        this.rateCurrencyList = res.dataInfo;
-        if (this.rateCurrencyList && this.rateCurrencyList.length > 0) {
-          this.rateCurrencyList.map((item: any, i: any) => {
-            Object.assign(item, { key: i + 1 });
-          });
-          this.listParam = {
-            sourceCurrency: this.rateCurrencyList[0]?.sourceCurrency,
-            sourcePlatform: this.rateCurrencyList[0]?.sourcePlatform,
-            targetCurrency: this.rateCurrencyList[0]?.targetCurrency,
-            targetPlatform: this.rateCurrencyList[0]?.targetPlatform
-          };
-          this.rateForm.get('currency')?.setValue(1);
-        } else {
-          this.listParam.sourceCurrency = '';
-          this.listParam.sourcePlatform = '';
-          this.listParam.targetCurrency = '';
-          this.listParam.targetPlatform = '';
-        };
-        this.onQueryRate();
-        this.cdr.markForCheck();
-      }
-    });
+    this.commonService
+      .getSelect({
+        dropDownTypeCode: 'drop_down_linked_exchange_rate_pair',
+        csePCode: currencyCode
+      })
+      .subscribe((res: any) => {
+        if (res) {
+          this.rateCurrencyList = res.dataInfo;
+          if (this.rateCurrencyList && this.rateCurrencyList.length > 0) {
+            this.rateCurrencyList.map((item: any, i: any) => {
+              Object.assign(item, { key: i + 1 });
+            });
+            this.listParam = {
+              sourceCurrency: this.rateCurrencyList[0]?.sourceCurrency,
+              sourcePlatform: this.rateCurrencyList[0]?.sourcePlatform,
+              targetCurrency: this.rateCurrencyList[0]?.targetCurrency,
+              targetPlatform: this.rateCurrencyList[0]?.targetPlatform
+            };
+            this.rateForm.get('currency')?.setValue(1);
+          } else {
+            this.listParam.sourceCurrency = '';
+            this.listParam.sourcePlatform = '';
+            this.listParam.targetCurrency = '';
+            this.listParam.targetPlatform = '';
+          }
+          this.onQueryRate();
+          this.cdr.markForCheck();
+        }
+      });
   }
 
   rateCommercialBankChange() {
-    this.rateForm.get('spCode')?.valueChanges.subscribe(res => {
+    this.rateForm.get('spCode')?.valueChanges.subscribe((res) => {
       this.rateForm.get('currency')?.setValue(0);
       this.getRateCurrency(res);
-    })
+    });
   }
 
   centralBankChange() {
-    this.volumeForm.get('centralBankCode')?.valueChanges.subscribe(res => {
+    this.volumeForm.get('centralBankCode')?.valueChanges.subscribe((res) => {
       this.volumeForm.get('commercialBankCode')?.setValue('');
       this.centralBankList.forEach((item: any) => {
         if (res === item.centralBankCode) {
@@ -235,42 +432,41 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           this.cdr.markForCheck();
         }
       });
-    })
+    });
   }
 
   onQueryVolume() {
-    this.pocDashBoardService.getVolumeChart(this.volumeForm.value).subscribe((res: any) => {
-      if (res) {
-        let multi1: any = [];
-        if (res.length > 0) {
-          res.forEach((item: any) => {
-            let series1: any = [];
-            item.transactionStatistics.forEach((items: any) => {
-              series1.push({
-                name:
-                  items.fromCurrency +
-                  '->' +
-                  items.toCurrency,
-                value: items.transactionNumber
-                  .toString()
-                  .replace(/\d{1,3}(?=(\d{3})+(\.|$))/gy, '$&,')
+    this.pocDashBoardService
+      .getVolumeChart(this.volumeForm.value)
+      .subscribe((res: any) => {
+        if (res) {
+          let multi1: any = [];
+          if (res.length > 0) {
+            res.forEach((item: any) => {
+              let series1: any = [];
+              item.transactionStatistics.forEach((items: any) => {
+                series1.push({
+                  name: items.fromCurrency + '->' + items.toCurrency,
+                  value: items.transactionNumber
+                    .toString()
+                    .replace(/\d{1,3}(?=(\d{3})+(\.|$))/gy, '$&,')
+                });
               });
+              multi1.push({
+                name: timestampToDate(item.transactionDate),
+                series: series1
+              });
+              this.testSeries = series1;
+              this.multi1 = multi1;
+              Object.assign(this, { multi1 });
             });
-            multi1.push({
-              name: timestampToDate(item.transactionDate),
-              series: series1
-            });
-            this.testSeries = series1;
+          } else {
             this.multi1 = multi1;
             Object.assign(this, { multi1 });
-          });
-        } else {
-          this.multi1 = multi1;
-          Object.assign(this, { multi1 });
+          }
         }
-      }
-      this.cdr.markForCheck();
-    });
+        this.cdr.markForCheck();
+      });
   }
 
   onQueryRate() {
@@ -289,47 +485,42 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       targetCurrency: this.listParam.targetCurrency || '',
       targetPlatform: this.listParam.targetPlatform || ''
     };
-    this.pocDashBoardService
-      .getRateChart(params)
-      .subscribe((res) => {
-        if (res) {
-          let multi: any = [];
+    this.pocDashBoardService.getRateChart(params).subscribe((res) => {
+      if (res) {
+        let multi: any = [];
 
-          if (res.length > 0) {
-            res.forEach((item: any) => {
-              let series: any = [];
-              item.historyExchangeRateInfoList.forEach((items: any) => {
-                series.push({
-                  name: timestampToDate(items.date),
-                  value: items.exchangeRate
-                    .toString()
-                    .replace(/\d{1,3}(?=(\d{3})+(\.|$))/gy, '$&,')
-                });
+        if (res.length > 0) {
+          res.forEach((item: any) => {
+            let series: any = [];
+            item.historyExchangeRateInfoList.forEach((items: any) => {
+              series.push({
+                name: timestampToDate(items.date),
+                value: items.exchangeRate
+                  .toString()
+                  .replace(/\d{1,3}(?=(\d{3})+(\.|$))/gy, '$&,')
               });
-              multi.push({
-                name:
-                  item.sourceCurrency +
-                  '->' +
-                  item.targetCurrency,
-                series: series
-              });
-              this.multi2 = multi;
-              Object.assign(this, { multi });
             });
-          } else {
+            multi.push({
+              name: item.sourceCurrency + '->' + item.targetCurrency,
+              series: series
+            });
             this.multi2 = multi;
             Object.assign(this, { multi });
-          }
+          });
+        } else {
+          this.multi2 = multi;
+          Object.assign(this, { multi });
         }
-        this.cdr.markForCheck();
-      });
+      }
+      this.cdr.markForCheck();
+    });
   }
 
   private initTable(): void {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP Name',
+          title: 'FX SP',
           field: 'spName',
           width: 200
         },
@@ -344,7 +535,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Active Time',
+          title: 'Activated On',
           field: 'activeTime',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -359,13 +550,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           title: 'Currency Pair',
           tdTemplate: this.currencyPairTpl,
           width: 150
-        },
+        }
       ],
       total: 0,
       showCheckbox: false,
       loading: false,
       pageSize: 10,
-      pageIndex: 1,
+      pageIndex: 1
     };
+  }
+
+  ngOnDestroy(): void {
+    window.addEventListener('resize', () => {});
   }
 }

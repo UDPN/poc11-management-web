@@ -37,11 +37,11 @@ export class InfoComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Detail`,
+      title: `Details`,
       breadcrumbs: [
         { name: 'Central Bank Management' },
         { name: 'Central Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
-        { name: 'Detail' }
+        { name: 'Details' }
       ],
       extra: '',
       desc: '',

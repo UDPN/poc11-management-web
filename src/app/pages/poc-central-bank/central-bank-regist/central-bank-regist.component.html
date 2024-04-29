@@ -14,7 +14,7 @@
         </div> -->
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>Bank Name</nz-form-label>
+            <nz-form-label>Central Bank</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="bankName" [(ngModel)]="searchParam.bankName" />
             </nz-form-control>
@@ -30,7 +30,7 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>Business Node(BN) ID</nz-form-label>
+            <nz-form-label>BN ID</nz-form-label>
             <nz-form-control>
               <input nz-input placeholder="" name="bnCode" [(ngModel)]="searchParam.bnCode" />
             </nz-form-control>
@@ -38,7 +38,7 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label [nzNoColon]="true">Creation Date</nz-form-label>
+            <nz-form-label [nzNoColon]="true">Created On</nz-form-label>
             <nz-form-control>
               <nz-range-picker style="width: 100%" name="createTime"
                 [(ngModel)]="searchParam.createTime"></nz-range-picker>
@@ -85,18 +85,19 @@
       </ng-container>
       <ng-container *appAuth="status === 1 ? 'R0201003' : 'R0201002'">
         <span class="operate-text" (click)="onStatusUpdate(status === 1 ? 0 : 1, bankCode)">
-          {{ status === 1 ? 'Activate' : 'Inactivate' }}
+          {{ status === 1 ? 'Activate' : 'Deactivate' }}
         </span>
       </ng-container>
       <ng-container *appAuth="'R0201005'">
         <span class="operate-text" routerLink="/poc/poc-central-bank/central-bank-regist/info"
           [queryParams]="{bankCode}">
-          Detail
+          Details
         </span>
       </ng-container>
     </ng-template>
     <ng-template #bankNameTpl let-bankName="bankName" let-logo="logo">
-      <img nz-image style="width: 50px; height: 40px" [nzSrc]="logo" *ngIf="logo" alt=""><span class="m-l-10" [title]="bankName">{{
+      <img nz-image style="width: 50px; height: 40px" [nzSrc]="logo" *ngIf="logo" alt=""><span class="m-l-10"
+        [title]="bankName">{{
         bankName }}</span>
     </ng-template>
   </app-card-table-wrap>

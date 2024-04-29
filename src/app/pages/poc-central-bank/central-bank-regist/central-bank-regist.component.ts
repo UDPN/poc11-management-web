@@ -110,7 +110,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           })
         }
       })
-      
+
       this.tableLoading(false);
       this.cdr.markForCheck();
     });
@@ -156,7 +156,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
         //   width: 250
         // },
         {
-          title: 'Bank Name',
+          title: 'Central Bank',
           tdTemplate: this.bankNameTpl,
           width: 250
         },
@@ -166,7 +166,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Brief Introduction',
+          title: 'Bank Description',
           field: 'bankIntroduction',
           width: 220
         },
@@ -176,7 +176,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           width: 160
         },
         {
-          title: 'Creation Time',
+          title: 'Created On',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -189,7 +189,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           width: 100
         },
         {
-          title: 'Action',
+          title: 'Actions',
           tdTemplate: this.operationTpl,
           fixed: true,
           fixedDir: 'right',
