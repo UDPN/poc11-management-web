@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
  * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-04-29 15:20:22
+ * @LastEditTime: 2024-04-29 15:59:44
  * @Description:
  */
 import {
@@ -199,7 +199,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     var data: any = [];
     this.maplist.map((item: any) => {
       data.push({
-        name: item.bankName,
+        name:'' ,
         code: item.bankCode,
         value: [item.longitude, item.latitude, item.bankType]
       });
@@ -229,7 +229,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       },
       tooltip: {
         show: false,
-        triggerOn: `click`,
+        triggerOn: "click",
         trigger: `item`,
         enterable: true
       },
@@ -368,7 +368,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   getMap() {
     this.pocDashBoardService.getMapList().subscribe((res: any) => {
       if (res) {
-        console.log(res);
         this.maplist = res;
         this.cdr.markForCheck();
         this.cdr.detectChanges();
