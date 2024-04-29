@@ -273,8 +273,10 @@
   </div>
   <div *ngIf="mapBankInfo?.bankType === 3">
     <div class="tooltip-title">
-      <div style="padding: 20px 0">
-        <span class="font-bold text-large">{{ mapBankInfo?.bankName }}</span>
+      <div>
+        <img nz-image style="width: 60px; height: 60px" [nzSrc]="mapBankInfo?.logo" *ngIf="mapBankInfo?.logo" alt="">
+        <a class="m-l-5 font-bold text-large" routerLink="/poc/poc-commercial-bank/commercial-bank/info"
+          [queryParams]="{ spCode: mapBankInfo?.bankCode }">{{ mapBankInfo?.bankName }}</a>
       </div>
       <div class="text-large">{{ mapBankInfo?.currency }}</div>
     </div>
