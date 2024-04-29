@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
  * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-04-29 16:56:11
+ * @LastEditTime: 2024-04-29 17:21:09
  * @Description:
  */
 import {
@@ -266,7 +266,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           },
           tooltip: {
             show: true,
-            extraCssText: 'max-width:60%;max-height:60%;overflow: auto;',
+            extraCssText: 'width:70%;height:60%;overflow: auto;',
             formatter: (params: any, ticket: any, callback: Function) => {
               this.pocDashBoardService.getMapList().subscribe((res: any) => {
                 if (res) {
