@@ -251,8 +251,8 @@
         <nz-card class="card base-card dashborad-card dashborad-card-order" style="text-align: center">
           <div class="font-bold text-large">{{ i === 0 ? 'Domestic Wallets' : 'Foreign Wallets' }}</div>
           <div class="font-bold text-large" style="margin-top: 4px">
-            {{ i=== 0 ? (mapBankInfo?.domesticWalletsNumber | map: 'toThousandthMark') :
-            (mapBankInfo?.foreignWalletsNumber | map: 'toThousandthMark') }}
+            {{ i=== 0 ? (mapBankInfo?.domesticWalletsNumber | map: 'toThousandRate') :
+            (mapBankInfo?.foreignWalletsNumber | map: 'toThousandRate') }}
           </div>
         </nz-card>
       </div>
@@ -265,7 +265,7 @@
             }">
           <div class="font-bold text-large">{{ value.cbdcName }}</div>
           <div class="font-bold text-large" style="margin-top: 4px" [ngStyle]="{ color: i === 0 ? '#fff' : '#3c5686' }">
-            {{ value.walletNumber | map: 'toThousandthMark' }}
+            {{ value.walletNumber | map: 'toThousandRate' }}
           </div>
         </nz-card>
       </div>
@@ -286,7 +286,7 @@
           }">
           <div class="font-bold text-large">{{ i === 0 ? 'Commercial Banks' : 'Domestic Currency' }}</div>
           <div class="font-bold text-large" style="margin-top: 4px;">
-            {{ i === 0 ? (mapBankInfo?.commercialBankNumber | map: 'toThousandthMark') : mapBankInfo?.currency }}
+            {{ i === 0 ? (mapBankInfo?.commercialBankNumber | map: 'toThousandRate') : mapBankInfo?.currency }}
           </div>
         </nz-card>
       </div>
@@ -299,8 +299,8 @@
           <nz-card class="card base-card dashborad-card dashborad-card-order" style="text-align: center">
             <div class="font-bold text-large">{{ i === 0 ? 'Domestic Wallets' : 'Foreign Wallets' }}</div>
             <div class="font-bold text-large" style="margin-top: 4px">
-              {{ i=== 0 ? (item.domesticWalletsNumber | map: 'toThousandthMark') : (item.foreignWalletsNumber | map:
-              'toThousandthMark') }}
+              {{ i=== 0 ? (item.domesticWalletsNumber | map: 'toThousandRate') : (item.foreignWalletsNumber | map:
+              'toThousandRate') }}
             </div>
           </nz-card>
         </div>
@@ -314,7 +314,7 @@
             <div class="font-bold text-large">{{ value.cbdcName }}</div>
             <div class="font-bold text-large" style="margin-top: 4px"
               [ngStyle]="{ color: i === 0 ? '#fff' : '#3c5686' }">
-              {{ value.walletNumber | map: 'toThousandthMark' }}
+              {{ value.walletNumber | map: 'toThousandRate' }}
             </div>
           </nz-card>
         </div>

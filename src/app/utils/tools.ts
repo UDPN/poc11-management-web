@@ -306,6 +306,14 @@ const thousandthMark = function thousandthMark(x: any) {
   }
 }
 
+const thousandthMarks = function thousandthMark(x: any) {
+  if(x) {
+    x = Number(x);
+		return x.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+	} else {
+		return '0'
+  }
+}
 const thousandRate = function thousandthRate(x: any) {
   var parts = x.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -367,5 +375,6 @@ export {
   fnEncrypts,
   thousandthMark,
   thousandRate,
-  timestampToDate
+  timestampToDate,
+  thousandthMarks 
 };

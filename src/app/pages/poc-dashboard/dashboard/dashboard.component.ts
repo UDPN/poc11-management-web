@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
  * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-04-29 15:59:44
+ * @LastEditTime: 2024-04-29 16:56:11
  * @Description:
  */
 import {
@@ -144,9 +144,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       desc: this.headerContent,
       footer: ''
     };
-    setTimeout(() => {
-      this.getEcharts();
-    }, 300);
+    // setTimeout(() => {
+    //   this.getEcharts();
+    // }, 300);
   }
   @HostListener('window:resize', ['$event'])
   ngOnInit() {
@@ -186,7 +186,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
   // --------------------------- //
-  getEcharts() {
+  getEcharts(data:any) {
     const visualMapRange = [
       { min: 3, max: 3, color: '#204c7d', label: 'Central Bank' },
       { min: 1, max: 2, color: '#ff0000', label: 'Commercial Bank' }
@@ -196,14 +196,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       renderer: 'canvas',
       useDirtyRect: false
     });
-    var data: any = [];
-    this.maplist.map((item: any) => {
-      data.push({
-        name:'' ,
-        code: item.bankCode,
-        value: [item.longitude, item.latitude, item.bankType]
-      });
-    });
+    // var data: any = [];
+    // this.maplist.map((item: any) => {
+    //   data.push({
+    //     name:'' ,
+    //     code: item.bankCode,
+    //     value: [item.longitude, item.latitude, item.bankType]
+    //   });
+    // });
     var option;
     option = {
       backgroundColor: '#CEE3F5',
@@ -223,7 +223,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         zoom: 1.2,
         scaleLimit: {
           min: 1.2,
-          max: 4
+          max: 40
         }
 
       },
@@ -281,16 +281,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                         Object.assign(val[0], {
                           logo: 'data:image/jpg;base64,' + data
                         });
+                        console.log(this.mapBankInfo)
                         this.cdr.markForCheck();
                         this.cdr.detectChanges();
+                        var container: any = document.getElementsByClassName(
+                          'ss' + val[0].bankCode
+                        );
+                        callback(ticket, container[0].innerHTML);
                       });
                   }
-                  this.cdr.markForCheck();
-                  this.cdr.detectChanges();
-                  var container: any = document.getElementsByClassName(
-                    'ss' + val[0].bankCode
-                  );
-                  callback(ticket, container[0].innerHTML);
                 }
               });
               return 'Loading';
@@ -368,7 +367,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   getMap() {
     this.pocDashBoardService.getMapList().subscribe((res: any) => {
       if (res) {
-        this.maplist = res;
+        // this.maplist = res;
+        var data: any = [];
+        res.map((item: any) => {
+          data.push({
+            name:'' ,
+            code: item.bankCode,
+            value: [item.longitude, item.latitude, item.bankType]
+          });
+        });
+        this.getEcharts(data);
         this.cdr.markForCheck();
         this.cdr.detectChanges();
       }
