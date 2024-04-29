@@ -1,8 +1,8 @@
 /*
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
- * @LastEditors: chenyuting
- * @LastEditTime: 2024-04-26 17:58:41
+ * @LastEditors: zhangxuefeng
+ * @LastEditTime: 2024-04-29 15:19:18
  * @Description:
  */
 import {
@@ -200,6 +200,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.maplist.map((item: any) => {
       data.push({
         name: item.bankName,
+        code: item.bankCode,
         value: [item.longitude, item.latitude, item.bankType]
       });
     });
@@ -208,7 +209,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       backgroundColor: '#CEE3F5',
       geo: {
         show: true,
-        roam: false,
+        roam: true,
         map: 'map',
         emphasis: {
           label: {
@@ -219,7 +220,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           }
         },
         center: [0, 15],
-        zoom: 1.2
+        zoom: 1.2,
+        scaleLimit: {
+          min: 1.2,
+          max: 4
+        }
+
       },
       tooltip: {
         show: false,
@@ -261,25 +267,33 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           tooltip: {
             show: true,
             extraCssText: 'max-width:60%;max-height:60%;overflow: auto;',
-            formatter: (params: any) => {
-              this.maplist.map((item: any, index: number) => {
-                if (params.data.name === item.bankName) {
-                  this.mapBankInfo = item;
-                  if (item.bankLogoHash) {
+            formatter: (params: any, ticket: any, callback: Function) => {
+              this.pocDashBoardService.getMapList().subscribe((res: any) => {
+                if (res) {
+                  const val = res.filter(
+                    (item: any) => item.bankCode === params.data.code
+                  );
+                  this.mapBankInfo = val[0];
+                  if (val[0].bankLogoHash) {
                     this.commonService
-                      .download({ hash: item.bankLogoHash })
+                      .download({ hash: val[0].bankLogoHash })
                       .subscribe((data) => {
-                        Object.assign(item, {
+                        Object.assign(val[0], {
                           logo: 'data:image/jpg;base64,' + data
                         });
                         this.cdr.markForCheck();
                         this.cdr.detectChanges();
                       });
                   }
+                  this.cdr.markForCheck();
+                  this.cdr.detectChanges();
+                  var container: any = document.getElementsByClassName(
+                    'ss' + val[0].bankCode
+                  );
+                  callback(ticket, container[0].innerHTML);
                 }
               });
-              var container: any = document.getElementById('container');
-              return container.innerHTML;
+              return 'Loading';
             }
           },
           symbolSize: 10,
@@ -354,6 +368,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   getMap() {
     this.pocDashBoardService.getMapList().subscribe((res: any) => {
       if (res) {
+        console.log(res);
         this.maplist = res;
         this.cdr.markForCheck();
         this.cdr.detectChanges();
