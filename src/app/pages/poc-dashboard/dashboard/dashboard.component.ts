@@ -1,8 +1,8 @@
 /*
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
- * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-04-29 17:59:52
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-05-06 11:02:54
  * @Description:
  */
 import {
@@ -186,7 +186,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
   // --------------------------- //
-  getEcharts(data:any) {
+  getEcharts(data: any) {
     const visualMapRange = [
       { min: 3, max: 3, color: '#204c7d', label: 'Central Bank' },
       { min: 1, max: 2, color: '#ff0000', label: 'Commercial Bank' }
@@ -225,11 +225,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           min: 1.2,
           max: 40
         }
-
       },
       tooltip: {
         show: false,
-        triggerOn: "click",
+        triggerOn: 'click',
         trigger: `item`,
         enterable: true
       },
@@ -266,7 +265,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           },
           tooltip: {
             show: true,
-            extraCssText: 'max-width:60%;max-height:60%;overflow: auto;',
+            extraCssText:
+              'max-width:60%;max-height:60%;overflow: auto;overflow-x: hidden',
             formatter: (params: any, ticket: any, callback: Function) => {
               this.pocDashBoardService.getMapList().subscribe((res: any) => {
                 if (res) {
@@ -281,7 +281,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                         Object.assign(val[0], {
                           logo: 'data:image/jpg;base64,' + data
                         });
-                        console.log(this.mapBankInfo)
                         this.cdr.markForCheck();
                         this.cdr.detectChanges();
                         var container: any = document.getElementsByClassName(
@@ -371,7 +370,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         var data: any = [];
         res.map((item: any) => {
           data.push({
-            name:'' ,
+            name: '',
             code: item.bankCode,
             value: [item.longitude, item.latitude, item.bankType]
           });
