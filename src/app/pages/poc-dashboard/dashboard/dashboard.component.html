@@ -278,7 +278,6 @@
         <a class="m-l-5 font-bold text-large" routerLink="/poc/poc-central-bank/central-bank-regist/info"
           [queryParams]="{ bankCode: mapBankInfo?.bankCode }">{{ mapBankInfo?.bankName }}</a>
       </div>
-      <div class="text-large">{{ mapBankInfo?.currency }}</div>
     </div>
     <div nz-row [nzGutter]="24" class="m-t-25">
       <div nz-col nzXs="24" nzSm="24" nzXl="12" nzXXl="12" *ngFor="let item of [1, 2]; index as i">
