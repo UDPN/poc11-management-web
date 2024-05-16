@@ -416,20 +416,25 @@
             </div>
           </div>
           <div style="border-top: 1px solid">
-            <div
-              *ngFor="
-                let value of mapBankInfo?.commercialBankWallets;
-                index as i
-              "
-              style="margin-top: 10px"
-            >
-              <div class="dashboard-flex" style="margin-bottom: 10px">
-                <div>{{ value.cbdcName }}</div>
-                <div>
-                  {{ value.walletNumber | map: 'toThousandRate' }}
+            <ng-container *ngIf="mapBankInfo?.foreignWalletsNumber">
+              <div
+                *ngFor="
+                  let value of mapBankInfo?.commercialBankWallets;
+                  index as i
+                "
+                style="margin-top: 10px"
+              >
+                <div class="dashboard-flex" style="margin-bottom: 10px">
+                  <div>{{ value.cbdcName }}</div>
+                  <div>
+                    {{ value.walletNumber | map: 'toThousandRate' }}
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-container *ngIf="!mapBankInfo?.foreignWalletsNumber">
+              <nz-empty nzNotFoundImage="simple"></nz-empty>
+            </ng-container>
           </div>
         </nz-card>
       </div>
@@ -447,28 +452,38 @@
             </div>
           </div>
           <div style="border-top: 1px solid">
-            <div nz-row [nzGutter]="24">
-              <div
-                *ngFor="
-                  let value of mapBankInfo?.exchangeCurrencyPairs;
-                  index as i
-                "
-                style="margin-top: 10px"
-              >
+            <ng-container
+              *ngIf="
+                mapBankInfo?.exchangeCurrencyPairs &&
+                mapBankInfo?.exchangeCurrencyPairs.length > 0
+              "
+            >
+              <div nz-row [nzGutter]="24">
                 <div
-                  class="dashboard-flex"
                   nz-col
-                  nzXs="24"
-                  nzSm="12"
-                  nzXl="8"
-                  nzXXl="8"
+                  nzSpan="8"
+                  *ngFor="
+                    let value of mapBankInfo?.exchangeCurrencyPairs;
+                    index as i
+                  "
+                  style="margin-top: 10px"
                 >
-                  <div>
-                    {{ value.formRateCurrency + '->' + value.toRateCurrency }}
+                  <div class="dashboard-flex">
+                    <div>
+                      {{ value.formRateCurrency + '->' + value.toRateCurrency }}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-container
+              *ngIf="
+                !mapBankInfo?.exchangeCurrencyPairs ||
+                mapBankInfo?.exchangeCurrencyPairs.length <= 0
+              "
+            >
+              <nz-empty nzNotFoundImage="simple"></nz-empty>
+            </ng-container>
           </div>
         </nz-card>
       </div>
@@ -526,52 +541,121 @@
               >
                 {{ mapBankInfo?.bankName }}
               </td>
-              <td
-                class="dashborad-border"
-                [ngClass]="{ 'dashborad-bottm': index === dataList.length - 1 }"
-                style="padding: 0"
-              >
-                <div
-                  *ngFor="let item of data.commercialBankWallets; index as i"
-                  [ngStyle]="{ 'background-color': i === 0 ? '#D6C6DB' : '' }"
+              <ng-container *ngIf="data.commercialBankWallets.length === 1">
+                <td
+                  class="dashborad-border"
                   [ngClass]="{
-                    'dashborad-bottm':
-                      i !== data.commercialBankWallets.length - 1
+                    'dashborad-bottm': index === dataList.length - 1
                   }"
-                  style="padding: 10px 0 10px 16px"
+                  style="background-color: #D6C6DB"
                 >
-                  <span>{{ item.cbdcName }}</span>
-                  <br />
-                </div>
-              </td>
-              <td
-                class="dashborad-border"
-                [ngClass]="{
-                  'dashborad-bottm dashborad-table-lasts':
-                    index === dataList.length - 1,
-                  'dashborad-table-last': index === 0
-                }"
-                style="padding: 0; border-right: 1px solid #99c5f0"
-              >
-                <div
-                  *ngFor="let item of data.commercialBankWallets; index as i"
-                  [ngStyle]="{
-                    'background-color': i === 0 ? '#D6C6DB' : '',
-                    color: i === 0 ? '#6D1464' : '#204C7D',
-                    'border-top-right-radius': index === 0 ? '20px' : ''
-                  }"
+                  {{ data.commercialBankWallets[0].cbdcName }}
+                </td>
+                <td
+                  class="dashborad-border font-bold"
                   [ngClass]="{
-                    'dashborad-bottm':
-                      i !== data.commercialBankWallets.length - 1
+                    'dashborad-bottm dashborad-table-lasts': index === dataList.length - 1
                   }"
-                  style="padding: 10px 0 10px 16px"
+                  style="background-color: #D6C6DB; color: #6D1464;"
                 >
-                  <span class="font-bold">{{
-                    item.walletNumber | map: 'toThousandRate'
-                  }}</span>
-                  <br />
-                </div>
-              </td>
+                  {{
+                    data.commercialBankWallets[0].walletNumber
+                      | map: 'toThousandRate'
+                  }}
+                </td>
+              </ng-container>
+              <ng-container *ngIf="data.commercialBankWallets.length !== 1">
+                <td
+                  class="dashborad-border"
+                  [ngClass]="{
+                    'dashborad-bottm': index === dataList.length - 1
+                  }"
+                  style="padding: 0"
+                >
+                  <ng-container
+                    *ngIf="
+                      data.commercialBankWallets &&
+                      data.commercialBankWallets.length > 0
+                    "
+                  >
+                    <div
+                      *ngFor="
+                        let item of data.commercialBankWallets;
+                        index as i
+                      "
+                      [ngStyle]="{
+                        'background-color': i === 0 ? '#D6C6DB' : ''
+                      }"
+                      [ngClass]="{
+                        'dashborad-bottm':
+                          i !== data.commercialBankWallets.length - 1
+                      }"
+                      style="padding: 10px 0 10px 16px"
+                    >
+                      <span>{{ item.cbdcName }}</span>
+                      <br />
+                    </div>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      !data.commercialBankWallets ||
+                      data.commercialBankWallets.length <= 0
+                    "
+                  >
+                    <div style="padding: 10px 0 10px 16px">
+                      <span>{{ '--' }}</span>
+                    </div>
+                  </ng-container>
+                </td>
+                <td
+                  class="dashborad-border"
+                  [ngClass]="{
+                    'dashborad-bottm dashborad-table-lasts':
+                      index === dataList.length - 1,
+                    'dashborad-table-last': index === 0
+                  }"
+                  style="padding: 0; border-right: 1px solid #99c5f0"
+                >
+                  <ng-container
+                    *ngIf="
+                      data.commercialBankWallets &&
+                      data.commercialBankWallets.length > 0
+                    "
+                  >
+                    <div
+                      *ngFor="
+                        let item of data.commercialBankWallets;
+                        index as i
+                      "
+                      [ngStyle]="{
+                        'background-color': i === 0 ? '#D6C6DB' : '',
+                        color: i === 0 ? '#6D1464' : '#204C7D',
+                        'border-top-right-radius': index === 0 ? '20px' : ''
+                      }"
+                      [ngClass]="{
+                        'dashborad-bottm':
+                          i !== data.commercialBankWallets.length - 1
+                      }"
+                      style="padding: 10px 0 10px 16px"
+                    >
+                      <span class="font-bold">{{
+                        item.walletNumber | map: 'toThousandRate'
+                      }}</span>
+                      <br />
+                    </div>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      data.commercialBankWallets &&
+                      data.commercialBankWallets.length <= 0
+                    "
+                  >
+                    <div style="padding: 10px 0 10px 16px">
+                      <span>{{ '--' }}</span>
+                    </div>
+                  </ng-container>
+                </td>
+              </ng-container>
             </tr>
           </tbody>
         </nz-table>
