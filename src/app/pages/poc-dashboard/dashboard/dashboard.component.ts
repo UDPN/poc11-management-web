@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-05-06 11:02:54
+ * @LastEditTime: 2024-05-15 17:59:58
  * @Description:
  */
 import {
@@ -47,6 +47,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   currencyTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('currencyPairTpl', { static: true })
   currencyPairTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('centralBankTpl', { static: true })
+  centralBankTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('numberTpl', { static: true })
+  numberTpl!: TemplateRef<NzSafeAny>;
 
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
@@ -266,7 +270,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           tooltip: {
             show: true,
             extraCssText:
-              'max-width:60%;max-height:60%;overflow: auto;overflow-x: hidden',
+              'max-width:60%;max-height:60%;overflow: auto;overflow-x: hidden;padding:18px',
             formatter: (params: any, ticket: any, callback: Function) => {
               this.pocDashBoardService.getMapList().subscribe((res: any) => {
                 if (res) {
@@ -274,6 +278,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                     (item: any) => item.bankCode === params.data.code
                   );
                   this.mapBankInfo = val[0];
+                  this.dataList =
+                    this.mapBankInfo?.outCommercialBankInfoSearches;
                   if (val[0].bankLogoHash) {
                     this.commonService
                       .download({ hash: val[0].bankLogoHash })
@@ -323,27 +329,27 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.tableChangeDectction();
   }
 
-  getDataList(e?: NzTableQueryParams): void {
-    this.tableConfig.loading = true;
-    const params: SearchCommonVO<any> = {
-      pageSize: this.tableConfig.pageSize!,
-      pageNum: e?.pageIndex || this.tableConfig.pageIndex!
-    };
-    this.pocDashBoardService
-      .getSpList(params.pageNum, params.pageSize)
-      .pipe(
-        finalize(() => {
-          this.tableLoading(false);
-        })
-      )
-      .subscribe((_: any) => {
-        this.dataList = _.data;
-        this.tableConfig.total = _?.resultPageInfo?.total;
-        this.tableConfig.pageIndex = params.pageNum;
-        this.tableLoading(false);
-        this.cdr.markForCheck();
-      });
-  }
+  // getDataList(e?: NzTableQueryParams): void {
+  //   this.tableConfig.loading = true;
+  //   const params: SearchCommonVO<any> = {
+  //     pageSize: this.tableConfig.pageSize!,
+  //     pageNum: e?.pageIndex || this.tableConfig.pageIndex!
+  //   };
+  //   this.pocDashBoardService
+  //     .getSpList(params.pageNum, params.pageSize)
+  //     .pipe(
+  //       finalize(() => {
+  //         this.tableLoading(false);
+  //       })
+  //     )
+  //     .subscribe((_: any) => {
+  //       this.dataList = _.data;
+  //       this.tableConfig.total = _?.resultPageInfo?.total;
+  //       this.tableConfig.pageIndex = params.pageNum;
+  //       this.tableLoading(false);
+  //       this.cdr.markForCheck();
+  //     });
+  // }
 
   getBankNumber() {
     this.pocDashBoardService.getBankNumber().subscribe((res: any) => {
