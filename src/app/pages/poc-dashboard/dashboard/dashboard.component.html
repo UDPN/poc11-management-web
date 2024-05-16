@@ -514,7 +514,7 @@
           <thead>
             <tr>
               <th class="font-bold">Commercial Bank</th>
-              <th class="font-bold">Central Bank</th>
+              <!-- <th class="font-bold">Central Bank</th> -->
               <th class="font-bold">Currency</th>
               <th class="font-bold">Number of wallets</th>
             </tr>
@@ -531,16 +531,16 @@
               >
                 <a
                   routerLink="/poc/poc-commercial-bank/commercial-bank/info"
-                  [queryParams]="{ spCode: data.spCode }"
-                  >{{ data.spName }}</a
+                  [queryParams]="{ spCode: data.spCode }" [title]="data.spName"
+                  >{{ data.spName.length > 20 ?  data.spName.slice(0, 20) + '...' : data.spName}}</a
                 >
               </td>
-              <td
+              <!-- <td
                 class="dashborad-border"
                 [ngClass]="{ 'dashborad-bottm': index === dataList.length - 1 }"
               >
                 {{ mapBankInfo?.bankName }}
-              </td>
+              </td> -->
               <ng-container *ngIf="data.commercialBankWallets.length === 1">
                 <td
                   class="dashborad-border"
