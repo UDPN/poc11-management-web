@@ -50,8 +50,8 @@ export class AddComponent implements OnInit {
     this.pageHeaderInfo = {
       title: this.tempStatus === true ? 'Create' : 'Edit',
       breadcrumbs: [
-        { name: 'Central Bank Management' },
-        { name: 'Central Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
+        { name: 'Custodian Bank Management' },
+        { name: 'Custodian Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
         { name: this.tempStatus === true ? 'Create' : 'Edit' }
       ],
       extra: '',

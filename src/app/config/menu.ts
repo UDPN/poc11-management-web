@@ -32,7 +32,7 @@ const menuNav: Menu[] = [
     code: 'R0',
   },
   {
-    menuName: 'Central Bank Management',
+    menuName: 'Custodian Bank Management',
     id: 3,
     fatherId: 0,
     icon: 'pic-left',
@@ -45,7 +45,7 @@ const menuNav: Menu[] = [
       {
         id: 1,
         fatherId: 3,
-        menuName: 'Central Bank Registration',
+        menuName: 'Custodian Bank Registration',
         open: false,
         selected: false,
         menuType: 'C',
