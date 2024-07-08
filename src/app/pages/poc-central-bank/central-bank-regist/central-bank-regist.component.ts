@@ -156,7 +156,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
         //   width: 250
         // },
         {
-          title: 'Custodian Bank',
+          title: 'Central Bank/Custodian Bank ',
           tdTemplate: this.bankNameTpl,
           width: 250
         },
