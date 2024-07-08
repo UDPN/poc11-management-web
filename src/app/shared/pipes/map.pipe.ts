@@ -120,7 +120,7 @@ export const MapSet = {
     3: 'Activate Settlement Business',
   },
   dashBoradBankType: {
-    1: 'Custodian Banks',
+    1: 'Central Banks/Custodian Banks',
     2: 'Commercial Banks',
     3: 'FX Service Providers(FX SPs)',
   }
