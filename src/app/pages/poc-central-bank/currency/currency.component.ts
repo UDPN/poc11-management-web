@@ -167,7 +167,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 280
         },
         {
-          title: 'Custodian Bank',
+          title: 'Central Bank/Custodian Bank ',
           field: 'centralBankName',
           width: 240
         },
