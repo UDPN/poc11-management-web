@@ -49,7 +49,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Custodian Bank Management', 'Currency Management'],
+      breadcrumb: ['Central Bank/Custodian Bank Management', 'Currency Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''

@@ -49,7 +49,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Custodian Bank Management', 'Custodian Bank Registration'],
+      breadcrumb: ['Central Bank/Custodian Bank Management', 'Central Bank/Custodian Bank Registration'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
