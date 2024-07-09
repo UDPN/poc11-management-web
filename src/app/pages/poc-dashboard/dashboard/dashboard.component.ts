@@ -192,7 +192,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   // --------------------------- //
   getEcharts(data: any) {
     const visualMapRange = [
-      { min: 3, max: 3, color: '#204c7d', label: 'Central Bank/Custodian Bank ' },
+      { min: 3, max: 3, color: '#204c7d', label: 'Central Bank ' },
       { min: 1, max: 2, color: '#ff0000', label: 'Commercial Bank' }
     ];
     var dom: any = document.getElementById('chart-container');
@@ -557,7 +557,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Central Bank/Custodian Bank ',
+          title: 'Central Bank ',
           field: 'centralBankName',
           width: 200
         },
