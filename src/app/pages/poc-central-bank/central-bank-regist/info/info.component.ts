@@ -46,8 +46,8 @@ export class InfoComponent implements OnInit {
     this.pageHeaderInfo = {
       title: `Details`,
       breadcrumbs: [
-        { name: 'Central Bank Management' },
-        { name: 'Central Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
+        { name: 'Central Bank/Custodian Bank Management' },
+        { name: 'Central Bank/Custodian Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
         { name: 'Details' }
       ],
       extra: '',

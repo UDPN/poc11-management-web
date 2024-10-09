@@ -49,7 +49,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Central Bank Management', 'Currency Management'],
+      breadcrumb: ['Central Bank/Custodian Bank Management', 'Currency Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -146,12 +146,12 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Token',
+          title: 'wCBDC',
           field: 'currency',
           width: 120
         },
         {
-          title: 'Token ID',
+          title: 'wCBDC ID',
           field: 'currencyCode',
           width: 280
         },
@@ -167,7 +167,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 280
         },
         {
-          title: 'Central Bank ',
+          title: 'Central Bank/Custodian Bank ',
           field: 'centralBankName',
           width: 240
         },
