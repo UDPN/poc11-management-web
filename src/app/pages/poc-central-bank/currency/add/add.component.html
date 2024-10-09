@@ -8,7 +8,7 @@
     <form nz-form [formGroup]="validateForm">
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">wCBDC
+          <nz-form-label nzRequired nzSpan="10">Token
           </nz-form-label>
           <nz-form-control [nzErrorTip]="currencyError">
             <div nz-row>
@@ -83,7 +83,7 @@
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10"> Central Bank </nz-form-label>
+          <nz-form-label nzRequired nzSpan="10"> Central Bank/Custodian Bank</nz-form-label>
           <nz-form-control [nzErrorTip]="providerError">
             <div nz-row>
               <div nz-col nzSpan="24">
@@ -95,7 +95,7 @@
               </div>
             </div>
             <ng-template #providerError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please select your Central Bank</ng-container>
+              <ng-container *ngIf="control.hasError('required')">Please select your Custodian Bank</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>

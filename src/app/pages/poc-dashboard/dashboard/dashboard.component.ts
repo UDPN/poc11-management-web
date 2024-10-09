@@ -1,8 +1,8 @@
 /*
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
- * @LastEditors: chenyuting
- * @LastEditTime: 2024-05-16 15:41:50
+ * @LastEditors: zhangxuefeng
+ * @LastEditTime: 2024-07-08 17:01:24
  * @Description:
  */
 import {
@@ -192,7 +192,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   // --------------------------- //
   getEcharts(data: any) {
     const visualMapRange = [
-      { min: 3, max: 3, color: '#204c7d', label: 'Central Bank' },
+      { min: 3, max: 3, color: '#204c7d', label: 'Central Bank/Custodian Bank ' },
       { min: 1, max: 2, color: '#ff0000', label: 'Commercial Bank' }
     ];
     var dom: any = document.getElementById('chart-container');
@@ -557,7 +557,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Central Bank',
+          title: 'Central Bank/Custodian Bank ',
           field: 'centralBankName',
           width: 200
         },

@@ -1,5 +1,12 @@
 /*
  * @Author: zhangxuefeng
+ * @Date: 2024-04-29 13:55:15
+ * @LastEditors: zhangxuefeng
+ * @LastEditTime: 2024-07-08 16:22:31
+ * @Description: 
+ */
+/*
+ * @Author: zhangxuefeng
  * @Date: 2023-10-25 13:30:21
  * @LastEditors: zhangxuefeng
  * @LastEditTime: 2023-10-25 19:31:34
@@ -39,8 +46,8 @@ export class InfoComponent implements OnInit {
     this.pageHeaderInfo = {
       title: `Details`,
       breadcrumbs: [
-        { name: 'Central Bank Management' },
-        { name: 'Central Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
+        { name: 'Central Bank/Custodian Bank Management' },
+        { name: 'Central Bank/Custodian Bank Registration', url: '/poc/poc-central-bank/central-bank-regist' },
         { name: 'Details' }
       ],
       extra: '',

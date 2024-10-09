@@ -1,3 +1,17 @@
+/*
+ * @Author: zhangxuefeng
+ * @Date: 2024-04-29 13:55:15
+ * @LastEditors: zhangxuefeng
+ * @LastEditTime: 2024-07-08 17:00:58
+ * @Description: 
+ */
+/*
+ * @Author: zhangxuefeng
+ * @Date: 2024-04-29 13:55:15
+ * @LastEditors: zhangxuefeng
+ * @LastEditTime: 2024-07-08 16:23:16
+ * @Description: 
+ */
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { PocCommercialBankService } from '@app/core/services/http/poc-commercial-bank/poc-commercial-bank.service';
@@ -130,7 +144,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Central Bank',
+          title: 'Central Bank/Custodian Bank ',
           field: 'centralBankName',
           width: 200
         },

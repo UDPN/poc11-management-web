@@ -1,3 +1,10 @@
+/*
+ * @Author: zhangxuefeng
+ * @Date: 2024-02-02 15:53:46
+ * @LastEditors: zhangxuefeng
+ * @LastEditTime: 2024-07-08 17:02:13
+ * @Description: 
+ */
 import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { LoginService } from '@app/core/services/http/login/login.service';
@@ -55,7 +62,7 @@ export class ForeignModelComponent implements OnInit, AfterViewInit {
     {
       title: 'Daily Fixed Platform Rates',
       instruction: [
-        'Daily/hourly fixed rates set by central banks/admin',
+        'Daily/hourly fixed rates set by Central Bank/Custodian Bank /admin',
         'Manually set or automatically set through algorithms with rate sources'
       ],
       value: '2'
