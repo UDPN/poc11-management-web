@@ -144,7 +144,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Central Bank ',
+          title: 'Central Bank/Custodian Bank ',
           field: 'centralBankName',
           width: 200
         },
