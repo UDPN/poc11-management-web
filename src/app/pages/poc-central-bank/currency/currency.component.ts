@@ -146,12 +146,12 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Token',
+          title: 'wCBDC',
           field: 'currency',
           width: 120
         },
         {
-          title: 'Token ID',
+          title: 'wCBDC ID',
           field: 'currencyCode',
           width: 280
         },
