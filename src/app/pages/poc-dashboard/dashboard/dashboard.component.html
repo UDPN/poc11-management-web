@@ -1,4 +1,11 @@
 <!--
+ * @Author: chenyuting
+ * @Date: 2024-10-11 10:38:24
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-10 09:57:37
+ * @Description: 
+-->
+<!--
  * @Author: zhangxuefeng
  * @Date: 2024-07-08 16:17:22
  * @LastEditors: zhangxuefeng
@@ -118,7 +125,7 @@
       </div>
     </div> -->
     <!-- <div>
-      <nz-card class="card base-card" style="background-color: #F4F9FD;" nzTitle="FX SP List">
+      <nz-card class="card base-card" style="background-color: #F4F9FD;" nzTitle="Liquidity Provider List">
         <app-ant-table (changePageSize)="changePageSize($event)" (changePageNum)="getDataList($event)"
           [tableConfig]="tableConfig" [tableData]="dataList">
         </app-ant-table>
@@ -179,7 +186,7 @@
                   [nzXs]="24"
                 >
                   <nz-form-item>
-                    <nz-form-label>Central Bank/Custodian Bank </nz-form-label>
+                    <nz-form-label>Custodian Bank </nz-form-label>
                     <nz-form-control>
                       <nz-select
                         nzPlaceHolder=""
@@ -293,7 +300,7 @@
                   [nzXs]="24"
                 >
                   <nz-form-item>
-                    <nz-form-label>FX SP</nz-form-label>
+                    <nz-form-label>Liquidity Provider</nz-form-label>
                     <nz-form-control>
                       <nz-select nzPlaceHolder="" formControlName="spCode">
                         <nz-option

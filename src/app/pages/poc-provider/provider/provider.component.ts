@@ -104,7 +104,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP',
+          title: 'Liquidity Provider',
           field: 'spName',
           width: 180
         },

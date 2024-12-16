@@ -49,7 +49,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Central Bank/Custodian Bank Management', 'Currency Management'],
+      breadcrumb: ['Custodian Bank Management', 'Currency Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -167,7 +167,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 280
         },
         {
-          title: 'Central Bank/Custodian Bank ',
+          title: 'Custodian Bank ',
           field: 'centralBankName',
           width: 240
         },

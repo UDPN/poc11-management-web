@@ -62,7 +62,7 @@ export class ForeignModelComponent implements OnInit, AfterViewInit {
     {
       title: 'Daily Fixed Platform Rates',
       instruction: [
-        'Daily/hourly fixed rates set by Central Bank/Custodian Bank /admin',
+        'Daily/hourly fixed rates set by Custodian Bank /admin',
         'Manually set or automatically set through algorithms with rate sources'
       ],
       value: '2'

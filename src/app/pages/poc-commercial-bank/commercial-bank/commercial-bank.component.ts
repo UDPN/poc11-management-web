@@ -1,8 +1,8 @@
 /*
  * @Author: zhangxuefeng
  * @Date: 2024-04-29 13:55:15
- * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-07-08 17:00:58
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-10 09:57:28
  * @Description: 
  */
 /*
@@ -144,7 +144,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Central Bank/Custodian Bank ',
+          title: 'Custodian Bank ',
           field: 'centralBankName',
           width: 200
         },
@@ -154,7 +154,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 350
         },
         {
-          title: 'FX SP',
+          title: 'Liquidity Provider',
           field: 'bankType',
           pipe: 'bankTypeStatus',
           width: 180

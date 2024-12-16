@@ -1,4 +1,11 @@
 /*
+ * @Author: chenyuting
+ * @Date: 2024-07-08 16:17:34
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-10 09:58:31
+ * @Description: 
+ */
+/*
  * @Author: chenyuting 89172243+chenyuting12@users.noreply.github.com
  * @Date: 2024-01-23 15:56:27
  * @LastEditors: chenyuting 89172243+chenyuting12@users.noreply.github.com
@@ -180,7 +187,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP',
+          title: 'Liquidity Provider',
           field: 'spName',
           // tdTemplate: this.spTpl,
           pipe: 'nullValue',

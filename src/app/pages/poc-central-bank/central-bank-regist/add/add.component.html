@@ -11,7 +11,7 @@
           <div nz-row nzJustify="space-between" nzGutter="8">
             <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
               <nz-form-item>
-                <nz-form-label nzRequired nzSpan="24">Central Bank/Custodian Bank 
+                <nz-form-label nzRequired nzSpan="24">Custodian Bank 
                 </nz-form-label>
                 <nz-form-control [nzErrorTip]="bankNameError">
                   <div nz-row>
@@ -21,7 +21,7 @@
                     </div>
                   </div>
                   <ng-template #bankNameError let-control>
-                    <ng-container *ngIf="control.hasError('required')">Please input your Central Bank/Custodian Bank </ng-container>
+                    <ng-container *ngIf="control.hasError('required')">Please input your Custodian Bank </ng-container>
                     <ng-container *ngIf="control.hasError('regular')">Characters of 2 ~ 50 letters or numbers, cannot
                       start with numbers</ng-container>
                   </ng-template>

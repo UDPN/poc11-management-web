@@ -1,3 +1,10 @@
+<!--
+ * @Author: chenyuting
+ * @Date: 2024-10-11 10:38:24
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-10 09:57:22
+ * @Description: 
+-->
 <app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
 
 <div class="normal-table-wrap">
@@ -30,7 +37,7 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>Central Bank/Custodian Bank </nz-form-label>
+            <nz-form-label>Custodian Bank </nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="centralBankChainId" [(ngModel)]="searchParam.centralBankChainId">
                 <nz-option nzValue="" nzLabel="All"></nz-option>
@@ -42,7 +49,7 @@
         </div>
         <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
           <nz-form-item>
-            <nz-form-label>FX SP</nz-form-label>
+            <nz-form-label>Liquidity Provider</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="" name="bankType" [(ngModel)]="searchParam.bankType">
                 <nz-option nzValue="" nzLabel="All"></nz-option>

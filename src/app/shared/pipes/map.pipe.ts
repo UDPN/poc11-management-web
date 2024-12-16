@@ -108,7 +108,7 @@ export const MapSet = {
   },
   bankType: {
     1: 'Commercial Bank',
-    2: 'SP'
+    2: 'Liquidity Provider'
   },
   bankTypeStatus: {
     1: 'No',
@@ -120,9 +120,9 @@ export const MapSet = {
     3: 'Activate Settlement Business',
   },
   dashBoradBankType: {
-    1: 'Central Banks/Custodian Banks',
+    1: 'Custodian Banks',
     2: 'Commercial Banks',
-    3: 'FX Service Providers(FX SPs)',
+    3: 'Liquidity Providers',
   }
 };
 

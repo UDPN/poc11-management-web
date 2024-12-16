@@ -216,7 +216,7 @@ export class FxTransactionsComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'FX SP',
+          title: 'Liquidity Provider',
           field: 'spName',
           width: 150
         },

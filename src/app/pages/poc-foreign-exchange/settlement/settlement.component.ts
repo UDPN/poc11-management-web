@@ -189,7 +189,7 @@ export class SettlementComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'FX SP',
+          title: 'Liquidity Provider',
           field: 'spName',
           width: 150
         },

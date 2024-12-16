@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           width: 220
         },
         {
-          title: 'FX SP',
+          title: 'Liquidity Provider',
           field: 'spName',
           width: 450
         },

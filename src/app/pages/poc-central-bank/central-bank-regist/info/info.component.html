@@ -1,3 +1,10 @@
+<!--
+ * @Author: chenyuting
+ * @Date: 2024-10-11 10:38:24
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-10 09:54:13
+ * @Description: 
+-->
 <app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-central-bank/central-bank-regist'"
   [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
 <ng-template #backTpl>
@@ -10,7 +17,7 @@
       <nz-descriptions-item nzTitle="Bank ID">{{
         info.chainBankId
         }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Central Bank/Custodian Bank ">{{
+      <nz-descriptions-item nzTitle="Custodian Bank">{{
         info.bankName
         }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BIC">{{
