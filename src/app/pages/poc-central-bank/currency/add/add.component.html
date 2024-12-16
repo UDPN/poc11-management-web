@@ -1,24 +1,37 @@
-<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-central-bank/currency'"
-  [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+<app-page-header
+  [backTpl]="backTpl"
+  [backUrl]="'/poc/poc-central-bank/currency'"
+  [pageHeaderInfo]="pageHeaderInfo"
+></app-page-header>
 <ng-template #backTpl>
   <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
 </ng-template>
 <div class="normal-detail-table-wrap">
-  <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" [nzTitle]="''" class="m-b-10">
+  <nz-card
+    [nzBodyStyle]="{ 'padding-bottom': 0 }"
+    [nzTitle]="''"
+    class="m-b-10"
+  >
     <form nz-form [formGroup]="validateForm">
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">Token
-          </nz-form-label>
+          <nz-form-label nzRequired nzSpan="10">Token </nz-form-label>
           <nz-form-control [nzErrorTip]="currencyError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <input nz-input formControlName="currency" [ngClass]="{'onboard-disabled': !tempStatus}"
-                  [readonly]="!tempStatus" maxlength="50" />
+                <input
+                  nz-input
+                  formControlName="currency"
+                  [ngClass]="{ 'onboard-disabled': !tempStatus }"
+                  [readonly]="!tempStatus"
+                  maxlength="50"
+                />
               </div>
             </div>
             <ng-template #currencyError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Currency</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please input your Token</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -43,20 +56,38 @@
       </div> -->
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">Decimal Precision<i class="m-l-5" nz-icon nzType="question-circle"
-              nzTooltipPlacement="right" nzTheme="outline" nz-tooltip [nzTooltipTitle]="titleTemplate"
-              nzTooltipColor="#F5F5F5" nzTooltipTrigger="click" nzTooltipOverlayClassName="buils"></i>
+          <nz-form-label nzRequired nzSpan="10"
+            >Decimal Precision<i
+              class="m-l-5"
+              nz-icon
+              nzType="question-circle"
+              nzTooltipPlacement="right"
+              nzTheme="outline"
+              nz-tooltip
+              [nzTooltipTitle]="titleTemplate"
+              nzTooltipColor="#F5F5F5"
+              nzTooltipTrigger="click"
+              nzTooltipOverlayClassName="buils"
+            ></i>
           </nz-form-label>
           <nz-form-control [nzErrorTip]="precisionError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <input nz-input formControlName="currencyPrecision" [ngClass]="{'onboard-disabled': !tempStatus}"
-                  [readonly]="!tempStatus" maxlength="50" />
+                <input
+                  nz-input
+                  formControlName="currencyPrecision"
+                  [ngClass]="{ 'onboard-disabled': !tempStatus }"
+                  [readonly]="!tempStatus"
+                  maxlength="50"
+                />
               </div>
             </div>
             <ng-template #precisionError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Decimal Precision</ng-container>
-              <ng-container *ngIf="control.hasError('regular')">Please enter the precision of a positive integer
+              <ng-container *ngIf="control.hasError('required')"
+                >Please input your Decimal Precision</ng-container
+              >
+              <ng-container *ngIf="control.hasError('regular')"
+                >Please enter the precision of a positive integer
               </ng-container>
             </ng-template>
           </nz-form-control>
@@ -74,9 +105,13 @@
               </div>
             </div>
             <ng-template #contractAddressError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Contract Address</ng-container>
-              <ng-container *ngIf="control.hasError('regular')">Please enter a hexadecimal format of 42 characters
-                starting with 0x</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please input your Contract Address</ng-container
+              >
+              <ng-container *ngIf="control.hasError('regular')"
+                >Please enter a hexadecimal format of 42 characters starting
+                with 0x</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -88,14 +123,19 @@
             <div nz-row>
               <div nz-col nzSpan="24">
                 <nz-select formControlName="centralBankCode">
-                  <nz-option *ngFor="let item of centralBankList" [nzValue]="item.centralBankCode"
-                    [nzLabel]="item.centralBankName">
+                  <nz-option
+                    *ngFor="let item of centralBankList"
+                    [nzValue]="item.centralBankCode"
+                    [nzLabel]="item.centralBankName"
+                  >
                   </nz-option>
                 </nz-select>
               </div>
             </div>
             <ng-template #providerError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please select your Custodian Bank</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please select your Custodian Bank</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -105,14 +145,28 @@
           <div nz-row>
             <div nz-col nzSpan="24" style="text-align: end">
               <nz-space>
-                <button *nzSpaceItem nz-button [nzSize]="'large'" nzType="default" (click)="onBack()">
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="default"
+                  (click)="onBack()"
+                >
                   Back
                 </button>
-                <button *nzSpaceItem nz-button [nzSize]="'large'" nzType="primary" [nzLoading]="isLoading"
-                  [disabled]="!this.validateForm.valid" (click)="onSubmit()">
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="primary"
+                  [nzLoading]="isLoading"
+                  [disabled]="!this.validateForm.valid"
+                  (click)="onSubmit()"
+                >
                   <!-- {{ this.tempStatus === true ? 'Save' : 'Edit' }} -->
                   {{ 'Save' }}
-                </button></nz-space>
+                </button></nz-space
+              >
             </div>
           </div>
         </nz-form-item>
@@ -122,7 +176,9 @@
 </div>
 <ng-template #titleTemplate let-thing>
   <div style="color: #3c5686">
-    {{'This refers to the precision of the currency, which must be aninteger greater than 0. For example, if you enter 3
-    here, theaccuracy of the currency will be rounded to three decimal places.'}}
+    {{
+      'This refers to the precision of the currency, which must be aninteger greater than 0. For example, if you enter 3
+    here, theaccuracy of the currency will be rounded to three decimal places.'
+    }}
   </div>
 </ng-template>
