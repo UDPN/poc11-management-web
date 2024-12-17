@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-07-08 16:17:34
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-10 09:58:31
+ * @LastEditTime: 2024-12-17 14:59:19
  * @Description: 
  */
 /*
@@ -82,7 +82,7 @@ export class ExchangeRateComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Foreign Exchange Management', 'Exchange Rate Query'],
+      breadcrumb: ['Foreign Exchange Management', 'Exchange Rate Management'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''

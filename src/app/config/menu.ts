@@ -120,7 +120,7 @@ const menuNav: Menu[] = [
       {
         id: 3,
         fatherId: 6,
-        menuName: 'Exchange Rate Query',
+        menuName: 'Exchange Rate Management',
         open: false,
         selected: false,
         menuType: 'C',

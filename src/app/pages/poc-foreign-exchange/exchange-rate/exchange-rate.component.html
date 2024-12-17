@@ -4,60 +4,128 @@
   <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
     <form nz-form nzLayout="vertical">
       <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
           <nz-form-item>
             <nz-form-label>Liquidity Provider</nz-form-label>
             <nz-form-control>
-              <nz-select nzPlaceHolder="" name="spId" [(ngModel)]="searchParam.spId">
+              <nz-select
+                nzPlaceHolder=""
+                name="spId"
+                [(ngModel)]="searchParam.spId"
+              >
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option *ngFor="let item of spIdList" [nzValue]="item.spKey"
-                  [nzLabel]="item.spName">
+                <nz-option
+                  *ngFor="let item of spIdList"
+                  [nzValue]="item.spKey"
+                  [nzLabel]="item.spName"
+                >
                 </nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
           <nz-form-item>
             <nz-form-label>BIC</nz-form-label>
             <nz-form-control>
-              <input nz-input placeholder="" name="bic" [(ngModel)]="searchParam.bic" />
+              <input
+                nz-input
+                placeholder=""
+                name="bic"
+                [(ngModel)]="searchParam.bic"
+              />
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
           <nz-form-item>
             <nz-form-label>Currency Pair</nz-form-label>
             <nz-form-control>
-              <nz-select nzPlaceHolder="" name="pairedExchangeRate" [(ngModel)]="searchParam.pairedExchangeRate">
+              <nz-select
+                nzPlaceHolder=""
+                name="pairedExchangeRate"
+                [(ngModel)]="searchParam.pairedExchangeRate"
+              >
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option *ngFor="let item of pairedExchangeRateList" [nzValue]="item.key"
-                  [nzLabel]="item.sourceCurrency + '->' + item.targetCurrency">
+                <nz-option
+                  *ngFor="let item of pairedExchangeRateList"
+                  [nzValue]="item.key"
+                  [nzLabel]="item.sourceCurrency + '->' + item.targetCurrency"
+                >
                 </nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzXXl]="8" [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
           <nz-form-item>
             <nz-form-label [nzNoColon]="true">Created On</nz-form-label>
             <nz-form-control>
-              <nz-range-picker style="width: 100%" name="createTime"
-                [(ngModel)]="searchParam.createTime"></nz-range-picker>
+              <nz-range-picker
+                style="width: 100%"
+                name="createTime"
+                [(ngModel)]="searchParam.createTime"
+              ></nz-range-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
 
-        <div nz-col [nzXXl]="16" [nzXl]="16" [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXs]="24"
-          class="m-b-8 text-right p-0">
+        <div
+          nz-col
+          [nzXXl]="16"
+          [nzXl]="16"
+          [nzLg]="24"
+          [nzMd]="24"
+          [nzSm]="24"
+          [nzXs]="24"
+          class="m-b-8 text-right p-0"
+        >
           <nz-form-item>
             <nz-form-label [nzNoColon]="true"></nz-form-label>
             <nz-form-control>
               <div nz-col [nzSpan]="24">
-                <button nz-button [nzType]="'primary'" (click)="getDataList(this.tableQueryParams)">
+                <button
+                  nz-button
+                  [nzType]="'primary'"
+                  (click)="getDataList(this.tableQueryParams)"
+                >
                   Query
                 </button>
-                <a nz-button nzType="link" class="m-l-15" (click)="resetForm()">Reset</a>
+                <a nz-button nzType="link" class="m-l-15" (click)="resetForm()"
+                  >Reset</a
+                >
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -65,19 +133,37 @@
       </div>
     </form>
   </nz-card>
-  <nz-card class="m-b-10">
-    <app-ant-table (changePageSize)="changePageSize($event)" (changePageNum)="getDataList($event)"
-      [tableConfig]="tableConfig" [tableData]="dataList">
+  <!-- <nz-card class="m-b-10"> -->
+  <app-card-table-wrap
+    [tableTitle]=""
+    [isNormalTable]="true"
+    [btnTpl]="createBtn"
+  >
+    <app-ant-table
+      (changePageSize)="changePageSize($event)"
+      (changePageNum)="getDataList($event)"
+      [tableConfig]="tableConfig"
+      [tableData]="dataList"
+    >
     </app-ant-table>
-    <!-- <ng-template #spTpl let-spName="spName" let-spCode="spCode">
-      <span [title]="(spName + '-' +  spCode) | map:'null'">{{ (spName + '-' + spCode) | map:'null'}}</span>
-    </ng-template> -->
-    <ng-template #pairedTpl let-formRateCurrency="formRateCurrency"
-      let-toRateCurrency="toRateCurrency">
-      <span
-        [title]="(formRateCurrency + '->' + toRateCurrency)  | map:'null'">{{
-        (formRateCurrency + '->' + toRateCurrency) | map:'null' }}</span>
+    <ng-template
+      #pairedTpl
+      let-formRateCurrency="formRateCurrency"
+      let-toRateCurrency="toRateCurrency"
+    >
+      <span [title]="formRateCurrency + '->' + toRateCurrency | map: 'null'">{{
+        formRateCurrency + '->' + toRateCurrency | map: 'null'
+      }}</span>
     </ng-template>
-  </nz-card>
-
-  <div>
+  </app-card-table-wrap>
+  <!-- </nz-card> -->
+</div>
+<ng-template #createBtn>
+  <div class="api-button">
+    <button nz-button nzType="primary">
+      <a href="https://github.com/UDPN/Poc11-contract-document" target="_blank">
+        View API Documentation</a
+      >
+    </button>
+  </div>
+</ng-template>
