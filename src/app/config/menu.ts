@@ -121,7 +121,7 @@ const menuNav: Menu[] = [
       {
         id: 2,
         fatherId: 7,
-        menuName: 'FX Service Provider Query',
+        menuName: 'FX Liquidity Provider Query',
         open: false,
         selected: false,
         menuType: 'C',
