@@ -1,3 +1,10 @@
+/*
+ * @Author: chenyuting
+ * @Date: 2024-07-08 16:17:34
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-17 10:57:31
+ * @Description: 
+ */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -42,11 +49,6 @@ const routes: Routes = [
         path: 'poc-provider',
         data: { preload: true },
         loadChildren: () => import('../../pages/poc-provider/poc-provider.module').then(m => m.PocProviderModule)
-      },
-      {
-        path: 'poc-foreign-model',
-        data: { preload: true },
-        loadChildren: () => import('../../pages/poc-foreign-model/poc-foreign-model.module').then(m => m.PocForeignModelModule)
       },
       {
         path: 'poc-system',

@@ -87,19 +87,8 @@ const menuNav: Menu[] = [
     code: 'R01',
   },
   {
-    menuName: 'FX Rate Mechanism',
-    id: 6,
-    fatherId: 0,
-    icon: 'deployment-unit',
-    open: false,
-    selected: false,
-    menuType: 'C',
-    path: '/poc/poc-foreign-model/foreign-model',
-    code: 'R03',
-  },
-  {
     menuName: 'Foreign Exchange Management',
-    id: 7,
+    id: 6,
     fatherId: 0,
     icon: 'transaction',
     open: false,
@@ -110,7 +99,7 @@ const menuNav: Menu[] = [
     children: [
       {
         id: 1,
-        fatherId: 7,
+        fatherId: 6,
         menuName: 'FX Application Management',
         open: false,
         selected: false,
@@ -120,7 +109,7 @@ const menuNav: Menu[] = [
       },
       {
         id: 2,
-        fatherId: 7,
+        fatherId: 6,
         menuName: 'FX Liquidity Provider Query',
         open: false,
         selected: false,
@@ -130,7 +119,7 @@ const menuNav: Menu[] = [
       },
       {
         id: 3,
-        fatherId: 7,
+        fatherId: 6,
         menuName: 'Exchange Rate Query',
         open: false,
         selected: false,
@@ -140,7 +129,7 @@ const menuNav: Menu[] = [
       },
       {
         id: 4,
-        fatherId: 7,
+        fatherId: 6,
         menuName: 'Settlement Model Query',
         open: false,
         selected: false,
@@ -150,7 +139,7 @@ const menuNav: Menu[] = [
       },
       {
         id: 5,
-        fatherId: 7,
+        fatherId: 6,
         menuName: 'FX Transactions',
         open: false,
         selected: false,
@@ -160,42 +149,9 @@ const menuNav: Menu[] = [
       },
     ]
   },
-  // {
-  //   menuName: 'Exchange Rate Query',
-  //   id: 8,
-  //   fatherId: 0,
-  //   icon: 'pay-circle',
-  //   open: false,
-  //   selected: false,
-  //   menuType: 'C',
-  //   path: '/poc/poc-exchange-rate/exchange-rate',
-  //   code: 'R05',
-  // },
-  // {
-  //   menuName: 'Settlement Model Query',
-  //   id: 9,
-  //   fatherId: 0,
-  //   icon: 'check-square',
-  //   open: false,
-  //   selected: false,
-  //   menuType: 'C',
-  //   path: '/poc/poc-settlement/settlement',
-  //   code: 'R07'
-  // },
-  // {
-  //   menuName: 'FX Transactions',
-  //   id: 10,
-  //   fatherId: 0,
-  //   icon: 'schedule',
-  //   open: false,
-  //   selected: false,
-  //   menuType: 'C',
-  //   path: '/poc/poc-fx-transactions/fx-transactions',
-  //   code: 'R06',
-  // },
   {
     menuName: 'System Management',
-    id: 8,
+    id: 7,
     fatherId: 0,
     icon: 'user',
     open: false,
@@ -206,18 +162,7 @@ const menuNav: Menu[] = [
     children: [
       {
         id: 1,
-        fatherId: 8,
-        menuName: 'Network Fees',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0',
-        disabled: true,
-        path: '111111'
-      },
-      {
-        id: 2,
-        fatherId: 8,
+        fatherId: 7,
         menuName: 'User Management',
         open: false,
         selected: false,
@@ -226,8 +171,8 @@ const menuNav: Menu[] = [
         path: '/poc/poc-system/user'
       },
       {
-        id: 3,
-        fatherId: 8,
+        id: 2,
+        fatherId: 7,
         menuName: 'Role Management',
         open: false,
         selected: false,
