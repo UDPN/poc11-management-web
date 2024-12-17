@@ -35,7 +35,7 @@ export class InfoComponent implements OnInit {
     this.pageHeaderInfo = {
       title: `Details`,
       breadcrumbs: [
-        { name: 'FX Service Provider Management', url: '/poc/poc-provider/provider' },
+        { name: 'Liquidity Provider Management', url: '/poc/poc-provider/provider' },
         { name: 'Details' }
       ],
       extra: '',

@@ -388,7 +388,7 @@
 <div
   id="container"
   [class]="'ss' + mapBankInfo?.bankCode"
-  style="padding: 12px; display: none;"
+  style="padding: 12px; display: none"
 >
   <div *ngIf="mapBankInfo?.bankType !== 3">
     <div class="tooltip-title">
@@ -469,7 +469,7 @@
           <div class="dashboard-flex" style="margin-bottom: 10px">
             <div>{{ 'Foreign Exchange Currency Pair' }}</div>
             <div style="font-size: 12px; margin-left: 20px">
-              {{ 'FX Service Provider' }}
+              {{ 'FX Liquidity Provider' }}
             </div>
           </div>
           <div style="border-top: 1px solid">
@@ -552,8 +552,13 @@
               >
                 <a
                   routerLink="/poc/poc-commercial-bank/commercial-bank/info"
-                  [queryParams]="{ spCode: data.spCode }" [title]="data.spName"
-                  >{{ data.spName.length > 20 ?  data.spName.slice(0, 20) + '...' : data.spName}}</a
+                  [queryParams]="{ spCode: data.spCode }"
+                  [title]="data.spName"
+                  >{{
+                    data.spName.length > 20
+                      ? data.spName.slice(0, 20) + '...'
+                      : data.spName
+                  }}</a
                 >
               </td>
               <!-- <td
@@ -568,16 +573,17 @@
                   [ngClass]="{
                     'dashborad-bottm': index === dataList.length - 1
                   }"
-                  style="background-color: #D6C6DB"
+                  style="background-color: #d6c6db"
                 >
                   {{ data.commercialBankWallets[0].cbdcName }}
                 </td>
                 <td
                   class="dashborad-border font-bold"
                   [ngClass]="{
-                    'dashborad-bottm dashborad-table-lasts': index === dataList.length - 1
+                    'dashborad-bottm dashborad-table-lasts':
+                      index === dataList.length - 1
                   }"
-                  style="background-color: #D6C6DB; color: #6D1464;"
+                  style="background-color: #d6c6db; color: #6d1464"
                 >
                   {{
                     data.commercialBankWallets[0].walletNumber
