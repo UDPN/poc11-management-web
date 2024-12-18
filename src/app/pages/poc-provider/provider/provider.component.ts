@@ -109,7 +109,7 @@ export class ProviderComponent implements OnInit, AfterViewInit {
           width: 180
         },
         {
-          title: 'Bank Description',
+          title: 'Official Website',
           field: 'spBriefIntroduction',
           width: 300
         },

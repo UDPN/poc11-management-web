@@ -149,7 +149,7 @@ export class CommercialBankComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Bank Description',
+          title: 'Official Website',
           field: 'spBriefIntroduction',
           width: 350
         },

@@ -171,7 +171,7 @@
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <nz-form-label nzRequired nzSpan="10"
-            >Bank Description
+            >Official Website
           </nz-form-label>
           <nz-form-control [nzErrorTip]="introductionError">
             <div nz-row>
@@ -185,7 +185,7 @@
             </div>
             <ng-template #introductionError let-control>
               <ng-container *ngIf="control.hasError('required')"
-                >Please input your Bank Description</ng-container
+                >Please input your Official Website</ng-container
               >
             </ng-template>
           </nz-form-control>

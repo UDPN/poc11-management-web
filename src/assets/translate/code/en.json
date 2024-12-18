@@ -1,10 +1,3 @@
-/*
- * @Author: zhangxuefeng
- * @Date: 2024-04-29 13:55:15
- * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-07-08 16:24:56
- * @Description: 
- */
 {
   "MSG_FXPLT_ELEVEN_20000": "Service provider info does not exist",
   "MSG_FXPLT_ELEVEN_20001": "The service provider info has been audited",
@@ -30,7 +23,7 @@
   "MSG_FXPLT_ELEVEN_20206": "Commercial bank name not null",
   "MSG_FXPLT_ELEVEN_20207": "The commercial bank name contains 2 to 50 letters or numbers and cannot start with a number",
   "MSG_FXPLT_ELEVEN_20208": "Country of region not null",
-  "MSG_FXPLT_ELEVEN_20209": "The commercial bank of Bank Description not null",
+  "MSG_FXPLT_ELEVEN_20209": "The commercial bank of Official Website not null",
   "MSG_FXPLT_ELEVEN_20210": "Contract event strategy does not exist",
   "MSG_FXPLT_ELEVEN_20211": "Brief description of a commercial bank cannot exceed 255 characters",
   "MSG_FXPLT_ELEVEN_20212": "The commercial bank of besu wallet address not null",
@@ -164,7 +157,7 @@
   "MSG_FXPLT_ELEVEN_22000": "CentralBankCode cannot be empty",
   "MSG_FXPLT_ELEVEN_22001": "Approved bank does not exist",
   "MSG_FXPLT_ELEVEN_22600": "Bank name is not empty",
-  "MSG_FXPLT_ELEVEN_22601": "Bank Description is not empty",
+  "MSG_FXPLT_ELEVEN_22601": "Official Website is not empty",
   "MSG_FXPLT_ELEVEN_22602": "Bn id is not empty",
   "MSG_FXPLT_ELEVEN_22603": "Wallet address is not empty",
   "MSG_FXPLT_ELEVEN_22604": "Agreement is not empty",
