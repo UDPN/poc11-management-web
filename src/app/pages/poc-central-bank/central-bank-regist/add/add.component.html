@@ -1,47 +1,92 @@
-<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-central-bank/central-bank-regist'"
-  [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+<app-page-header
+  [backTpl]="backTpl"
+  [backUrl]="'/poc/poc-central-bank/central-bank-regist'"
+  [pageHeaderInfo]="pageHeaderInfo"
+></app-page-header>
 <ng-template #backTpl>
   <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
 </ng-template>
 <div class="normal-detail-table-wrap">
-  <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" [nzTitle]="''" class="m-b-10">
+  <nz-card
+    [nzBodyStyle]="{ 'padding-bottom': 0 }"
+    [nzTitle]="''"
+    class="m-b-10"
+  >
     <form nz-form [formGroup]="validateForm">
-      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10" nzGutter="8">
+      <div
+        nz-row
+        nzJustify="center"
+        nzAlign="middle"
+        class="m-b-10"
+        nzGutter="8"
+      >
         <div nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <div nz-row nzJustify="space-between" nzGutter="8">
-            <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+            <div
+              nz-col
+              [nzXXl]="10"
+              [nzXl]="10"
+              [nzLg]="12"
+              [nzMd]="12"
+              [nzSm]="24"
+              [nzXs]="24"
+            >
               <nz-form-item>
-                <nz-form-label nzRequired nzSpan="24">Custodian Bank 
+                <nz-form-label nzRequired nzSpan="24"
+                  >Custodian Bank
                 </nz-form-label>
                 <nz-form-control [nzErrorTip]="bankNameError">
                   <div nz-row>
                     <div nz-col nzSpan="24">
-                      <input nz-input formControlName="centralBankName" [ngClass]="{'onboard-disabled': !tempStatus}"
-                        [readonly]="!tempStatus" />
+                      <input
+                        nz-input
+                        formControlName="centralBankName"
+                        [ngClass]="{ 'onboard-disabled': !tempStatus }"
+                        [readonly]="!tempStatus"
+                      />
                     </div>
                   </div>
                   <ng-template #bankNameError let-control>
-                    <ng-container *ngIf="control.hasError('required')">Please input your Custodian Bank </ng-container>
-                    <ng-container *ngIf="control.hasError('regular')">Characters of 2 ~ 50 letters or numbers, cannot
-                      start with numbers</ng-container>
+                    <ng-container *ngIf="control.hasError('required')"
+                      >Please input your Custodian Bank
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('regular')"
+                      >Characters of 2 ~ 50 letters or numbers, cannot start
+                      with numbers</ng-container
+                    >
                   </ng-template>
                 </nz-form-control>
               </nz-form-item>
             </div>
-            <div nz-col [nzXXl]="10" [nzXl]="10" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+            <div
+              nz-col
+              [nzXXl]="10"
+              [nzXl]="10"
+              [nzLg]="12"
+              [nzMd]="12"
+              [nzSm]="24"
+              [nzXs]="24"
+            >
               <nz-form-item>
-                <nz-form-label nzRequired nzSpan="24">BIC
-                </nz-form-label>
+                <nz-form-label nzRequired nzSpan="24">BIC </nz-form-label>
                 <nz-form-control [nzErrorTip]="bicError">
                   <div nz-row>
                     <div nz-col nzSpan="24">
-                      <input nz-input formControlName="bic" [ngClass]="{'onboard-disabled': !tempStatus}"
-                        [readonly]="!tempStatus" />
+                      <input
+                        nz-input
+                        formControlName="bic"
+                        [ngClass]="{ 'onboard-disabled': !tempStatus }"
+                        [readonly]="!tempStatus"
+                      />
                     </div>
                   </div>
                   <ng-template #bicError let-control>
-                    <ng-container *ngIf="control.hasError('required')">Please input your BIC</ng-container>
-                    <ng-container *ngIf="control.hasError('regular')">Incorrect BIC format </ng-container>
+                    <ng-container *ngIf="control.hasError('required')"
+                      >Please input your BIC</ng-container
+                    >
+                    <ng-container *ngIf="control.hasError('regular')"
+                      >Incorrect BIC format
+                    </ng-container>
                   </ng-template>
                 </nz-form-control>
               </nz-form-item>
@@ -51,66 +96,97 @@
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="24">Logo
-          </nz-form-label>
+          <nz-form-label nzRequired nzSpan="24">Logo </nz-form-label>
           <nz-form-control [nzErrorTip]="logoError">
             <div nz-row [formGroup]="validateForm">
-              <div nz-col nzSpan="24" style="text-align: left;" class="m-b-20">
-                <button nz-button [nzSize]="'large'" nzType="primary" (click)='upFiles.click()'>Upload</button>
-                <input type="file" accept="image/png" hidden #upFiles (change)="uploadFileImg($event)" />
+              <div nz-col nzSpan="24" style="text-align: left" class="m-b-20">
+                <button
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="primary"
+                  (click)="upFiles.click()"
+                >
+                  Upload
+                </button>
+                <input
+                  type="file"
+                  accept="image/png"
+                  hidden
+                  #upFiles
+                  (change)="uploadFileImg($event)"
+                />
               </div>
               <div nz-col nzSpan="24" class="m-b-10">
                 <div class="onboard-div onboard-postion">
                   <input type="text" hidden formControlName="logo" nz-input />
-                  <img nz-image width="160px" height="160px" [nzSrc]="logoImg" *ngIf="logoImg" alt="" />
+                  <img
+                    nz-image
+                    width="160px"
+                    height="160px"
+                    [nzSrc]="logoImg"
+                    *ngIf="logoImg"
+                    alt=""
+                  />
                 </div>
               </div>
               <div nz-col nzSpan="12">
                 <div class="onboard-div-info">
-                  It is recommended to provide pictures with 160 * 160 (PNG / JPG / GIF / BMP /
-                  JPEG)
-                  pixels and size less than 10M.
+                  It is recommended to provide pictures with 160 * 160 (PNG /
+                  JPG / GIF / BMP / JPEG) pixels and size less than 10M.
                 </div>
               </div>
             </div>
             <ng-template #logoError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please upload your Logo</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please upload your Logo</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="24">Region
-          </nz-form-label>
+          <nz-form-label nzRequired nzSpan="24">Region </nz-form-label>
           <nz-form-control [nzErrorTip]="countryError">
             <div nz-row>
               <div nz-col nzSpan="24">
                 <nz-select formControlName="countryInfoId">
-                  <nz-option *ngFor="let item of countryList" [nzValue]="item.countryId" [nzLabel]="item.countryName">
+                  <nz-option
+                    *ngFor="let item of countryList"
+                    [nzValue]="item.countryId"
+                    [nzLabel]="item.countryName"
+                  >
                   </nz-option>
                 </nz-select>
               </div>
             </div>
             <ng-template #countryError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please select your Country of
-                Region</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please select your Country of Region</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzRequired nzSpan="10">Bank Description
+          <nz-form-label nzRequired nzSpan="10"
+            >Bank Description
           </nz-form-label>
           <nz-form-control [nzErrorTip]="introductionError">
             <div nz-row>
               <div nz-col nzSpan="24">
-                <textarea nz-input formControlName="centralBankIntroduction" maxlength="255"></textarea>
+                <textarea
+                  nz-input
+                  formControlName="centralBankIntroduction"
+                  maxlength="255"
+                ></textarea>
               </div>
             </div>
             <ng-template #introductionError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please input your Bank Description</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please input your Bank Description</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -118,16 +194,29 @@
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
           <nz-form-label nzRequired nzSpan="10">
-            Preset Wallet Address(Besu)<i class="m-l-5" nz-icon nzType="question-circle" nzTooltipPlacement="right"
-              nzTheme="outline" nz-tooltip [nzTooltipTitle]="titleTemplate" nzTooltipColor="#F5F5F5"
-              nzTooltipTrigger="click" nzTooltipOverlayClassName="buils"></i>
+            Preset Wallet Address(Besu)<i
+              class="m-l-5"
+              nz-icon
+              nzType="question-circle"
+              nzTooltipPlacement="right"
+              nzTheme="outline"
+              nz-tooltip
+              [nzTooltipTitle]="titleTemplate"
+              nzTooltipColor="#F5F5F5"
+              nzTooltipTrigger="click"
+              nzTooltipOverlayClassName="buils"
+            ></i>
           </nz-form-label>
           <nz-form-control [nzErrorTip]="besuWalletAddressError">
             <ng-container *ngIf="!tempStatus">
               <div nz-row>
                 <div nz-col nzSpan="24">
-                  <input nz-input formControlName="besuWalletAddress" [ngClass]="{'onboard-disabled': !tempStatus}"
-                    [readonly]="!tempStatus" />
+                  <input
+                    nz-input
+                    formControlName="besuWalletAddress"
+                    [ngClass]="{ 'onboard-disabled': !tempStatus }"
+                    [readonly]="!tempStatus"
+                  />
                 </div>
               </div>
             </ng-container>
@@ -135,15 +224,23 @@
               <div nz-row>
                 <div nz-col nzSpan="24">
                   <nz-select formControlName="besuWalletAddress">
-                    <nz-option *ngFor="let item of besuWalletAddressList" [nzValue]="item" [nzLabel]="item">
+                    <nz-option
+                      *ngFor="let item of besuWalletAddressList"
+                      [nzValue]="item"
+                      [nzLabel]="item"
+                    >
                     </nz-option>
                   </nz-select>
                 </div>
               </div>
             </ng-container>
             <ng-template #besuWalletAddressError let-control>
-              <ng-container *ngIf="control.hasError('required')">{{'Please ' + (tempStatus ? 'select' : 'input') + '
-                your Wallet Address(Besu)'}}</ng-container>
+              <ng-container *ngIf="control.hasError('required')">{{
+                'Please ' +
+                  (tempStatus ? 'select' : 'input') +
+                  '
+                your Wallet Address(Besu)'
+              }}</ng-container>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -155,39 +252,80 @@
             <div nz-row>
               <div nz-col nzSpan="24">
                 <nz-select formControlName="bnCode">
-                  <nz-option *ngFor="let item of bnIdList" [nzValue]="item.bnNodeCode" [nzLabel]="item.bnNodeCode">
+                  <nz-option
+                    *ngFor="let item of bnIdList"
+                    [nzValue]="item.bnNodeCode"
+                    [nzLabel]="item.bnNodeCode"
+                  >
                   </nz-option>
                 </nz-select>
               </div>
             </div>
             <ng-template #roleError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please select your BN ID</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please select your BN ID</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
         <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
-          <nz-form-label nzSpan="24" nzRequired>Agreement
-          </nz-form-label>
-          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The Sourcecode Zip File is required!">
+          <nz-form-label nzSpan="24" nzRequired>Agreement </nz-form-label>
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            nzErrorTip="The Sourcecode Zip File is required!"
+          >
             <div class="set-postion">
               <div class="upDiv" (click)="upFileSig.click()">
-                <span style="font-size: 28px" *ngIf="fileStatus === 1" nz-icon nzType="plus" nzTheme="outline">
+                <span
+                  style="font-size: 28px"
+                  *ngIf="fileStatus === 1"
+                  nz-icon
+                  nzType="plus"
+                  nzTheme="outline"
+                >
                 </span>
-                <span style="font-size: 28px" *ngIf="fileStatus === 2" nz-icon nzType="file-zip" nzTheme="outline">
+                <span
+                  style="font-size: 28px"
+                  *ngIf="fileStatus === 2"
+                  nz-icon
+                  nzType="file-zip"
+                  nzTheme="outline"
+                >
                 </span>
-                <span style="font-size: 28px" *ngIf="fileStatus === 3" nz-icon [nzType]="'sync'" [nzSpin]="true">
+                <span
+                  style="font-size: 28px"
+                  *ngIf="fileStatus === 3"
+                  nz-icon
+                  [nzType]="'sync'"
+                  [nzSpin]="true"
+                >
                 </span>
               </div>
-              <span class="m-l-10 del" style="color: red" *ngIf="fileStatus === 2"
-                (click)="onDeleteFile()">delete</span>
+              <span
+                class="m-l-10 del"
+                style="color: red"
+                *ngIf="fileStatus === 2"
+                (click)="onDeleteFile()"
+                >delete</span
+              >
             </div>
 
             <input type="text" hidden formControlName="agreementUrl" />
-            <input type="file" accept="" hidden #upFileSig (change)="uploadFileSig($event)" id="files" />
+            <input
+              type="file"
+              accept=""
+              hidden
+              #upFileSig
+              (change)="uploadFileSig($event)"
+              id="files"
+            />
             <ng-template #businessLicenseError let-control>
-              <ng-container *ngIf="control.hasError('required')">Please upload your Business License</ng-container>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please upload your Agreement</ng-container
+              >
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -197,14 +335,28 @@
           <div nz-row>
             <div nz-col nzSpan="24" style="text-align: end">
               <nz-space>
-                <button *nzSpaceItem nz-button [nzSize]="'large'" nzType="default" (click)="onBack()">
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="default"
+                  (click)="onBack()"
+                >
                   Back
                 </button>
-                <button *nzSpaceItem nz-button [nzSize]="'large'" nzType="primary" [nzLoading]="isLoading"
-                  [disabled]="!this.validateForm.valid" (click)="onSubmit()">
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="primary"
+                  [nzLoading]="isLoading"
+                  [disabled]="!this.validateForm.valid"
+                  (click)="onSubmit()"
+                >
                   <!-- {{ this.tempStatus === true ? 'Save' : 'Edit' }} -->
                   {{ 'Save' }}
-                </button></nz-space>
+                </button></nz-space
+              >
             </div>
           </div>
         </nz-form-item>
@@ -219,14 +371,20 @@
     </div>
     <div class="mt-1 font-serif" style="color: #3c5686">
       Step 1: Download jar file and use as below
-      <button (click)="onDownload()" nz-button nzType="primary" [nzShape]="'circle'">
+      <button
+        (click)="onDownload()"
+        nz-button
+        nzType="primary"
+        [nzShape]="'circle'"
+      >
         <i nz-icon nzType="download" nzTheme="outline"></i>
       </button>
       <p>(jar file MD5: 68dda8fe4181074b9d281d7936d1dcea)</p>
     </div>
     <div class="mt-1 font-serif" style="color: #3c5686">
-      Step 2: Use JDK 8+ to run below command so as to generate besu account document offline (you need to input
-      location and dest file name during generation):
+      Step 2: Use JDK 8+ to run below command so as to generate besu account
+      document offline (you need to input location and dest file name during
+      generation):
       <p class="mt-4">
         On linux/macOS: java -jar "path-to-downloaded-jar-file"
       </p>

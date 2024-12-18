@@ -1,85 +1,166 @@
-<app-page-header [backTpl]="backTpl" [backUrl]="'/poc/poc-commercial-bank/commercial-bank'"
-  [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+<app-page-header
+  [backTpl]="backTpl"
+  [backUrl]="'/poc/poc-commercial-bank/commercial-bank'"
+  [pageHeaderInfo]="pageHeaderInfo"
+></app-page-header>
 <ng-template #backTpl>
   <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
 </ng-template>
 <div class="normal-detail-table-wrap">
   <nz-card [nzTitle]="'Basic Information'" [nzBordered]="true" class="m-b-10">
-    <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
-      [nzBordered]="true">
+    <nz-descriptions
+      nzTitle=""
+      [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }"
+      [nzColon]="false"
+      [nzBordered]="true"
+    >
       <nz-descriptions-item nzTitle="Commercial Bank ID">{{
         info.spChainCode
-        }}</nz-descriptions-item>
+      }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Commercial Bank">{{
         info.spName
-        }}</nz-descriptions-item>
+      }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="BIC">{{
         info.bankBic
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Custodian Bank ">{{
-        info.centralBankName
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Liquidity Provider">{{
-        info.bankType | map:'bankTypeStatus'
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Bank Description" [nzSpan]="3">{{
+      }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Official Website" [nzSpan]="3">{{
         info.spBriefIntroduction
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Request Description" [nzSpan]="3">{{
+      }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Description" [nzSpan]="3">{{
         info.spDescription
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="BN ID">{{
-        info.bnCode
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Wallet Address">{{
-        info.spBesuWalletAddress
-        }}</nz-descriptions-item>
+      }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Liquidity Provider">{{
+        info.bankType | map: 'bankTypeStatus'
+      }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Onboarded On">{{
-        info.createDate | map:'timeStamp'
-        }}</nz-descriptions-item>
+        info.createDate | map: 'timeStamp'
+      }}</nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
+  <nz-card
+    [nzTitle]="'Currency Information'"
+    [nzBordered]="true"
+    class="m-b-10"
+  >
+    <nz-descriptions
+      nzTitle=""
+      [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }"
+      [nzColon]="false"
+      [nzBordered]="true"
+    >
+      <nz-descriptions-item nzTitle="Custodian Bank" [nzSpan]="3">{{
+        info.centralBankName
+      }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Pegged Currency">{{
+        info.peggedCurrency
+      }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Blockchain">{{
+        info.blockchain
+      }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
   <nz-card [nzTitle]="'Contact Information'" [nzBordered]="true" class="m-b-10">
-    <nz-descriptions nzTitle="" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }" [nzColon]="false"
-      [nzBordered]="true">
+    <nz-descriptions
+      nzTitle=""
+      [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }"
+      [nzColon]="false"
+      [nzBordered]="true"
+    >
       <nz-descriptions-item nzTitle="Contact Name">{{
         info.contactName
-        }}</nz-descriptions-item>
+      }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Mobile Number">{{
         info.mobileNumber
-        }}</nz-descriptions-item>
+      }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Contact Email Address" [nzSpan]="3">{{
         info.email
-        }}</nz-descriptions-item>
+      }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Detailed Address" [nzSpan]="3">{{
         info.detailedAddress
-        }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Business License">
-        <img nz-image style="width: 160px; height: 160px" [nzSrc]="this.infoMemberLicense"
-          *ngIf="this.infoMemberLicense" alt="" />
-      </nz-descriptions-item>
+      }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
-  <nz-card [nzTitle]="'Capital Pool Information'" [nzBordered]="true" class="m-b-10"
-    [ngStyle]="{'display' : info.bankType === 2 ? '' : 'none'}">
+  <nz-card [nzTitle]="'Activate Service'" [nzBordered]="true" class="m-b-10">
+    <nz-descriptions
+      nzTitle=""
+      [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 1, sm: 1, xs: 1 }"
+      [nzColon]="false"
+    >
+      <nz-descriptions-item nzTitle="">
+        <label nz-checkbox nzDisabled [nzChecked]="true">
+          Interbank Cross-border Settlement<i
+            class="m-l-5"
+            style="color: #3c5686"
+            nz-icon
+            nzType="question-circle"
+            nzTooltipPlacement="right"
+            nzTheme="fill"
+            nz-tooltip
+            [nzTooltipTitle]="
+              'Interbank cross-border settlement refers to the process by whichfinancial institutions, typically banks, exchange currencies and settletransactions on behalf of their clients across national borders.'
+            "
+            nzTooltipColor="#3c5686"
+            nzTooltipTrigger="click"
+            nzTooltipOverlayClassName="buils"
+          ></i> </label
+      ></nz-descriptions-item>
+      <nz-descriptions-item nzTitle=""
+        ><label nz-checkbox nzDisabled [nzChecked]="info.paymentStatus === 1"
+          >Cross-border Payment & Remittance<i
+            class="m-l-5"
+            style="color: #3c5686"
+            nz-icon
+            nzType="question-circle"
+            nzTooltipPlacement="right"
+            nzTheme="fill"
+            nz-tooltip
+            [nzTooltipTitle]="
+              'Cross-border Payment & Remittance refers to the process oftransferring funds between two different countries or currencies'
+            "
+            nzTooltipColor="#3c5686"
+            nzTooltipTrigger="click"
+            nzTooltipOverlayClassName="buils"
+          ></i> </label
+      ></nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
+  <nz-card
+    [nzTitle]="'Capital Pool Information'"
+    [nzBordered]="true"
+    class="m-b-10"
+    [ngStyle]="{ display: info.bankType === 2 ? '' : 'none' }"
+  >
     <div nz-row nzJustify="center" nzAlign="middle">
       <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
-        <app-ant-table (changePageSize)="changePageSize($event)" [tableConfig]="tableConfig"
-          [tableData]="dataList"></app-ant-table>
+        <app-ant-table
+          (changePageSize)="changePageSize($event)"
+          [tableConfig]="tableConfig"
+          [tableData]="dataList"
+        ></app-ant-table>
         <ng-template #authorizedDebitTpl>
           <span>{{ 'Yes' }}</span>
         </ng-template>
       </div>
     </div>
   </nz-card>
-  <nz-card [nzTitle]="'Attachments'" [nzBordered]="true" class="m-b-10"
-    *ngIf="info.bankType === 2 && attachmentsList.length > 0">
+  <nz-card
+    [nzTitle]="'Attachments'"
+    [nzBordered]="true"
+    class="m-b-10"
+    *ngIf="info.bankType === 2 && attachmentsList.length > 0"
+  >
     <div nz-row nzJustify="center" nzAlign="middle">
       <div nz-col nzXs="24" nzSm="24" nzXl="18" nzXXl="16">
         <label *ngFor="let item of attachmentsList">
-          <button nz-button nzType="text" class="m-t-15 m-r-25"
-            (click)="onLoad(item.approvedSpFileHash, item.fileUrl)">{{ item.fileUrl }}<span nz-icon nzType="download"
-              class="m-l-15"></span></button>
+          <button
+            nz-button
+            nzType="text"
+            class="m-t-15 m-r-25"
+            (click)="onLoad(item.approvedSpFileHash, item.fileUrl)"
+          >
+            {{ item.fileUrl
+            }}<span nz-icon nzType="download" class="m-l-15"></span>
+          </button>
         </label>
       </div>
     </div>
