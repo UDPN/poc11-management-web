@@ -73,12 +73,6 @@ export class InfoComponent implements OnInit {
           this.info = res;
           this.dataList = res.capitalPoolActivationList;
           this.attachmentsList = res.approvedSpFileList;
-          if (res['businessLicenseUrl']) {
-            this.commonService.download({ hash: res['businessLicenseUrl'] }).subscribe(data => {
-              this.infoMemberLicense = 'data:image/jpg;base64,' + data;
-              this.cdr.detectChanges();
-            })
-          }
           this.cdr.markForCheck();
           return;
         });

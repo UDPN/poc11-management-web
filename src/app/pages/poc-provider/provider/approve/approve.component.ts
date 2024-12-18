@@ -70,12 +70,6 @@ export class ApproveComponent implements OnInit {
         this.info = res;
         this.dataList = res.capitalPoolList;
         this.attachmentsList = res.bankFileList;
-        if (res['businessLicenseUrl']) {
-          this.commonService.download({ hash: res['businessLicenseUrl'] }).subscribe(data => {
-            this.infoMemberLicense = 'data:image/jpg;base64,' + data;
-            this.cdr.detectChanges();
-          })
-        }
         this.cdr.markForCheck();
         return;
       })
