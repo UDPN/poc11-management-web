@@ -166,7 +166,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           width: 200
         },
         {
-          title: 'Official Website',
+          title: 'Brief Introduction',
           field: 'bankIntroduction',
           width: 220
         },
