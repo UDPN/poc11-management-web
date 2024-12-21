@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-10-11 10:38:24
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-19 11:13:11
+ * @LastEditTime: 2024-12-21 14:00:54
  * @Description: 
 -->
 <app-page-header
@@ -142,16 +142,6 @@
         ></app-ant-table>
         <ng-template #authorizedTpl>
           <span>{{ 'Yes' }}</span>
-        </ng-template>
-        <ng-template
-          #currencyTpl
-          let-settlementCapitalPoolCurrency="settlementCapitalPoolCurrency"
-        >
-          <span>{{
-            settlementCapitalPoolCurrency.split('-')[0] +
-              '-' +
-              settlementCapitalPoolCurrency.split('-')[1]
-          }}</span>
         </ng-template>
       </div>
     </div>

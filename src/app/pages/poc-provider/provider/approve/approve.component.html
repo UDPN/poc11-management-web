@@ -136,16 +136,6 @@
         <ng-template #authorizedTpl>
           <span>{{ 'Yes' }}</span>
         </ng-template>
-        <ng-template
-          #currencyTpl
-          let-settlementCapitalPoolCurrency="settlementCapitalPoolCurrency"
-        >
-          <span>{{
-            settlementCapitalPoolCurrency.split('-')[0] +
-              '-' +
-              settlementCapitalPoolCurrency.split('-')[1]
-          }}</span>
-        </ng-template>
       </div>
     </div>
   </nz-card>
