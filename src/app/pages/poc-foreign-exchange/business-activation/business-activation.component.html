@@ -169,7 +169,9 @@
     >
       <ng-container *ngIf="outCapitalPoolActivation">
         <span *ngFor="let item of outCapitalPoolActivation">
-          <span [title]="item.split('-')[0]">{{ item.split('-')[0] }}</span>
+          <span [title]="item | map: 'currencyPair'">{{
+            item | map: 'currencyPair'
+          }}</span>
           <br />
         </span>
       </ng-container>
@@ -178,8 +180,8 @@
     <ng-template #foreignTpl let-outActivationRate="outActivationRate">
       <ng-container *ngIf="outActivationRate">
         <span *ngFor="let items of outActivationRate">
-          <span [title]="items.split('-')[0] + '-' + items.split('-')[2]">{{
-            items.split('-')[0] + '-' + items.split('-')[2]
+          <span [title]="items | map: 'currencyPair'">{{
+            items | map: 'currencyPair'
           }}</span>
           <br />
         </span>

@@ -216,6 +216,15 @@ export class MapPipe implements PipeTransform {
         return timestampToDate(value);
       }
     }
+    if(arg === 'currencyPair') {
+      if (!value) {
+        return value = '--';
+      } else if(value.indexOf('-UDPN') !== 1) {
+        return value.replaceAll('-UDPN', '');
+      } else {
+        return value;
+      }
+    }
     let type: string = arg;
     let param = '';
 
