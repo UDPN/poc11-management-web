@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-07-08 16:17:34
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-17 10:57:31
+ * @LastEditTime: 2024-12-24 14:12:27
  * @Description: 
  */
 import { NgModule } from '@angular/core';
@@ -54,6 +54,14 @@ const routes: Routes = [
         path: 'poc-system',
         data: { preload: true },
         loadChildren: () => import('../../pages/poc-system/poc-system.module').then(m => m.PocSystemModule)
+      },
+      {
+        path: 'poc-notifications', 
+        data: { preload: true },
+        loadChildren: () =>
+          import('../../pages/poc-notifications/poc-notifications.module').then(
+            (m) => m.PocNotificationsModule
+          )
       },
       {
         path: 'system',

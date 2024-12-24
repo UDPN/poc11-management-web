@@ -1,0 +1,186 @@
+<!--
+ * @Author: chenyuting
+ * @Date: 2024-12-23 14:20:16
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-24 17:58:38
+ * @Description: 
+-->
+<app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+
+<div class="normal-table-wrap">
+  <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
+    <form nz-form nzLayout="vertical">
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label>Title</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                placeholder=""
+                name="title"
+                [(ngModel)]="searchParam.title"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label>Recipient</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzPlaceHolder=""
+                name="systemAnnouncementType"
+                [(ngModel)]="searchParam.systemAnnouncementType"
+              >
+                <nz-option nzValue="" nzLabel="All"></nz-option>
+                <nz-option
+                  nzValue="1"
+                  nzLabel="Custodian Bank
+                  "
+                ></nz-option>
+                <nz-option
+                  nzValue="2"
+                  nzLabel="Commercial Bank
+  
+                  "
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label>Pin to Top</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzPlaceHolder=""
+                name="top"
+                [(ngModel)]="searchParam.top"
+              >
+                <nz-option nzValue="" nzLabel="All"></nz-option>
+                <nz-option
+                  nzValue="1"
+                  nzLabel="Yes
+                  "
+                ></nz-option>
+                <nz-option
+                  nzValue="0"
+                  nzLabel="No
+  
+                  "
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label [nzNoColon]="true">Created On</nz-form-label>
+            <nz-form-control>
+              <nz-range-picker
+                style="width: 100%"
+                name="createTime"
+                [(ngModel)]="searchParam.createTime"
+              ></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="16"
+          [nzXl]="16"
+          [nzLg]="24"
+          [nzMd]="24"
+          [nzSm]="24"
+          [nzXs]="24"
+          class="m-b-8 text-right p-0"
+        >
+          <nz-form-item>
+            <nz-form-label [nzNoColon]="true"></nz-form-label>
+            <nz-form-control>
+              <div nz-col [nzSpan]="24">
+                <button
+                  nz-button
+                  [nzType]="'primary'"
+                  (click)="getDataList(this.tableQueryParams)"
+                >
+                  Query
+                </button>
+                <a nz-button nzType="link" class="m-l-15" (click)="resetForm()"
+                  >Reset</a
+                >
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+  <app-card-table-wrap
+    [isNormalTable]="true"
+    tableTitle="Notice List"
+    [btnTpl]="createBtn"
+  >
+    <app-ant-table
+      (changePageSize)="changePageSize($event)"
+      (changePageNum)="getDataList($event)"
+      [tableConfig]="tableConfig"
+      [tableData]="dataList"
+    ></app-ant-table
+    ><ng-template #numberTpl let-key="key">
+      <span [title]="key">{{ key }}</span>
+    </ng-template>
+    <ng-template #operationTpl>
+      <ng-container *appAuth="''">
+        <span class="operate-text"> Details </span>
+      </ng-container>
+      <ng-container *appAuth="''">
+        <span class="operate-text"> Delete </span>
+      </ng-container></ng-template
+    >
+  </app-card-table-wrap>
+</div>
+<ng-template #createBtn>
+  <button
+    routerLink="/poc/poc-notifications/notifications/add"
+    *appAuth="''"
+    nz-button
+    nzType="primary"
+    class="m-r-8"
+  >
+    New
+  </button>
+</ng-template>

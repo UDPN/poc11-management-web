@@ -1,3 +1,10 @@
+/*
+ * @Author: chenyuting
+ * @Date: 2024-12-24 13:32:33
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-24 16:54:47
+ * @Description: 
+ */
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,8 +17,9 @@ import { DirectivesModule } from './directives/directives.module';
 import { PipesModule } from './pipes/pipes.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { QuillModule } from 'ngx-quill';
 
-const MODULES = [NgxChartsModule, CommonModule, FormsModule, ReactiveFormsModule, PipesModule, ComponentsModule, DirectivesModule, CardTableWrapModule, BizComponentsModule,TranslateModule, ...SHARED_ZORRO_MODULES];
+const MODULES = [NgxChartsModule, CommonModule, FormsModule, ReactiveFormsModule, PipesModule, ComponentsModule, DirectivesModule, CardTableWrapModule, BizComponentsModule,TranslateModule, QuillModule, ...SHARED_ZORRO_MODULES];
 
 @NgModule({
   imports: [...MODULES],

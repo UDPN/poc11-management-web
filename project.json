@@ -50,6 +50,8 @@
           "node_modules/driver.js/dist/driver.min.js"
         ],
         "allowedCommonJsDependencies": [
+          "quill",
+          "ngx-quill",
           "rfdc",
           "jwt-encode",
           "@env/environment",
@@ -121,7 +123,7 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "host": "10.0.7.227",
+        "host": "10.0.7.84",
         "port": 4214,
         "proxyConfig": "proxy.conf.json",
         "disableHostCheck": false

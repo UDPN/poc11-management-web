@@ -12,47 +12,22 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@app": [
-        "src/app"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@config/*": [
-        "src/app/config/*"
-      ],
-      "@core/*": [
-        "src/app/core/*"
-      ],
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@services/*": [
-        "src/app/core/services/http/*"
-      ],
-      "@shared/*": [
-        "src/app/shared/*"
-      ],
-      "@store/*": [
-        "src/app/core/services/store/*"
-      ],
-      "@utils/*": [
-        "src/app/utils/*"
-      ],
-      "@widget/*": [
-        "src/app/widget/*"
-      ]
+      "@app": ["src/app"],
+      "@app/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@config/*": ["src/app/config/*"],
+      "@core/*": ["src/app/core/*"],
+      "@env/*": ["src/environments/*"],
+      "@services/*": ["src/app/core/services/http/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@store/*": ["src/app/core/services/store/*"],
+      "@utils/*": ["src/app/utils/*"],
+      "@widget/*": ["src/app/widget/*"]
     },
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
@@ -60,7 +35,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "references": [
@@ -75,10 +50,7 @@
     }
   ],
   "compileOnSave": false,
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ],
+  "exclude": ["node_modules", "tmp"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

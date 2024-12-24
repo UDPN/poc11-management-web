@@ -150,6 +150,17 @@ const menuNav: Menu[] = [
     ]
   },
   {
+    menuName: 'Notifications',
+    id: 1,
+    fatherId: 0,
+    icon: 'notification',
+    open: false,
+    selected: false,
+    menuType: 'C',
+    path: '/poc/poc-notifications/notifications',
+    code: 'R0'
+  },
+  {
     menuName: 'System Management',
     id: 7,
     fatherId: 0,

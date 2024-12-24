@@ -1,0 +1,150 @@
+<app-page-header
+  [backTpl]="backTpl"
+  [backUrl]="'/poc/poc-notifications/notifications'"
+  [pageHeaderInfo]="pageHeaderInfo"
+></app-page-header>
+<ng-template #backTpl>
+  <span class="m-t-15" nz-icon nzType="arrow-left" nzTheme="outline"></span>
+</ng-template>
+<div class="normal-detail-table-wrap">
+  <nz-card
+    [nzBodyStyle]="{ 'padding-bottom': 0 }"
+    [nzTitle]="''"
+    class="m-b-10"
+  >
+    <form nz-form [formGroup]="validateForm">
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <nz-form-label nzRequired nzSpan="10">Notice Title </nz-form-label>
+          <nz-form-control [nzErrorTip]="titleError">
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <input nz-input formControlName="title" maxlength="50" />
+              </div>
+            </div>
+            <ng-template #titleError let-control>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please input your Notice Title</ng-container
+              >
+              <ng-container *ngIf="control.hasError('regular')"
+                >Less than 1,000 characters</ng-container
+              >
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <nz-form-label nzRequired nzSpan="10">Notice Content</nz-form-label>
+          <nz-form-control [nzErrorTip]="contentError">
+            <div nz-row>
+              <div nz-col nzSpan="24" style="height:100px; max-height: 100px;">
+                <quill-editor placeholder="" [modules]="modules" formControlName="content"/>
+              </div>
+            </div>
+            <ng-template #contentError let-control >
+              <div class="m-t-40">
+                <ng-container *ngIf="control.hasError('required')"
+                >Please input your Notice Content</ng-container
+                >
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10 m-t-40">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <nz-form-label nzRequired nzSpan="10">Recipient</nz-form-label>
+          <nz-form-control [nzErrorTip]="titleError">
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-checkbox-wrapper
+                  style="width: 100%"
+                  (nzOnChange)="log($event)"
+                >
+                  <div nz-row>
+                    <div nz-col nzSpan="8">
+                      <label nz-checkbox [nzValue]="1">Custodian Bank</label>
+                    </div>
+                    <div nz-col nzSpan="8">
+                      <label nz-checkbox [nzValue]="2">Commercial Bank</label>
+                    </div>
+                  </div>
+                </nz-checkbox-wrapper>
+              </div>
+            </div>
+            <ng-template #titleError let-control>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please select your Recipient</ng-container
+              >
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <nz-form-label nzRequired nzSpan="10">Pin to Top</nz-form-label>
+          <nz-form-control [nzErrorTip]="titleError">
+            <div nz-row>
+              <div nz-col nzSpan="24">
+                <nz-radio-group style="width: 100%" formControlName="top">
+                  <div nz-row>
+                    <div nz-col nzSpan="8">
+                      <label nz-radio [nzValue]="1">Yes</label>
+                    </div>
+                    <div nz-col nzSpan="8">
+                      <label nz-radio [nzValue]="0">No</label>
+                    </div>
+                  </div>
+                </nz-radio-group>
+              </div>
+            </div>
+            <ng-template #titleError let-control>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please select your Pin to Top</ng-container
+              >
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-row nzJustify="center" nzAlign="middle" class="m-b-10 m-t-15">
+        <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+          <div nz-row>
+            <div nz-col nzSpan="24" style="text-align: end">
+              <nz-space>
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="primary"
+                  [nzLoading]="isLoading"
+                  [disabled]="!this.validateForm.valid"
+                  (click)="onSubmit()"
+                >
+                  {{ 'Confirm' }}
+                </button>
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="default"
+                  (click)="onBack()"
+                >
+                  Back
+                </button></nz-space
+              >
+            </div>
+          </div>
+        </nz-form-item>
+      </div>
+    </form>
+  </nz-card>
+</div>
+<!-- <ng-template #titleTemplate let-thing>
+  <div style="color: #3c5686">
+    {{
+      'This refers to the precision of the currency, which must be aninteger greater than 0. For example, if you enter 3
+    here, theaccuracy of the currency will be rounded to three decimal places.'
+    }}
+  </div>
+</ng-template> -->
