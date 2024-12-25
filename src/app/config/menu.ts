@@ -150,7 +150,7 @@ const menuNav: Menu[] = [
     ]
   },
   {
-    menuName: 'Notifications',
+    menuName: 'Notice Management',
     id: 1,
     fatherId: 0,
     icon: 'notification',

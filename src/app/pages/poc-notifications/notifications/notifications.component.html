@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-12-23 14:20:16
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-24 17:58:38
+ * @LastEditTime: 2024-12-25 09:44:25
  * @Description: 
 -->
 <app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
@@ -163,12 +163,35 @@
     ><ng-template #numberTpl let-key="key">
       <span [title]="key">{{ key }}</span>
     </ng-template>
-    <ng-template #operationTpl>
-      <ng-container *appAuth="''">
-        <span class="operate-text"> Details </span>
+    <ng-template
+      #operationTpl
+      let-msgCode="msgCode"
+      let-systemAnnouncementType="systemAnnouncementType"
+      let-status="status"
+    >
+      <ng-container *appAuth="status === 0 ? 'R0501004' : 'R0501003'">
+        <span
+          class="operate-text"
+          *ngIf="status === 2"
+          (click)="
+            onStatusUpdate(
+              msgCode,
+              systemAnnouncementType,
+              status === 1 ? 0 : 1
+            )
+          "
+        >
+          {{ status === 0 ? 'Unpin' : 'Pin' }}
+        </span>
       </ng-container>
       <ng-container *appAuth="''">
-        <span class="operate-text"> Delete </span>
+        <span
+          class="operate-text"
+          routerLink="/poc/poc-notifications/notifications/info"
+          [queryParams]="{msgCode, systemAnnouncementType}"
+        >
+          Details
+        </span>
       </ng-container></ng-template
     >
   </app-card-table-wrap>

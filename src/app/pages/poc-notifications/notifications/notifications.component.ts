@@ -11,6 +11,7 @@ import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize } from 'rxjs';
 
@@ -26,8 +27,10 @@ interface SearchParam {
   styleUrls: ['./notifications.component.less']
 })
 export class NotificationsComponent implements OnInit, AfterViewInit {
-  @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
-  @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerContent', { static: false })
+  headerContent!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerExtra', { static: false })
+  headerExtra!: TemplateRef<NzSafeAny>;
   @ViewChild('numberTpl', { static: true })
   numberTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('operationTpl', { static: true })
@@ -54,8 +57,12 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
     top: '',
     createTime: []
   };
-  constructor(private cdr: ChangeDetectorRef, private pocNotificationsService: PocNotificationsService) {}
-  
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private pocNotificationsService: PocNotificationsService,
+    private modal: NzModalService
+  ) {}
+
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
@@ -92,26 +99,56 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   }
 
   getDataList(e?: NzTableQueryParams): void {
-    this.tableConfig.loading = true;
-    const params: SearchCommonVO<any> = {
-      pageSize: this.tableConfig.pageSize!,
-      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
-      filters: this.searchParam
-    };
-    this.pocNotificationsService
-      .getList(params.pageNum, params.pageSize, params.filters)
-      .pipe(
-        finalize(() => {
-          this.tableLoading(false);
-        })
-      )
-      .subscribe((_: any) => {
-        this.dataList = _.data?.rows;
-        this.tableConfig.total = _.data.page.total;
-        this.tableConfig.pageIndex = params.pageNum;
-        this.tableLoading(false);
-        this.cdr.markForCheck();
-      });
+    // this.tableConfig.loading = true;
+    // const params: SearchCommonVO<any> = {
+    //   pageSize: this.tableConfig.pageSize!,
+    //   pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+    //   filters: this.searchParam
+    // };
+    // this.pocNotificationsService
+    //   .getList(params.pageNum, params.pageSize, params.filters)
+    //   .pipe(
+    //     finalize(() => {
+    //       this.tableLoading(false);
+    //     })
+    //   )
+    //   .subscribe((_: any) => {
+    //     this.dataList = _.data?.rows;
+    //     this.tableConfig.total = _.data.page.total;
+    //     this.tableConfig.pageIndex = params.pageNum;
+    //     this.tableLoading(false);
+    //     this.cdr.markForCheck();
+    //   });
+  }
+
+  onStatusUpdate(
+    msgCode: string,
+    systemAnnouncementType: any,
+    status: any
+  ): void {
+    this.modal.confirm({
+      nzTitle: `Are you sure you want to ${status} this notice ?`,
+      nzContent: '',
+      nzOnOk: () => console.log(1111)
+
+      // new Promise((resolve, reject) => {
+      //   this.pocNotificationsService.updateState({ msgCode, systemAnnouncementType, status }).subscribe({
+      //     next: res => {
+      //       resolve(true);
+      //       this.cdr.markForCheck();
+      //       if (res) {
+      //         this.message.success(`${toolStatus} the user successfully!`, { nzDuration: 1000 }).onClose!.subscribe(() => {
+      //           this.getDataList();
+      //         });
+      //       }
+      //     },
+      //     error: err => {
+      //       reject(true);
+      //       this.cdr.markForCheck();
+      //     },
+      //   })
+      // }).catch(() => console.log('Oops errors!'))
+    });
   }
 
   private initTable(): void {
@@ -129,7 +166,7 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
           width: 150
         },
         {
-          title:'Pin to Top',
+          title: 'Pin to Top',
           field: 'top',
           width: 150
         },

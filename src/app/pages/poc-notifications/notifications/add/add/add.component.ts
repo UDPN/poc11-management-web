@@ -1,4 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -44,14 +49,13 @@ export class AddComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private location: Location,
     private pocNotificationsService: PocNotificationsService,
-    private message: NzMessageService, 
+    private message: NzMessageService,
     private cdr: ChangeDetectorRef
   ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: 'Create',
       breadcrumbs: [
-        { name: 'Custodian Bank Management' },
         {
           name: 'Notice Management',
           url: '/poc/poc-notifications/notifications'
