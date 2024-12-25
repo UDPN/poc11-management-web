@@ -11,6 +11,7 @@ import { SearchCommonVO } from '@app/core/services/types';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { finalize } from 'rxjs';
@@ -42,7 +43,7 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
     filter: []
   };
   tableConfig!: AntTableConfig;
-  dataList: NzSafeAny[] = [{}];
+  dataList: NzSafeAny[] = [];
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -60,7 +61,8 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private pocNotificationsService: PocNotificationsService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private message: NzMessageService
   ) {}
 
   ngAfterViewInit(): void {
@@ -99,26 +101,26 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   }
 
   getDataList(e?: NzTableQueryParams): void {
-    // this.tableConfig.loading = true;
-    // const params: SearchCommonVO<any> = {
-    //   pageSize: this.tableConfig.pageSize!,
-    //   pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
-    //   filters: this.searchParam
-    // };
-    // this.pocNotificationsService
-    //   .getList(params.pageNum, params.pageSize, params.filters)
-    //   .pipe(
-    //     finalize(() => {
-    //       this.tableLoading(false);
-    //     })
-    //   )
-    //   .subscribe((_: any) => {
-    //     this.dataList = _.data?.rows;
-    //     this.tableConfig.total = _.data.page.total;
-    //     this.tableConfig.pageIndex = params.pageNum;
-    //     this.tableLoading(false);
-    //     this.cdr.markForCheck();
-    //   });
+    this.tableConfig.loading = true;
+    const params: SearchCommonVO<any> = {
+      pageSize: this.tableConfig.pageSize!,
+      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+      filters: this.searchParam
+    };
+    this.pocNotificationsService
+      .getList(params.pageNum, params.pageSize, params.filters)
+      .pipe(
+        finalize(() => {
+          this.tableLoading(false);
+        })
+      )
+      .subscribe((_: any) => {
+        this.dataList = _.data;
+        this.tableConfig.total = _?.resultPageInfo?.total;
+        this.tableConfig.pageIndex = params.pageNum;
+        this.tableLoading(false);
+        this.cdr.markForCheck();
+      });
   }
 
   onStatusUpdate(
@@ -126,28 +128,40 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
     systemAnnouncementType: any,
     status: any
   ): void {
+    let message: any = '';
+    if (status === 0) {
+      message = 'unpin';
+    } else {
+      message = 'pin';
+    }
+    const message1 = message.charAt(0).toUpperCase() + message.slice(1);
     this.modal.confirm({
-      nzTitle: `Are you sure you want to ${status} this notice ?`,
+      nzTitle: `Are you sure you want to ${message} this notice ?`,
       nzContent: '',
-      nzOnOk: () => console.log(1111)
-
-      // new Promise((resolve, reject) => {
-      //   this.pocNotificationsService.updateState({ msgCode, systemAnnouncementType, status }).subscribe({
-      //     next: res => {
-      //       resolve(true);
-      //       this.cdr.markForCheck();
-      //       if (res) {
-      //         this.message.success(`${toolStatus} the user successfully!`, { nzDuration: 1000 }).onClose!.subscribe(() => {
-      //           this.getDataList();
-      //         });
-      //       }
-      //     },
-      //     error: err => {
-      //       reject(true);
-      //       this.cdr.markForCheck();
-      //     },
-      //   })
-      // }).catch(() => console.log('Oops errors!'))
+      nzOnOk: () =>
+        new Promise((resolve, reject) => {
+          this.pocNotificationsService
+            .updateState({ msgCode, systemAnnouncementType, status })
+            .subscribe({
+              next: (res) => {
+                resolve(true);
+                this.cdr.markForCheck();
+                if (res) {
+                  this.message
+                    .success(`${message1} successfully!`, {
+                      nzDuration: 1000
+                    })
+                    .onClose!.subscribe(() => {
+                      this.getDataList();
+                    });
+                }
+              },
+              error: (err) => {
+                reject(true);
+                this.cdr.markForCheck();
+              }
+            });
+        }).catch(() => console.log('Oops errors!'))
     });
   }
 
@@ -161,25 +175,26 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
         },
         {
           title: 'Recipient',
-          field: 'recipient',
-          notNeedEllipsis: true,
+          field: 'systemAnnouncementType',
+          pipe: 'recipient',
           width: 150
         },
         {
           title: 'Pin to Top',
           field: 'top',
+          pipe: 'pinToTop',
           width: 150
         },
         {
           title: 'Created On',
-          field: 'createTime',
+          field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
           width: 150
         },
         {
           title: 'Created By',
-          field: 'createTime',
+          field: 'createUserName',
           width: 150
         },
         {

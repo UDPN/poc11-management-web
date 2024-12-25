@@ -1,7 +1,12 @@
-
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { thousandRate, thousandthMark, thousandthMarks, timestampToDate, timestampToTime } from '@app/utils/tools';
+import {
+  thousandRate,
+  thousandthMark,
+  thousandthMarks,
+  timestampToDate,
+  timestampToTime
+} from '@app/utils/tools';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
@@ -23,10 +28,10 @@ export const MapSet = {
     1: 'Voting',
     5: 'Approved',
     10: 'Declined',
-    15: 'Compilation error',
+    15: 'Compilation error'
   },
   resultStatus: {
-    10: 'Deployment successful',
+    10: 'Deployment successful'
   },
   sex: {
     0: 'female',
@@ -60,7 +65,7 @@ export const MapSet = {
   },
   receiptStatus: {
     0: 'Failed',
-    1: 'Successful',
+    1: 'Successful'
   },
   version: {
     1: 'enterprise',
@@ -83,7 +88,7 @@ export const MapSet = {
   },
   approvalResult: {
     0: 'Approve',
-    1: 'Reject',
+    1: 'Reject'
   },
   commercialStatus: {
     0: 'Active',
@@ -100,7 +105,7 @@ export const MapSet = {
   businessType: {
     1: 'Foreign Exchange Business',
     2: 'Currency Business',
-    3: 'Currency and Foreign Exchange Business',
+    3: 'Currency and Foreign Exchange Business'
   },
   currencyBusinessType: {
     0: 'Activate',
@@ -117,12 +122,20 @@ export const MapSet = {
   todoType: {
     1: 'Commercial bank Onboarding',
     2: 'Business Application',
-    3: 'Activate Settlement Business',
+    3: 'Activate Settlement Business'
   },
   dashBoradBankType: {
     1: 'Custodian Banks',
     2: 'Commercial Banks',
-    3: 'Liquidity Providers',
+    3: 'Liquidity Providers'
+  },
+  recipient: {
+    1: 'Custodian Bank',
+    2: 'Commercial Bank'
+  },
+  pinToTop: {
+    1: 'Yes',
+    0: 'No'
   }
 };
 
@@ -138,8 +151,11 @@ export class MapPipe implements PipeTransform {
   private datePipe: DatePipe = new DatePipe('en-US');
   private mapObj = MapSet;
 
-  static transformMapToArray(data: NzSafeAny, mapKeyType: MapKeyType = MapKeyType.Number): MapItem[] {
-    return Object.keys(data || {}).map(key => {
+  static transformMapToArray(
+    data: NzSafeAny,
+    mapKeyType: MapKeyType = MapKeyType.Number
+  ): MapItem[] {
+    return Object.keys(data || {}).map((key) => {
       let value: NzSafeAny;
       switch (mapKeyType) {
         case MapKeyType.Number:
@@ -163,21 +179,21 @@ export class MapPipe implements PipeTransform {
     }
     if (arg === 'nullValue') {
       if (!value) {
-        return value = '--';
+        return (value = '--');
       } else {
         return value;
       }
     }
     if (arg === 'null') {
       if (value?.indexOf(undefined) !== -1 || value.indexOf('null') !== -1) {
-        return value = '--';
+        return (value = '--');
       } else {
         return value;
       }
     }
     if (arg === 'timeStamp') {
       if (!value) {
-        return value = '--';
+        return (value = '--');
       } else {
         value = value.toString();
         if (value.length === 10) {
@@ -216,10 +232,10 @@ export class MapPipe implements PipeTransform {
         return timestampToDate(value);
       }
     }
-    if(arg === 'currencyPair') {
+    if (arg === 'currencyPair') {
       if (!value) {
-        return value = '--';
-      } else if(value.indexOf('-UDPN') !== 1) {
+        return (value = '--');
+      } else if (value.indexOf('-UDPN') !== 1) {
         return value.replaceAll('-UDPN', '');
       } else {
         return value;
@@ -230,8 +246,7 @@ export class MapPipe implements PipeTransform {
 
     if (arg.indexOf(':') !== -1) {
       type = arg.substring(0, arg.indexOf(':'));
-      param
-        = arg.substring(arg.indexOf(':') + 1, arg.length);
+      param = arg.substring(arg.indexOf(':') + 1, arg.length);
     }
     switch (type) {
       case 'date':

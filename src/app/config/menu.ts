@@ -18,7 +18,7 @@ const menuNav: Menu[] = [
     selected: false,
     menuType: 'C',
     path: '/poc/poc-dashboard/dashboard',
-    code: 'R0',
+    code: 'R0'
   },
   {
     menuName: 'To Do List',
@@ -29,7 +29,7 @@ const menuNav: Menu[] = [
     selected: false,
     menuType: 'C',
     path: '/poc/poc-home/home',
-    code: 'R0',
+    code: 'R0'
   },
   {
     menuName: 'Custodian Bank Management',
@@ -61,7 +61,7 @@ const menuNav: Menu[] = [
         menuType: 'C',
         code: 'R0202',
         path: '/poc/poc-central-bank/currency'
-      },
+      }
     ]
   },
   {
@@ -73,7 +73,7 @@ const menuNav: Menu[] = [
     selected: false,
     menuType: 'C',
     path: '/poc/poc-commercial-bank/commercial-bank',
-    code: 'R06',
+    code: 'R06'
   },
   {
     menuName: 'Liquidity Provider Management',
@@ -84,7 +84,7 @@ const menuNav: Menu[] = [
     selected: false,
     menuType: 'C',
     path: '/poc/poc-provider/provider',
-    code: 'R01',
+    code: 'R01'
   },
   {
     menuName: 'Foreign Exchange Management',
@@ -146,14 +146,14 @@ const menuNav: Menu[] = [
         menuType: 'C',
         code: 'R0404',
         path: '/poc/poc-foreign-exchange/fx-transactions'
-      },
+      }
     ]
   },
   {
     menuName: 'Notice Management',
     id: 1,
     fatherId: 0,
-    icon: 'notification',
+    icon: 'message',
     open: false,
     selected: false,
     menuType: 'C',
@@ -190,7 +190,7 @@ const menuNav: Menu[] = [
         menuType: 'C',
         code: 'R0502',
         path: '/poc/poc-system/role'
-      },
+      }
     ]
-  },
+  }
 ];

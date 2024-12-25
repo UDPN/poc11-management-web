@@ -1,9 +1,17 @@
+/*
+ * @Author: chenyuting
+ * @Date: 2024-12-24 15:38:17
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-25 14:46:04
+ * @Description:
+ */
 import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { PocNotificationsService } from '@app/core/services/http/poc-notifications/poc-notifications.service';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
@@ -23,10 +31,12 @@ export class InfoComponent implements OnInit, AfterViewInit {
   };
   info: any = {};
   roleList: any[] = [];
+  content: any = '';
   constructor(
     public routeInfo: ActivatedRoute,
     private pocNotificationsService: PocNotificationsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
@@ -41,13 +51,14 @@ export class InfoComponent implements OnInit, AfterViewInit {
     };
   }
   ngOnInit() {
-    // this.getInfo();
+    this.getInfo();
   }
 
   getInfo(): void {
     this.routeInfo.queryParams.subscribe((params: any) => {
       this.pocNotificationsService.info(params).subscribe((res: any) => {
         this.info = res;
+        this.content = this.sanitizer.bypassSecurityTrustHtml(res.content);
         this.roleList = res.roleList;
         const array: any = [];
         if (res.roleList) {

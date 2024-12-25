@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-12-24 15:38:17
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-25 10:21:17
+ * @LastEditTime: 2024-12-25 14:40:19
  * @Description: 
 -->
 <app-page-header
@@ -25,19 +25,19 @@
         info.title
       }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Notice Content" [nzSpan]="3"
-        ><span>{{ info.content }}</span></nz-descriptions-item
-      >
+        ><span [innerHTML]="content"></span
+      ></nz-descriptions-item>
       <nz-descriptions-item nzTitle="Recipient">{{
-        info.telephone
+        info.systemAnnouncementType | map: 'recipient'
       }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Pin to Top">{{
-        info.top
+        info.top | map: 'pinToTop'
       }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Created On">{{
-        info.telephone
+        info.createDate | map: 'timeStamp'
       }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Created By">{{
-        info.telephone
+        info.createUserName
       }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
