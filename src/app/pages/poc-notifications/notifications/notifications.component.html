@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-12-23 14:20:16
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-25 14:20:48
+ * @LastEditTime: 2024-12-26 16:25:20
  * @Description: 
 -->
 <app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
@@ -169,7 +169,7 @@
       let-systemAnnouncementType="systemAnnouncementType"
       let-top="top"
     >
-      <ng-container *appAuth="top === 1 ? '' : ''">
+      <ng-container *appAuth="top === 1 ? 'R0703' : 'R0702'">
         <span
           class="operate-text"
           (click)="
@@ -179,7 +179,7 @@
           {{ top === 1 ? 'Unpin' : 'Pin' }}
         </span>
       </ng-container>
-      <ng-container *appAuth="''">
+      <ng-container *appAuth="'R0704'">
         <span
           class="operate-text"
           routerLink="/poc/poc-notifications/notifications/info"
@@ -194,7 +194,7 @@
 <ng-template #createBtn>
   <button
     routerLink="/poc/poc-notifications/notifications/add"
-    *appAuth="''"
+    *appAuth="'R0701'"
     nz-button
     nzType="primary"
     class="m-r-8"

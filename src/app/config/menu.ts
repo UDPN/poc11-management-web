@@ -151,18 +151,18 @@ const menuNav: Menu[] = [
   },
   {
     menuName: 'Notice Management',
-    id: 1,
+    id: 7,
     fatherId: 0,
     icon: 'message',
     open: false,
     selected: false,
     menuType: 'C',
     path: '/poc/poc-notifications/notifications',
-    code: 'R0'
+    code: 'R07'
   },
   {
     menuName: 'System Management',
-    id: 7,
+    id: 8,
     fatherId: 0,
     icon: 'user',
     open: false,
@@ -173,7 +173,7 @@ const menuNav: Menu[] = [
     children: [
       {
         id: 1,
-        fatherId: 7,
+        fatherId: 8,
         menuName: 'User Management',
         open: false,
         selected: false,
@@ -183,7 +183,7 @@ const menuNav: Menu[] = [
       },
       {
         id: 2,
-        fatherId: 7,
+        fatherId: 8,
         menuName: 'Role Management',
         open: false,
         selected: false,
