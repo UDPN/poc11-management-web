@@ -1,6 +1,8 @@
 <app-def-layout-content>
   <ng-container sider>
-    <app-side-nav *ngIf="isOverMode || (themeOptions$ | async)!.mode === 'side'"></app-side-nav>
+    <app-side-nav
+      *ngIf="isOverMode || (themeOptions$ | async)!.mode === 'side'"
+    ></app-side-nav>
   </ng-container>
 
   <ng-container sider-header>
@@ -13,19 +15,38 @@
 
   <ng-template #headerTpl>
     <app-tool-bar>
-      <ng-container left *ngIf="
+      <ng-container
+        left
+        *ngIf="
           isOverMode || (themeOptions$ | async)!.mode === 'side';
           else topHeadTpl
-        ">
-        <i id="trigger" class="trigger" nz-icon [nzType]="(isCollapsed$ | async) ? 'menu-unfold' : 'menu-fold'"
-          (click)="changeCollapsed()"></i>
+        "
+      >
+        <i
+          id="trigger"
+          class="trigger"
+          nz-icon
+          [nzType]="(isCollapsed$ | async) ? 'menu-unfold' : 'menu-fold'"
+          (click)="changeCollapsed()"
+        ></i>
       </ng-container>
       <ng-template #topHeadTpl>
         <div class="left-start-center flex-1" style="z-index: 100">
           <ng-container *ngIf="(themeOptions$ | async)!.hasNavHeadArea">
-            <span class="m-l-20" style="display: flex; align-items: center;color: #3c5686" [ngClass]="{'logo': !(isCollapsed$ | async)}">
-              <img src="../../../assets/imgs/logo-title.png" alt="" style="width: 164px;height:61px" class="m-r-20">
-              <span *ngIf="!isCollapsed">{{'Network Management System'}}</span>
+            <span
+              class="m-l-20"
+              style="display: flex; align-items: center; color: #3c5686"
+              [ngClass]="{ logo: !(isCollapsed$ | async) }"
+            >
+              <img
+                src="../../../assets/imgs/logo-title.png"
+                alt=""
+                style="width: 164px; height: 61px"
+                class="m-r-20"
+              />
+              <span *ngIf="!isCollapsed">{{
+                ' Project Kissen Network Management System'
+              }}</span>
             </span>
           </ng-container>
           <div class="flex-1">
@@ -42,19 +63,38 @@
   <ng-container mixheader>
     <app-tool-bar>
       <ng-container left *ngIf="isOverMode">
-        <i id="trigger" class="trigger" nz-icon [nzType]="(isCollapsed$ | async) ? 'menu-unfold' : 'menu-fold'"
-          (click)="changeCollapsed()"></i>
+        <i
+          id="trigger"
+          class="trigger"
+          nz-icon
+          [nzType]="(isCollapsed$ | async) ? 'menu-unfold' : 'menu-fold'"
+          (click)="changeCollapsed()"
+        ></i>
       </ng-container>
 
       <ng-container left *ngIf="!isOverMode">
         <div class="left-start-center flex-1" style="z-index: 100">
-          <span class="m-l-20" style="display: flex; align-items: center;color: #3c5686" [ngClass]="{'logo': !(isCollapsed$ | async)}">
-            <img src="../../../assets/imgs/logo-title.png" alt="" style="width: 164px;height:61px" class="m-r-20">
-            <span *ngIf="!isCollapsed">{{'Network Management System'}}</span>
+          <span
+            class="m-l-20"
+            style="display: flex; align-items: center; color: #3c5686"
+            [ngClass]="{ logo: !(isCollapsed$ | async) }"
+          >
+            <img
+              src="../../../assets/imgs/logo-title.png"
+              alt=""
+              style="width: 164px; height: 61px"
+              class="m-r-20"
+            />
+            <span *ngIf="!isCollapsed">{{
+              ' Project Kissen Network Management System'
+            }}</span>
           </span>
           <!-- <span class="sp-18 m-r-25"></span> -->
           <div class="flex-1">
-            <app-nav-bar *ngIf="(themeOptions$ | async)!.splitNav" [isMixiHead]="true"></app-nav-bar>
+            <app-nav-bar
+              *ngIf="(themeOptions$ | async)!.splitNav"
+              [isMixiHead]="true"
+            ></app-nav-bar>
           </div>
         </div>
       </ng-container>
@@ -66,7 +106,9 @@
 
   <ng-container mixsider>
     <div class="mix-sider-height" style="overflow: hidden auto">
-      <app-nav-bar [isMixiLeft]="(themeOptions$ | async)!.splitNav"></app-nav-bar>
+      <app-nav-bar
+        [isMixiLeft]="(themeOptions$ | async)!.splitNav"
+      ></app-nav-bar>
     </div>
   </ng-container>
 

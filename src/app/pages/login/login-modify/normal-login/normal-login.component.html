@@ -3,9 +3,9 @@
     BN Name: {{ instance }}
   </h2> -->
   <p class="m-b-50 title" [class.is-over-model]="isOverModel">
-    Network Management System
+    Project Kissen Network Management System
   </p>
-  <div class="full-with" style="display: flex; justify-content: center;">
+  <div class="full-with" style="display: flex; justify-content: center">
     <form
       nz-form
       nzLayout="vertical"
@@ -76,7 +76,12 @@
             </div>
             <div nz-col [nzSpan]="8" class="text-right">
               <!-- <button nz-button nzSize="large" (click)="onRefresh()" *ngIf="this.srcUrl"> -->
-                <img [src]="this.srcUrl" style="height: 40px;" (click)="onRefresh()" alt="" />
+              <img
+                [src]="this.srcUrl"
+                style="height: 40px"
+                (click)="onRefresh()"
+                alt=""
+              />
               <!-- </button> -->
             </div>
           </div>
