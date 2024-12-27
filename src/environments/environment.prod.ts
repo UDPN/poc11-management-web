@@ -1,4 +1,10 @@
-
+/*
+ * @Author: chenyuting
+ * @Date: 2024-12-24 13:32:33
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2024-12-27 10:15:11
+ * @Description:
+ */
 export const http = window.location.protocol;
 export const ip = window.location.hostname;
 
@@ -11,9 +17,6 @@ export const ip = window.location.hostname;
 export const environment = {
   production: true,
   localUrl: '',
-  clientName: 'admin',
-  password: 'Abcd1234'
-
-
+  clientName: '',
+  password: ''
 };
-
