@@ -1,0 +1,89 @@
+<!--
+ * @Author: chenyuting
+ * @Date: 2025-01-17 13:42:35
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2025-01-17 14:11:08
+ * @Description: 
+-->
+<app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+<div class="normal-table-wrap">
+  <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
+    <b>
+      {{
+        'This module is used to configure the number of sub wallets of the Master wallet and Main wallet that can be activated by commercial banks.'
+      }}
+    </b>
+    <form nz-form [formGroup]="validateForm" class="m-t-50">
+      <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+        <nz-form-label nzRequired nzSpan="24"
+          >The number of sub wallets in the Master wallet
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
+          <div nz-row>
+            <div nz-col nzSpan="24">
+              <input nz-input formControlName="masterSubWalletNumber" />
+            </div>
+          </div>
+          <ng-template #userNameError let-control>
+            <ng-container *ngIf="control.hasError('required')"
+              >Please input your The number of sub wallets in the Master
+              wallet</ng-container
+            >
+            <ng-container *ngIf="control.hasError('regular')"
+              >Please enter the number</ng-container
+            >
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-col nzXs="24" nzSm="18" nzXl="12" nzXXl="12">
+        <nz-form-label nzRequired nzSpan="24"
+          >The number of sub wallets in the Main wallet
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
+          <div nz-row>
+            <div nz-col nzSpan="24">
+              <input nz-input formControlName="mainSubWalletNumber" />
+            </div>
+          </div>
+          <ng-template #userNameError let-control>
+            <ng-container *ngIf="control.hasError('required')"
+              >Please input your The number of sub wallets in the Main
+              wallet</ng-container
+            >
+            <ng-container *ngIf="control.hasError('regular')"
+              >Please enter the number</ng-container
+            >
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item
+        nz-col
+        nzXs="24"
+        nzSm="18"
+        nzXl="12"
+        nzXXl="12"
+        class="p-t-24"
+      >
+        <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
+          <div nz-row>
+            <div nz-col nzSpan="24" style="text-align: end">
+              <nz-space>
+                <button
+                  *nzSpaceItem
+                  nz-button
+                  [nzSize]="'large'"
+                  nzType="primary"
+                  [nzLoading]="isLoading"
+                  [disabled]="!this.validateForm.valid"
+                  (click)="onSubmit()"
+                >
+                  {{ 'Save' }}
+                </button></nz-space
+              >
+            </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </form></nz-card
+  >
+</div>

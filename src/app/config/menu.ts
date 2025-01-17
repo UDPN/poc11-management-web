@@ -190,6 +190,16 @@ const menuNav: Menu[] = [
         menuType: 'C',
         code: 'R0502',
         path: '/poc/poc-system/role'
+      },
+      {
+        id: 3,
+        fatherId: 8,
+        menuName: 'Wallet Configuration Management',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R0502',
+        path: '/poc/poc-system/wallet-configuration'
       }
     ]
   }
