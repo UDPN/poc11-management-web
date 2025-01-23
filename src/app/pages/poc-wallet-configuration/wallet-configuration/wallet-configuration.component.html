@@ -67,19 +67,21 @@
         <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
           <div nz-row>
             <div nz-col nzSpan="24" style="text-align: end">
-              <nz-space>
-                <button
-                  *nzSpaceItem
-                  nz-button
-                  [nzSize]="'large'"
-                  nzType="primary"
-                  [nzLoading]="isLoading"
-                  [disabled]="!this.validateForm.valid"
-                  (click)="onSubmit()"
+              <ng-container *appAuth="'R0801'"
+                ><nz-space>
+                  <button
+                    *nzSpaceItem
+                    nz-button
+                    [nzSize]="'large'"
+                    nzType="primary"
+                    [nzLoading]="isLoading"
+                    [disabled]="!this.validateForm.valid"
+                    (click)="onSubmit()"
+                  >
+                    {{ 'Save' }}
+                  </button></nz-space
                 >
-                  {{ 'Save' }}
-                </button></nz-space
-              >
+              </ng-container>
             </div>
           </div>
         </nz-form-control>

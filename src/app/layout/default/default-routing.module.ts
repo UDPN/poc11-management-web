@@ -3,7 +3,7 @@
  * @Date: 2024-07-08 16:17:34
  * @LastEditors: chenyuting
  * @LastEditTime: 2024-12-24 14:12:27
- * @Description: 
+ * @Description:
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -23,40 +23,69 @@ const routes: Routes = [
       {
         path: 'poc-dashboard',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-dashboard/poc-dashboard.module').then(m => m.PocDashboardModule)
+        loadChildren: () =>
+          import('../../pages/poc-dashboard/poc-dashboard.module').then(
+            (m) => m.PocDashboardModule
+          )
       },
       {
         path: 'poc-home',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-home/poc-home.module').then(m => m.PocHomeModule)
+        loadChildren: () =>
+          import('../../pages/poc-home/poc-home.module').then(
+            (m) => m.PocHomeModule
+          )
       },
       {
         path: 'poc-foreign-exchange',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-foreign-exchange/poc-foreign-exchange.module').then(m => m.PocForeignExchangeModule)
+        loadChildren: () =>
+          import(
+            '../../pages/poc-foreign-exchange/poc-foreign-exchange.module'
+          ).then((m) => m.PocForeignExchangeModule)
       },
       {
         path: 'poc-central-bank',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-central-bank/poc-central-bank.module').then(m => m.PocCentralBankModule)
+        loadChildren: () =>
+          import('../../pages/poc-central-bank/poc-central-bank.module').then(
+            (m) => m.PocCentralBankModule
+          )
       },
       {
         path: 'poc-commercial-bank',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-commercial-bank/poc-commercial-bank.module').then(m => m.PocCommercialBankModule)
+        loadChildren: () =>
+          import(
+            '../../pages/poc-commercial-bank/poc-commercial-bank.module'
+          ).then((m) => m.PocCommercialBankModule)
       },
       {
         path: 'poc-provider',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-provider/poc-provider.module').then(m => m.PocProviderModule)
+        loadChildren: () =>
+          import('../../pages/poc-provider/poc-provider.module').then(
+            (m) => m.PocProviderModule
+          )
       },
       {
         path: 'poc-system',
         data: { preload: true },
-        loadChildren: () => import('../../pages/poc-system/poc-system.module').then(m => m.PocSystemModule)
+        loadChildren: () =>
+          import('../../pages/poc-system/poc-system.module').then(
+            (m) => m.PocSystemModule
+          )
       },
       {
-        path: 'poc-notifications', 
+        path: 'poc-wallet-configuration',
+        data: { preload: true },
+        loadChildren: () =>
+          import(
+            '../../pages/poc-wallet-configuration/poc-wallet-configuration.module'
+          ).then((m) => m.PocWalletConfigurationModule)
+      },
+      {
+        path: 'poc-notifications',
         data: { preload: true },
         loadChildren: () =>
           import('../../pages/poc-notifications/poc-notifications.module').then(
@@ -65,7 +94,8 @@ const routes: Routes = [
       },
       {
         path: 'system',
-        loadChildren: () => import('../../pages/system/system.module').then(m => m.SystemModule)
+        loadChildren: () =>
+          import('../../pages/system/system.module').then((m) => m.SystemModule)
       }
     ]
   }
@@ -75,4 +105,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DefaultRoutingModule { }
+export class DefaultRoutingModule {}

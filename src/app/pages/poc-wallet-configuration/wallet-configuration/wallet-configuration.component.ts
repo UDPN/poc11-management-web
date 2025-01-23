@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2025-01-17 13:42:35
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-01-17 14:45:12
+ * @LastEditTime: 2025-01-23 17:31:26
  * @Description:
  */
 import {
@@ -17,7 +17,7 @@ import {
   UntypedFormControl,
   Validators
 } from '@angular/forms';
-import { WalletConfigurationrService } from '@app/core/services/http/poc-system/wallet-configuration/wallet-configuration.service';
+import { PocWalletConfigurationrService } from '@app/core/services/http/poc-wallet-configuration/poc-wallet-configuration.service';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 import { fnCheckForm } from '@app/utils/tools';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -41,14 +41,14 @@ export class WalletConfigurationComponent implements OnInit, AfterViewInit {
   };
   constructor(
     private fb: FormBuilder,
-    private walletConfigurationrService: WalletConfigurationrService,
+    private walletConfigurationrService: PocWalletConfigurationrService,
     private message: NzMessageService,
     private cdr: ChangeDetectorRef
   ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: `Wallet Configuration Management`,
-      breadcrumb: ['System Management', 'Wallet Configuration Management'],
+      title: ``,
+      breadcrumb: ['Wallet Configuration Management'],
       extra: '',
       desc: '',
       footer: ''

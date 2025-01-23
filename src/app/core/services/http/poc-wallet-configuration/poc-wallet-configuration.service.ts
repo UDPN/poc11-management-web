@@ -8,7 +8,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { BaseHttpService } from '../../base-http.service';
+import { BaseHttpService } from '../base-http.service';
 
 export interface Adata {
   masterSubWalletNumber: number;
@@ -24,7 +24,7 @@ export interface Edata {
 @Injectable({
   providedIn: 'root'
 })
-export class WalletConfigurationrService {
+export class PocWalletConfigurationrService {
   constructor(public http: BaseHttpService, private https: HttpClient) {}
 
   public add(params: Adata): Observable<any> {

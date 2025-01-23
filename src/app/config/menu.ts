@@ -150,8 +150,19 @@ const menuNav: Menu[] = [
     ]
   },
   {
-    menuName: 'Notice Management',
+    menuName: 'Wallet Configuration Management',
     id: 7,
+    fatherId: 0,
+    icon: 'user-switch',
+    open: false,
+    selected: false,
+    menuType: 'C',
+    path: '/poc/poc-wallet-configuration/wallet-configuration',
+    code: 'R08'
+  },
+  {
+    menuName: 'Notice Management',
+    id: 8,
     fatherId: 0,
     icon: 'message',
     open: false,
@@ -162,7 +173,7 @@ const menuNav: Menu[] = [
   },
   {
     menuName: 'System Management',
-    id: 8,
+    id: 9,
     fatherId: 0,
     icon: 'user',
     open: false,
@@ -173,7 +184,7 @@ const menuNav: Menu[] = [
     children: [
       {
         id: 1,
-        fatherId: 8,
+        fatherId: 9,
         menuName: 'User Management',
         open: false,
         selected: false,
@@ -183,24 +194,24 @@ const menuNav: Menu[] = [
       },
       {
         id: 2,
-        fatherId: 8,
+        fatherId: 9,
         menuName: 'Role Management',
         open: false,
         selected: false,
         menuType: 'C',
         code: 'R0502',
         path: '/poc/poc-system/role'
-      },
-      {
-        id: 3,
-        fatherId: 8,
-        menuName: 'Wallet Configuration Management',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0502',
-        path: '/poc/poc-system/wallet-configuration'
       }
+      // {
+      //   id: 3,
+      //   fatherId: 8,
+      //   menuName: 'Wallet Configuration Management',
+      //   open: false,
+      //   selected: false,
+      //   menuType: 'C',
+      //   code: 'R0502',
+      //   path: '/poc/poc-system/wallet-configuration'
+      // }
     ]
   }
 ];
