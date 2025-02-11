@@ -15,6 +15,14 @@ const routes: Routes = [
     data: { preload: true },
     loadChildren: () =>
       import('./provider/provider.module').then((m) => m.ProviderModule)
+  },
+  {
+    path: 'liquidity-pool-setting',
+    data: { preload: true },
+    loadChildren: () =>
+      import('./liquidity-pool-setting/liquidity-pool-setting.module').then(
+        (m) => m.LiquidityPoolSettingModule
+      )
   }
 ];
 

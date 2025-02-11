@@ -1,7 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { PocProviderService } from '@app/core/services/http/poc-provider/poc-provider.service';
+import { ProviderService } from '@app/core/services/http/poc-provider/provoder/poc-provider.service';
 import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
@@ -11,7 +17,6 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.less']
 })
-
 export class InfoComponent implements OnInit {
   @ViewChild('authorizedTpl', { static: true })
   authorizedTpl!: TemplateRef<NzSafeAny>;
@@ -28,12 +33,20 @@ export class InfoComponent implements OnInit {
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
   attachmentsList: any[] = [];
-  constructor(public routeInfo: ActivatedRoute, private cdr: ChangeDetectorRef, private pocProviderService: PocProviderService, private commonService: CommonService) { }
+  constructor(
+    public routeInfo: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private providerService: ProviderService,
+    private commonService: CommonService
+  ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Details`,
       breadcrumbs: [
-        { name: 'Liquidity Provider Management', url: '/poc/poc-provider/provider' },
+        {
+          name: 'Liquidity Provider Management',
+          url: '/poc/poc-provider/provider'
+        },
         { name: 'Details' }
       ],
       extra: '',
@@ -50,14 +63,16 @@ export class InfoComponent implements OnInit {
     this.tableConfig.pageSize = e;
   }
   getInfo(): void {
-    this.routeInfo.queryParams.subscribe(params => {
-      this.pocProviderService.getInfo({ spCode: params['spCode'] }).subscribe((res: any) => {
-        this.info = res;
-        this.dataList = res.capitalPoolList;
-        this.attachmentsList = res.bankFileList;
-        this.cdr.markForCheck();
-        return;
-      })
+    this.routeInfo.queryParams.subscribe((params) => {
+      this.providerService
+        .getInfo({ spCode: params['spCode'] })
+        .subscribe((res: any) => {
+          this.info = res;
+          this.dataList = res.capitalPoolList;
+          this.attachmentsList = res.bankFileList;
+          this.cdr.markForCheck();
+          return;
+        });
     });
   }
 
@@ -127,13 +142,13 @@ export class InfoComponent implements OnInit {
           title: 'Pre-authorized Debit',
           tdTemplate: this.authorizedTpl,
           width: 120
-        },
+        }
       ],
       total: 0,
       showCheckbox: false,
       loading: false,
       pageSize: 10,
-      pageIndex: 1,
+      pageIndex: 1
     };
   }
 }

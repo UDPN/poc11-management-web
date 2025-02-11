@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ThemeService } from '@app/core/services/store/common-store/theme.service';
@@ -9,7 +15,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Location } from '@angular/common';
 import { CommonService } from '@app/core/services/http/common/common.service';
-import { PocProviderService } from '@app/core/services/http/poc-provider/poc-provider.service';
+import { ProviderService } from '@app/core/services/http/poc-provider/provoder/poc-provider.service';
 
 @Component({
   selector: 'app-approve',
@@ -17,7 +23,7 @@ import { PocProviderService } from '@app/core/services/http/poc-provider/poc-pro
   styleUrls: ['./approve.component.less']
 })
 export class ApproveComponent implements OnInit {
-  @ViewChild('authorizedTpl', { static: true }) 
+  @ViewChild('authorizedTpl', { static: true })
   authorizedTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
@@ -36,12 +42,25 @@ export class ApproveComponent implements OnInit {
   validateForm!: FormGroup;
   isLoading: boolean = false;
   attachmentsList: any[] = [];
-  constructor(public routeInfo: ActivatedRoute, private router: Router, private pocProviderService: PocProviderService, private commonService: CommonService, private fb: FormBuilder, private message: NzMessageService, private location: Location, private cdr: ChangeDetectorRef, private themesService: ThemeService) { }
+  constructor(
+    public routeInfo: ActivatedRoute,
+    private router: Router,
+    private providerService: ProviderService,
+    private commonService: CommonService,
+    private fb: FormBuilder,
+    private message: NzMessageService,
+    private location: Location,
+    private cdr: ChangeDetectorRef,
+    private themesService: ThemeService
+  ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Approval`,
       breadcrumbs: [
-        { name: 'Liquidity Provider Management', url: '/poc/poc-provider/provider' },
+        {
+          name: 'Liquidity Provider Management',
+          url: '/poc/poc-provider/provider'
+        },
         { name: 'Approval' }
       ],
       extra: '',
@@ -54,8 +73,8 @@ export class ApproveComponent implements OnInit {
     this.getInfo();
     this.validateForm = this.fb.group({
       approvalResult: [0, [Validators.required]],
-      comments: ['', [Validators.required]],
-    })
+      comments: ['', [Validators.required]]
+    });
   }
 
   changePageSize(e: number): void {
@@ -63,14 +82,16 @@ export class ApproveComponent implements OnInit {
   }
 
   getInfo(): void {
-    this.routeInfo.queryParams.subscribe(params => {
-      this.pocProviderService.getInfo({ spCode: params['spCode'] }).subscribe((res: any) => {
-        this.info = res;
-        this.dataList = res.capitalPoolList;
-        this.attachmentsList = res.bankFileList;
-        this.cdr.markForCheck();
-        return;
-      })
+    this.routeInfo.queryParams.subscribe((params) => {
+      this.providerService
+        .getInfo({ spCode: params['spCode'] })
+        .subscribe((res: any) => {
+          this.info = res;
+          this.dataList = res.capitalPoolList;
+          this.attachmentsList = res.bankFileList;
+          this.cdr.markForCheck();
+          return;
+        });
     });
   }
 
@@ -128,32 +149,35 @@ export class ApproveComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.pocProviderService.approve({
-      spCode: this.info.spCode,
-      approvalResult: this.validateForm.get('approvalResult')?.value,
-      comments: this.validateForm.get('comments')?.value,
-    }).subscribe({
-      next: res => {
-        if (res) {
-          this.message.success('Approve successfully!', { nzDuration: 1000 }).onClose.subscribe(() => {
-            this.validateForm.reset();
-            this.router.navigate(['/poc/poc-provider/provider']);
-          });
+    this.providerService
+      .approve({
+        spCode: this.info.spCode,
+        approvalResult: this.validateForm.get('approvalResult')?.value,
+        comments: this.validateForm.get('comments')?.value
+      })
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.message
+              .success('Approve successfully!', { nzDuration: 1000 })
+              .onClose.subscribe(() => {
+                this.validateForm.reset();
+                this.router.navigate(['/poc/poc-provider/provider']);
+              });
+          }
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
         }
-        this.isLoading = false;
-        this.cdr.markForCheck();
-      },
-      error: err => {
-        this.isLoading = false;
-        this.cdr.markForCheck();
-      }
-    })
+      });
   }
 
   onBack() {
     this.router.navigate(['/poc/poc-provider/provider']);
   }
-
 
   private initTable(): void {
     this.tableConfig = {
@@ -172,14 +196,13 @@ export class ApproveComponent implements OnInit {
           title: 'Pre-authorized Debit',
           tdTemplate: this.authorizedTpl,
           width: 120
-        },
+        }
       ],
       total: 0,
       showCheckbox: false,
       loading: false,
       pageSize: 10,
-      pageIndex: 1,
+      pageIndex: 1
     };
   }
-
 }

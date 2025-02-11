@@ -83,8 +83,30 @@ const menuNav: Menu[] = [
     open: false,
     selected: false,
     menuType: 'C',
-    path: '/poc/poc-provider/provider',
-    code: 'R01'
+    path: '/poc/poc-provider',
+    code: 'R01',
+    children: [
+      {
+        id: 1,
+        fatherId: 5,
+        menuName: 'Liquidity Provider',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R01',
+        path: '/poc/poc-provider/provider'
+      },
+      {
+        id: 2,
+        fatherId: 5,
+        menuName: 'Liquidity Pool Setting',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R0504',
+        path: '/poc/poc-provider/liquidity-pool-setting'
+      }
+    ]
   },
   {
     menuName: 'Foreign Exchange Management',
