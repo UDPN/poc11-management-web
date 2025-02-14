@@ -1,37 +1,33 @@
+/*
+ * @Author: chenyuting
+ * @Date: 2024-12-24 13:31:41
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2025-02-13 14:19:23
+ * @Description:
+ */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'fx-application', pathMatch: 'full' },
+  { path: '', redirectTo: 'token-pair', pathMatch: 'full' },
   {
-    path: 'fx-application',
+    path: 'token-pair',
     data: { preload: true },
-    loadChildren: () => import('./fx-application/fx-application.module').then(m => m.FxApplicationModule)
-  },
-  {
-    path: 'fx-activation',
-    data: { preload: true },
-    loadChildren: () => import('./business-activation/business-activation.module').then(m => m.BusinessActivationModule)
-  },
-  {
-    path: 'exchange-rate',
-    data: { preload: true },
-    loadChildren: () => import('./exchange-rate/exchange-rate.module').then(m => m.ExchangeRateModule)
-  },
-  {
-    path: 'settlement',
-    data: { preload: true },
-    loadChildren: () => import('./settlement/settlement.module').then(m => m.SettlementModule)
+    loadChildren: () =>
+      import('./token-pair/token-pair.module').then((m) => m.TokenPairModule)
   },
   {
     path: 'fx-transactions',
     data: { preload: true },
-    loadChildren: () => import('./fx-transactions/fx-transactions.module').then(m => m.FxTransactionsModule)
-  },
+    loadChildren: () =>
+      import('./fx-transactions/fx-transactions.module').then(
+        (m) => m.FxTransactionsModule
+      )
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PocForeignExchangeRoutingModule { }
+export class PocForeignExchangeRoutingModule {}

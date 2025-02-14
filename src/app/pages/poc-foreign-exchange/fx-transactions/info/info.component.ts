@@ -24,14 +24,14 @@ export class InfoComponent implements OnInit {
     public routeInfo: ActivatedRoute,
     private pocFxTransactionsService: PocFxTransactionsService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: `Details`,
       breadcrumbs: [
         {
-          name: 'Foreign Exchange Management'
+          name: 'FX Management'
         },
         {
           name: 'FX Transactions',
@@ -60,5 +60,4 @@ export class InfoComponent implements OnInit {
         });
     });
   }
-
 }

@@ -1,4 +1,11 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { CentralBankRegistService } from '@app/core/services/http/poc-central-bank/central-bank-regist/central-bank-regist.service';
 import { SearchCommonVO } from '@app/core/services/types';
@@ -22,14 +29,19 @@ interface SearchParam {
 @Component({
   selector: 'app-central-bank-regist',
   templateUrl: './central-bank-regist.component.html',
-  styleUrls: ['./central-bank-regist.component.less'],
+  styleUrls: ['./central-bank-regist.component.less']
 })
 export class CentralBankRegistComponent implements OnInit, AfterViewInit {
-  @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
-  @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
-  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('currencyTpl', { static: true }) currencyTpl!: TemplateRef<NzSafeAny>;
-  @ViewChild('bankNameTpl', { static: true }) bankNameTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerContent', { static: false })
+  headerContent!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerExtra', { static: false })
+  headerExtra!: TemplateRef<NzSafeAny>;
+  @ViewChild('operationTpl', { static: true })
+  operationTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('currencyTpl', { static: true })
+  currencyTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('bankNameTpl', { static: true })
+  bankNameTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -44,8 +56,19 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   statusList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
-  tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private centralBankRegistService: CentralBankRegistService, private commonService: CommonService, private modal: NzModalService, private cdr: ChangeDetectorRef, private message: NzMessageService,) { }
+  tableQueryParams: NzTableQueryParams = {
+    pageIndex: 1,
+    pageSize: 10,
+    sort: [],
+    filter: []
+  };
+  constructor(
+    private centralBankRegistService: CentralBankRegistService,
+    private commonService: CommonService,
+    private modal: NzModalService,
+    private cdr: ChangeDetectorRef,
+    private message: NzMessageService
+  ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
@@ -79,9 +102,14 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'CENTRAL_BANK_MANAGEMENT_STATUS' }).subscribe((res) => {
-      this.statusList = res.dataInfo;
-    })
+    this.commonService
+      .getSelect({
+        dropDownTypeCode: 'drop_down_business_status_info',
+        csePCode: 'CENTRAL_BANK_MANAGEMENT_STATUS'
+      })
+      .subscribe((res) => {
+        this.statusList = res.dataInfo;
+      });
   }
 
   changePageSize(e: number): void {
@@ -95,25 +123,32 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
       pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
       filters: this.searchParam
     };
-    this.centralBankRegistService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
-      this.tableLoading(false);
-    })).subscribe((_: any) => {
-      this.dataList = _.data;
-      this.tableConfig.total = _?.resultPageInfo?.total;
-      this.tableConfig.pageIndex = params.pageNum;
-      this.dataList.map((item: any) => {
-        if (item.logoHash) {
-          this.commonService.download({ hash: item.logoHash }).subscribe(data => {
-            Object.assign(item, { logo: 'data:image/jpg;base64,' + data });
-            this.cdr.markForCheck();
-            this.cdr.detectChanges();
-          })
-        }
-      })
+    this.centralBankRegistService
+      .getList(params.pageNum, params.pageSize, params.filters)
+      .pipe(
+        finalize(() => {
+          this.tableLoading(false);
+        })
+      )
+      .subscribe((_: any) => {
+        this.dataList = _.data;
+        this.tableConfig.total = _?.resultPageInfo?.total;
+        this.tableConfig.pageIndex = params.pageNum;
+        this.dataList.map((item: any) => {
+          if (item.logoHash) {
+            this.commonService
+              .download({ hash: item.logoHash })
+              .subscribe((data) => {
+                Object.assign(item, { logo: 'data:image/jpg;base64,' + data });
+                this.cdr.markForCheck();
+                this.cdr.detectChanges();
+              });
+          }
+        });
 
-      this.tableLoading(false);
-      this.cdr.markForCheck();
-    });
+        this.tableLoading(false);
+        this.cdr.markForCheck();
+      });
   }
 
   onStatusUpdate(status: any, bankCode: string): void {
@@ -123,26 +158,32 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
     } else {
       statusValue = 'activate';
     }
-    const toolStatus = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+    const toolStatus =
+      statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
     this.modal.confirm({
       nzTitle: `Are you sure you want to ${statusValue} this bank ?`,
       nzContent: '',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.centralBankRegistService.statusUpdate({ status, bankCode }).subscribe({
-            next: res => {
-              resolve(true);
-              this.cdr.markForCheck();
-              if (res) {
-                this.message.success(`${toolStatus} this bank successfully!`, { nzDuration: 1000 });
+          this.centralBankRegistService
+            .statusUpdate({ status, bankCode })
+            .subscribe({
+              next: (res) => {
+                resolve(true);
+                this.cdr.markForCheck();
+                if (res) {
+                  this.message.success(
+                    `${toolStatus} this bank successfully!`,
+                    { nzDuration: 1000 }
+                  );
+                }
+                this.getDataList();
+              },
+              error: (err) => {
+                reject(true);
+                this.cdr.markForCheck();
               }
-              this.getDataList();
-            },
-            error: err => {
-              reject(true);
-              this.cdr.markForCheck();
-            },
-          })
+            });
         }).catch(() => console.log('Oops errors!'))
     });
   }
@@ -176,7 +217,7 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           width: 160
         },
         {
-          title: 'Created On',
+          title: 'Created on',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -195,14 +236,13 @@ export class CentralBankRegistComponent implements OnInit, AfterViewInit {
           fixedDir: 'right',
           showAction: false,
           width: 150
-
-        },
+        }
       ],
       total: 0,
       showCheckbox: false,
       loading: false,
       pageSize: 10,
-      pageIndex: 1,
+      pageIndex: 1
     };
   }
 }

@@ -4,6 +4,6 @@ import { PocProviderRoutingModule } from './poc-provider-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [SharedModule, PocProviderRoutingModule],
+  imports: [SharedModule, PocProviderRoutingModule]
 })
 export class PocProviderModule {}

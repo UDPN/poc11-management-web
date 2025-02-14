@@ -1,4 +1,11 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { CommonService } from '@app/core/services/http/common/common.service';
 import { CurrencyService } from '@app/core/services/http/poc-central-bank/currency/currency.service';
 import { SearchCommonVO } from '@app/core/services/types';
@@ -22,12 +29,15 @@ interface SearchParam {
 @Component({
   selector: 'app-currency',
   templateUrl: './currency.component.html',
-  styleUrls: ['./currency.component.less'],
+  styleUrls: ['./currency.component.less']
 })
 export class CurrencyComponent implements OnInit, AfterViewInit {
-  @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
-  @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
-  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerContent', { static: false })
+  headerContent!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerExtra', { static: false })
+  headerExtra!: TemplateRef<NzSafeAny>;
+  @ViewChild('operationTpl', { static: true })
+  operationTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: '',
     breadcrumb: [],
@@ -44,8 +54,19 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   centralBankList: any = [];
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
-  tableQueryParams: NzTableQueryParams = { pageIndex: 1, pageSize: 10, sort: [], filter: [] };
-  constructor(private currencyService: CurrencyService, private commonService: CommonService, private modal: NzModalService, private cdr: ChangeDetectorRef, private message: NzMessageService,) { }
+  tableQueryParams: NzTableQueryParams = {
+    pageIndex: 1,
+    pageSize: 10,
+    sort: [],
+    filter: []
+  };
+  constructor(
+    private currencyService: CurrencyService,
+    private commonService: CommonService,
+    private modal: NzModalService,
+    private cdr: ChangeDetectorRef,
+    private message: NzMessageService
+  ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
@@ -80,13 +101,20 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
   }
 
   initSelect() {
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_business_status_info', csePCode: 'CENTRAL_BANK_MANAGEMENT_STATUS' }).subscribe((res) => {
-      this.statusList = res.dataInfo;
-    })
+    this.commonService
+      .getSelect({
+        dropDownTypeCode: 'drop_down_business_status_info',
+        csePCode: 'CENTRAL_BANK_MANAGEMENT_STATUS'
+      })
+      .subscribe((res) => {
+        this.statusList = res.dataInfo;
+      });
 
-    this.commonService.getSelect({ dropDownTypeCode: 'drop_down_central_bank_info' }).subscribe((res) => {
-      this.centralBankList = res.dataInfo;
-    })
+    this.commonService
+      .getSelect({ dropDownTypeCode: 'drop_down_central_bank_info' })
+      .subscribe((res) => {
+        this.centralBankList = res.dataInfo;
+      });
   }
 
   changePageSize(e: number): void {
@@ -100,15 +128,20 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
       pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
       filters: this.searchParam
     };
-    this.currencyService.getList(params.pageNum, params.pageSize, params.filters).pipe(finalize(() => {
-      this.tableLoading(false);
-    })).subscribe((_: any) => {
-      this.dataList = _.data;
-      this.tableConfig.total = _?.resultPageInfo?.total;
-      this.tableConfig.pageIndex = params.pageNum;
-      this.tableLoading(false);
-      this.cdr.markForCheck();
-    });
+    this.currencyService
+      .getList(params.pageNum, params.pageSize, params.filters)
+      .pipe(
+        finalize(() => {
+          this.tableLoading(false);
+        })
+      )
+      .subscribe((_: any) => {
+        this.dataList = _.data;
+        this.tableConfig.total = _?.resultPageInfo?.total;
+        this.tableConfig.pageIndex = params.pageNum;
+        this.tableLoading(false);
+        this.cdr.markForCheck();
+      });
   }
 
   onStatusUpdate(status: any, currencyCode: string): void {
@@ -118,26 +151,32 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
     } else {
       statusValue = 'activate';
     }
-    const toolStatus = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+    const toolStatus =
+      statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
     this.modal.confirm({
       nzTitle: `Are you sure you want to ${statusValue} this currency ?`,
       nzContent: '',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.currencyService.statusUpdate({ status, currencyCode }).subscribe({
-            next: res => {
-              resolve(true);
-              this.cdr.markForCheck();
-              if (res) {
-                this.message.success(`${toolStatus} this currency successfully!`, { nzDuration: 1000 });
+          this.currencyService
+            .statusUpdate({ status, currencyCode })
+            .subscribe({
+              next: (res) => {
+                resolve(true);
+                this.cdr.markForCheck();
+                if (res) {
+                  this.message.success(
+                    `${toolStatus} this currency successfully!`,
+                    { nzDuration: 1000 }
+                  );
+                }
+                this.getDataList();
+              },
+              error: (err) => {
+                reject(true);
+                this.cdr.markForCheck();
               }
-              this.getDataList();
-            },
-            error: err => {
-              reject(true);
-              this.cdr.markForCheck();
-            },
-          })
+            });
         }).catch(() => console.log('Oops errors!'))
     });
   }
@@ -172,7 +211,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           width: 240
         },
         {
-          title: 'Created On',
+          title: 'Created on',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -183,7 +222,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
           field: 'status',
           pipe: 'commercialStatus',
           width: 100
-        },
+        }
         // {
         //   title: 'Actions',
         //   tdTemplate: this.operationTpl,
@@ -198,7 +237,7 @@ export class CurrencyComponent implements OnInit, AfterViewInit {
       showCheckbox: false,
       loading: false,
       pageSize: 10,
-      pageIndex: 1,
+      pageIndex: 1
     };
   }
 }

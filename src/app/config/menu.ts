@@ -55,7 +55,7 @@ const menuNav: Menu[] = [
       {
         id: 2,
         fatherId: 3,
-        menuName: 'Currency Management',
+        menuName: 'Token Management',
         open: false,
         selected: false,
         menuType: 'C',
@@ -89,12 +89,12 @@ const menuNav: Menu[] = [
       {
         id: 1,
         fatherId: 5,
-        menuName: 'Liquidity Provider',
+        menuName: 'Liquidity Pool Management',
         open: false,
         selected: false,
         menuType: 'C',
         code: 'R01',
-        path: '/poc/poc-provider/provider'
+        path: '/poc/poc-provider/liquidity-pool'
       },
       {
         id: 2,
@@ -104,12 +104,22 @@ const menuNav: Menu[] = [
         selected: false,
         menuType: 'C',
         code: 'R0504',
-        path: '/poc/poc-provider/liquidity-pool-setting'
+        path: '/poc/poc-provider/pool-setting'
+      },
+      {
+        id: 3,
+        fatherId: 5,
+        menuName: 'FX Liquidity Provider Query',
+        open: false,
+        selected: false,
+        menuType: 'C',
+        code: 'R0504',
+        path: '/poc/poc-provider/fx-liquidity-provider'
       }
     ]
   },
   {
-    menuName: 'Foreign Exchange Management',
+    menuName: 'FX Management',
     id: 6,
     fatherId: 0,
     icon: 'transaction',
@@ -122,42 +132,12 @@ const menuNav: Menu[] = [
       {
         id: 1,
         fatherId: 6,
-        menuName: 'FX Application Management',
+        menuName: 'Token Pair Management',
         open: false,
         selected: false,
         menuType: 'C',
         code: 'R0401',
-        path: '/poc/poc-foreign-exchange/fx-application'
-      },
-      {
-        id: 2,
-        fatherId: 6,
-        menuName: 'FX Liquidity Provider Query',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0402',
-        path: '/poc/poc-foreign-exchange/fx-activation'
-      },
-      {
-        id: 3,
-        fatherId: 6,
-        menuName: 'Exchange Rate Management',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0403',
-        path: '/poc/poc-foreign-exchange/exchange-rate'
-      },
-      {
-        id: 4,
-        fatherId: 6,
-        menuName: 'Settlement Model Query',
-        open: false,
-        selected: false,
-        menuType: 'C',
-        code: 'R0405',
-        path: '/poc/poc-foreign-exchange/settlement'
+        path: '/poc/poc-foreign-exchange/token-pair'
       },
       {
         id: 5,
@@ -172,10 +152,10 @@ const menuNav: Menu[] = [
     ]
   },
   {
-    menuName: 'Wallet Configuration Management',
+    menuName: 'Wallet Configuration',
     id: 7,
     fatherId: 0,
-    icon: 'user-switch',
+    icon: 'wallet',
     open: false,
     selected: false,
     menuType: 'C',
@@ -197,7 +177,7 @@ const menuNav: Menu[] = [
     menuName: 'System Management',
     id: 9,
     fatherId: 0,
-    icon: 'user',
+    icon: 'usergroup-add',
     open: false,
     selected: false,
     menuType: 'C',

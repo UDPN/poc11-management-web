@@ -49,55 +49,51 @@ export function SubWindowWithServiceFactory(
   return () => subWindowWithService.subWindowWidth();
 }
 
-export function ToDoListServiceFactory(
-  toDoListService: ToDoListService
-) {
+export function ToDoListServiceFactory(toDoListService: ToDoListService) {
   return () => toDoListService.getToDoListLength();
-};
+}
 
 registerLocaleData(en);
 
-
 const APPINIT_PROVIDES = [
-  
   {
     provide: APP_INITIALIZER,
     useFactory: StartupServiceFactory,
     deps: [StartupService],
-    multi: true,
+    multi: true
   },
-  
+
   {
     provide: APP_INITIALIZER,
     useFactory: LoadAliIconCdnFactory,
     deps: [LoadAliIconCdnService],
-    multi: true,
+    multi: true
   },
-  
+
   {
     provide: APP_INITIALIZER,
     useFactory: InitLockedStatusServiceFactory,
     deps: [SubLockedStatusService],
-    multi: true,
+    multi: true
   },
-  
+
   {
     provide: APP_INITIALIZER,
     useFactory: InitThemeServiceFactory,
     deps: [InitThemeService],
-    multi: true,
+    multi: true
   },
   {
     provide: APP_INITIALIZER,
     useFactory: SubWindowWithServiceFactory,
     deps: [SubWindowWithService],
-    multi: true,
+    multi: true
   },
   {
     provide: APP_INITIALIZER,
     useFactory: ToDoListServiceFactory,
     deps: [ToDoListService],
-    multi: true,
+    multi: true
   },
   {
     provide: APP_INITIALIZER,
@@ -105,8 +101,8 @@ const APPINIT_PROVIDES = [
       return themeService.loadTheme();
     },
     deps: [ThemeSkinService],
-    multi: true,
-  },
+    multi: true
+  }
 ];
 
 @NgModule({
@@ -119,13 +115,13 @@ const APPINIT_PROVIDES = [
     SharedModule,
     LoginModalModule,
     PasswordStrengthMeterModule.forRoot(),
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
     ...interceptors,
     ...APPINIT_PROVIDES,
-    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_I18N, useValue: en_US }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

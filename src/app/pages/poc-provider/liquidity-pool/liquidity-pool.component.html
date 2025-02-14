@@ -1,0 +1,318 @@
+<app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
+
+<div class="normal-table-wrap">
+  <nz-card
+    [nzBodyStyle]="{ 'padding-bottom': 0 }"
+    [nzTitle]="'Query'"
+    class="m-b-10"
+  >
+    <form nz-form nzLayout="vertical">
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label>Liquidity Pool Address </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                placeholder=""
+                name="liquidityPoolAddress"
+                [(ngModel)]="searchParam.liquidityPoolAddress"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label>Token Name</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzPlaceHolder=""
+                name="tokenName"
+                [(ngModel)]="searchParam.tokenName"
+              >
+                <nz-option nzValue="" nzLabel="All"></nz-option>
+                <nz-option
+                  *ngFor="let item of currencyList"
+                  [nzValue]="item.currencyKey"
+                  [nzLabel]="item.currency"
+                >
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label> Liquidity Provider Name </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                placeholder=""
+                name="liquidityPoolName"
+                [(ngModel)]="searchParam.liquidityPoolName"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label> BIC </nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                placeholder=""
+                name="bic"
+                [(ngModel)]="searchParam.bic"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label [nzNoColon]="true">Created on</nz-form-label>
+            <nz-form-control>
+              <nz-range-picker
+                style="width: 100%"
+                name="createTime"
+                [(ngModel)]="searchParam.createTime"
+              ></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div
+          nz-col
+          [nzXXl]="8"
+          [nzXl]="8"
+          [nzLg]="12"
+          [nzMd]="12"
+          [nzSm]="24"
+          [nzXs]="24"
+        >
+          <nz-form-item>
+            <nz-form-label>Status</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzPlaceHolder=""
+                name="status"
+                [(ngModel)]="searchParam.status"
+              >
+                <nz-option nzValue="" nzLabel="All"></nz-option>
+                <nz-option nzValue="1" nzLabel="Pending Approval"></nz-option>
+                <nz-option nzValue="2" nzLabel="Active"></nz-option>
+                <nz-option nzValue="3" nzLabel="Inactive"></nz-option>
+                <nz-option nzValue="4" nzLabel="Rejected"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="24" class="m-b-8 text-right p-0">
+          <nz-form-item>
+            <nz-form-label [nzNoColon]="true"></nz-form-label>
+            <nz-form-control>
+              <div nz-col [nzSpan]="24">
+                <button
+                  nz-button
+                  [nzType]="'primary'"
+                  (click)="getDataList(this.tableQueryParams)"
+                >
+                  Query
+                </button>
+                <a nz-button nzType="link" class="m-l-15" (click)="resetForm()"
+                  >Reset</a
+                >
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+  <app-card-table-wrap
+    [tableTitle]="'Liquidity Pool List'"
+    [isNormalTable]="true"
+  >
+    <app-ant-table
+      (changePageSize)="changePageSize($event)"
+      (changePageNum)="getDataList($event)"
+      [tableConfig]="tableConfig"
+      [tableData]="dataList"
+    ></app-ant-table>
+    <ng-template
+      #currencyTypeTpl
+      let-outCapitalPoolActivation="outCapitalPoolActivation"
+    >
+      <ng-container *ngIf="outCapitalPoolActivation">
+        <span *ngFor="let item of outCapitalPoolActivation; index as i">
+          <span [title]="item | map: 'currencyPair'"
+            >{{ item | map: 'currencyPair'
+            }}{{ i === outCapitalPoolActivation.length - 1 ? '' : ', ' }}</span
+          >
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!outCapitalPoolActivation">{{ '--' }}</ng-container>
+    </ng-template>
+    <ng-template #foreignTpl let-outActivationRate="outActivationRate">
+      <ng-container *ngIf="outActivationRate">
+        <span *ngFor="let items of outActivationRate">
+          <nz-tag nzColor="processing">{{
+            items | map: 'currencyPair'
+          }}</nz-tag>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!outActivationRate">{{ '--' }}</ng-container>
+    </ng-template>
+    <ng-template #operationTpl let-transactionNo="transactionNo">
+      <ng-container *appAuth="''">
+        <span
+          class="operate-text"
+          routerLink="/poc/poc-provider/liquidity-pool/approve"
+          [queryParams]="{transactionNo}"
+        >
+          Approval
+        </span>
+      </ng-container>
+      <ng-container *appAuth="''">
+        <span class="operate-text" (click)="openVisible(1, false)">
+          Deactivate
+        </span>
+      </ng-container>
+      <ng-container *appAuth="''">
+        <span class="operate-text" (click)="openVisible(2)"> Activate </span>
+      </ng-container>
+      <ng-container *appAuth="''">
+        <span
+          class="operate-text"
+          routerLink="/poc/poc-provider/liquidity-pool/info"
+          [queryParams]="{transactionNo}"
+        >
+          Details
+        </span>
+      </ng-container>
+    </ng-template>
+  </app-card-table-wrap>
+</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="
+    this.visibleType === 1
+      ? 'Deactivate Liquidity Pool'
+      : 'Activate Liquidity Pool'
+  "
+  (nzOnCancel)="cancelVisible()"
+  [nzClosable]="false"
+  [nzWidth]="600"
+  nzCentered="true"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="visibleForm" nzLayout="vertical">
+      <div>
+        {{
+          this.visibleType === 1
+            ? 'Disabling the Liquidity Pool Addresswill deactivate FX purchasing and affect transfers between different currencies.'
+            : 'Activate the Liquidity Pool Addressto enable FX purchasing and facilitate transfers between different currencies.'
+        }}
+      </div>
+      <div nz-row [nzGutter]="24" nzJustify="center" nzAlign="middle">
+        <div nz-col nzSpan="20" class="m-t-30">
+          <nz-form-item>
+            <nz-form-label nzSpan="24" class="text-left">
+              Liquidity Pool Address
+            </nz-form-label>
+            <nz-form-control nzSpan="24" class="m-b-20">
+              <input
+                nz-input
+                formControlName="liquidityPoolAddress"
+                readonly
+                class="onboard-disabled"
+              />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzSpan="24" class="text-left"> Token </nz-form-label>
+            <nz-form-control nzSpan="24" class="m-b-20">
+              <input
+                nz-input
+                formControlName="token"
+                readonly
+                class="onboard-disabled"
+              />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired nzSpan="24" class="text-left">
+              Comments
+            </nz-form-label>
+            <nz-form-control
+              nzSpan="24"
+              class="m-b-20"
+              [nzErrorTip]="commentsError"
+            >
+              <textarea
+                nz-input
+                formControlName="comments"
+                maxlength="200"
+              ></textarea>
+              <ng-template #commentsError let-control>
+                <ng-container *ngIf="control.hasError('required')"
+                  >Please input your Comments</ng-container
+                >
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="cancelVisible()">Cancel</button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="onStatusUpdate()"
+      [nzLoading]="isLoading"
+      [disabled]="!this.visibleForm.valid"
+    >
+      Confirm
+    </button>
+  </div>
+</nz-modal>

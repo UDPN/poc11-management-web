@@ -1,4 +1,11 @@
-import { Component, TemplateRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  TemplateRef,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '@app/core/services/http/login/login.service';
 import { PocHomeService } from '@app/core/services/http/poc-home/poc-home.service';
@@ -13,12 +20,15 @@ import { finalize } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less'],
+  styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
-  @ViewChild('headerExtra', { static: false }) headerExtra!: TemplateRef<NzSafeAny>;
-  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerContent', { static: false })
+  headerContent!: TemplateRef<NzSafeAny>;
+  @ViewChild('headerExtra', { static: false })
+  headerExtra!: TemplateRef<NzSafeAny>;
+  @ViewChild('operationTpl', { static: true })
+  operationTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('spTpl', { static: true }) spTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('statusTpl', { static: true }) statusTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
@@ -32,7 +42,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   url: any = '';
   tableConfig!: AntTableConfig;
   dataList: NzSafeAny[] = [];
-  constructor(private themesService: ThemeService, private dataService: LoginService, private router: Router, private pocHomeService: PocHomeService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private themesService: ThemeService,
+    private dataService: LoginService,
+    private router: Router,
+    private pocHomeService: PocHomeService,
+    private cdr: ChangeDetectorRef
+  ) {}
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
@@ -65,29 +81,39 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
       pageSize: this.tableConfig.pageSize!,
-      pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+      pageNum: e?.pageIndex || this.tableConfig.pageIndex!
     };
-    this.pocHomeService.getList(params.pageNum, params.pageSize).pipe(finalize(() => {
-      this.tableLoading(false);
-    })).subscribe((_: any) => {
-      this.dataList = _.data;
-      this.dataList.forEach((item: any, i: any) => {
-        Object.assign(item, { key: (params.pageNum - 1) * 10 + i + 1 })
-      })
-      this.tableConfig.total = _?.resultPageInfo?.total;
-      this.tableConfig.pageIndex = params.pageNum;
-      this.tableLoading(false);
-      this.cdr.markForCheck();
-    });
+    this.pocHomeService
+      .getList(params.pageNum, params.pageSize)
+      .pipe(
+        finalize(() => {
+          this.tableLoading(false);
+        })
+      )
+      .subscribe((_: any) => {
+        this.dataList = _.data;
+        this.dataList.forEach((item: any, i: any) => {
+          Object.assign(item, { key: (params.pageNum - 1) * 10 + i + 1 });
+        });
+        this.tableConfig.total = _?.resultPageInfo?.total;
+        this.tableConfig.pageIndex = params.pageNum;
+        this.tableLoading(false);
+        this.cdr.markForCheck();
+      });
   }
 
   onApprove(todoType: string, businessApplicationCode: string) {
     if (todoType === '3') {
       const queryParams = { spCode: businessApplicationCode };
-      this.router.navigate(['/poc/poc-provider/provider/approve'], { queryParams })
+      this.router.navigate(['/poc/poc-provider/provider/approve'], {
+        queryParams
+      });
     } else if (todoType === '2') {
       const queryParams = { businessApplicationCode };
-      this.router.navigate(['/poc/poc-foreign-exchange/fx-application/approve'], { queryParams })
+      this.router.navigate(
+        ['/poc/poc-foreign-exchange/fx-application/approve'],
+        { queryParams }
+      );
     }
   }
 
@@ -95,7 +121,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.tableConfig = {
       headers: [
         {
-          title: 'Created On',
+          title: 'Created on',
           field: 'createDate',
           pipe: 'timeStamp',
           notNeedEllipsis: true,
@@ -124,14 +150,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
           fixedDir: 'right',
           showAction: false,
           width: 100
-
-        },
+        }
       ],
       total: 0,
       showCheckbox: false,
       loading: false,
       pageSize: 10,
-      pageIndex: 1,
+      pageIndex: 1
     };
   }
 }

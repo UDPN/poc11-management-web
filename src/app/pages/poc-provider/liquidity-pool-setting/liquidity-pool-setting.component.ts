@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2025-02-10 16:18:53
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-02-11 13:44:49
+ * @LastEditTime: 2025-02-13 15:49:03
  * @Description:
  */
 /*
@@ -76,7 +76,7 @@ export class LiquidityPoolSettingComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: ``,
-      breadcrumb: ['Liquidity Provider Management'],
+      breadcrumb: ['Liquidity Provider Management', 'Liquidity Pool Setting'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: ''
@@ -106,7 +106,7 @@ export class LiquidityPoolSettingComponent implements OnInit, AfterViewInit {
           );
           this.validateForm.addControl(
             this.listOfControl[indexs - 1].minimumBalance,
-            this.fb.control(item.minimumBalance.toString(), [
+            this.fb.control(item.minimumBalance?.toString(), [
               Validators.required,
               this.minimumBalanceValidator
             ])

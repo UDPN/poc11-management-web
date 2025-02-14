@@ -2,18 +2,21 @@
  * @Author: chenyuting
  * @Date: 2024-07-08 16:17:34
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-02-11 13:58:56
+ * @LastEditTime: 2025-02-13 11:35:37
  * @Description: 
 -->
 <app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
 
 <div class="normal-table-wrap">
   <nz-card [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
-    <b>
-      {{
+    <nz-alert
+      nzType="info"
+      class="w-60"
+      [nzMessage]="
         'This module is used to configure the minimum balance required for the liquidity pool of each currency in the Kissen network.'
-      }}
-    </b>
+      "
+      nzShowIcon
+    ></nz-alert>
     <form nz-form [formGroup]="validateForm" class="m-t-50">
       <div
         nz-row

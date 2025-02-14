@@ -232,6 +232,32 @@ export class MapPipe implements PipeTransform {
         return timestampToDate(value);
       }
     }
+    if (arg === 'showPartBefore') {
+      if (value) {
+        if (value?.length > 12) {
+          return value.substring(0, 12) + '....';
+        } else {
+          return value;
+        }
+      } else {
+        return '--';
+      }
+    }
+    if (arg === 'showPart') {
+      if (value) {
+        if (value?.length > 10) {
+          return (
+            value.substring(0, 6) +
+            '....' +
+            value.substring(value.length - 4, value.length)
+          );
+        } else {
+          return value;
+        }
+      } else {
+        return '--';
+      }
+    }
     if (arg === 'currencyPair') {
       if (!value) {
         return (value = '--');
