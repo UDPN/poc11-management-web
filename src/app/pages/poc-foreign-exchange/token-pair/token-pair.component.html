@@ -28,7 +28,7 @@
                 <nz-option
                   *ngFor="let item of currencyList"
                   [nzValue]="item.key"
-                  [nzLabel]="item.sourceCurrency + '->' + item.targetCurrency"
+                  [nzLabel]="item.sourceCurrency + '/' + item.targetCurrency"
                 >
                 </nz-option>
               </nz-select>

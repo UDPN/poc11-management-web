@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-10-11 10:38:24
  * @LastEditors: chenyuting
- * @LastEditTime: 2024-12-10 09:57:37
+ * @LastEditTime: 2025-02-17 15:56:32
  * @Description: 
 -->
 <!--
@@ -113,7 +113,7 @@
                 <div nz-col nzXs="24" nzSm="24" nzXl="12" nzXXl="6" *ngFor="let currencyPair of items.rateInfoList">
                   <div class="m-t-10 m-b-10">
                     <div class="m-b-10">
-                      <span nz-typography nzType="secondary">{{ currencyPair.applicationFormRateCurrency + '->' +
+                      <span nz-typography nzType="secondary">{{ currencyPair.applicationFormRateCurrency + '/' +
                         currencyPair.applicationToRateCurrency }}</span>
                     </div>
                   </div>
@@ -330,7 +330,7 @@
                           *ngFor="let item of rateCurrencyList"
                           [nzValue]="item.key"
                           [nzLabel]="
-                            item.sourceCurrency + '->' + item.targetCurrency
+                            item.sourceCurrency + '/' + item.targetCurrency
                           "
                         >
                         </nz-option>
@@ -491,7 +491,7 @@
                 >
                   <div class="dashboard-flex">
                     <div>
-                      {{ value.formRateCurrency + '->' + value.toRateCurrency }}
+                      {{ value.formRateCurrency + '/' + value.toRateCurrency }}
                     </div>
                   </div>
                 </div>

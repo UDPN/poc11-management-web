@@ -1,8 +1,8 @@
 /*
  * @Author: chenyuting
  * @Date: 2024-01-11 11:22:36
- * @LastEditors: zhangxuefeng
- * @LastEditTime: 2024-07-08 17:01:24
+ * @LastEditors: chenyuting
+ * @LastEditTime: 2025-02-17 15:56:43
  * @Description:
  */
 import {
@@ -473,7 +473,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               let series1: any = [];
               item.transactionStatistics.forEach((items: any) => {
                 series1.push({
-                  name: items.fromCurrency + '->' + items.toCurrency,
+                  name: items.fromCurrency + '/' + items.toCurrency,
                   value: items.transactionNumber
                     .toString()
                     .replace(/\d{1,3}(?=(\d{3})+(\.|$))/gy, '$&,')
@@ -528,7 +528,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               });
             });
             multi.push({
-              name: item.sourceCurrency + '->' + item.targetCurrency,
+              name: item.sourceCurrency + '/' + item.targetCurrency,
               series: series
             });
             this.multi2 = multi;
