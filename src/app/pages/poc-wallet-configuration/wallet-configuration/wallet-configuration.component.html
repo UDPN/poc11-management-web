@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2025-01-17 13:42:35
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-02-14 17:02:02
+ * @LastEditTime: 2025-02-17 14:14:10
  * @Description: 
 -->
 <app-page-header [pageHeaderInfo]="pageHeaderInfo"></app-page-header>
@@ -18,15 +18,15 @@
         <nz-form-label nzRequired nzSpan="24"
           >The number of sub wallets in the Master wallet
         </nz-form-label>
-        <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
+        <nz-form-control [nzErrorTip]="masterError" nzSpan="24">
           <div nz-row>
             <div nz-col nzSpan="24">
               <input nz-input formControlName="masterSubWalletNumber" />
             </div>
           </div>
-          <ng-template #userNameError let-control>
+          <ng-template #masterError let-control>
             <ng-container *ngIf="control.hasError('required')"
-              >Please input your The number of sub wallets in the Master
+              >Please input your the number of sub wallets in the Master
               wallet</ng-container
             >
             <ng-container *ngIf="control.hasError('regular')"
@@ -39,15 +39,15 @@
         <nz-form-label nzRequired nzSpan="24"
           >The number of sub wallets in the Main wallet
         </nz-form-label>
-        <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
+        <nz-form-control [nzErrorTip]="mainError" nzSpan="24">
           <div nz-row>
             <div nz-col nzSpan="24">
               <input nz-input formControlName="mainSubWalletNumber" />
             </div>
           </div>
-          <ng-template #userNameError let-control>
+          <ng-template #mainError let-control>
             <ng-container *ngIf="control.hasError('required')"
-              >Please input your The number of sub wallets in the Main
+              >Please input your the number of sub wallets in the Main
               wallet</ng-container
             >
             <ng-container *ngIf="control.hasError('regular')"
@@ -64,7 +64,7 @@
         nzXXl="12"
         class="p-t-24"
       >
-        <nz-form-control [nzErrorTip]="userNameError" nzSpan="24">
+        <nz-form-control nzSpan="24">
           <div nz-row>
             <div nz-col nzSpan="24" style="text-align: end">
               <ng-container *appAuth="'R0801'"

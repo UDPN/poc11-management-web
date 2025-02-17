@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2025-01-17 13:42:35
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-01-23 17:31:26
+ * @LastEditTime: 2025-02-17 14:12:53
  * @Description:
  */
 import {
@@ -74,10 +74,10 @@ export class WalletConfigurationComponent implements OnInit, AfterViewInit {
         this.info = res;
         this.validateForm
           .get('masterSubWalletNumber')
-          ?.setValue(res.masterSubWalletNumber);
+          ?.setValue(res.masterSubWalletNumber?.toString());
         this.validateForm
           .get('mainSubWalletNumber')
-          ?.setValue(res.mainSubWalletNumber);
+          ?.setValue(res.mainSubWalletNumber?.toString());
         this.cdr.markForCheck();
       }
     });
