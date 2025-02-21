@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2024-12-24 13:31:42
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-01-17 13:47:56
+ * @LastEditTime: 2025-02-21 13:46:04
  * @Description:
  */
 import {
@@ -226,7 +226,7 @@ export class UserComponent implements OnInit {
           show: true
         },
         {
-          title: 'User Name',
+          title: 'Username',
           field: 'userName',
           width: 180
         },

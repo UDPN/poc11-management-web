@@ -136,7 +136,7 @@ const menuNav: Menu[] = [
         open: false,
         selected: false,
         menuType: 'C',
-        code: 'R0401',
+        code: 'R0405',
         path: '/poc/poc-foreign-exchange/token-pair'
       },
       {

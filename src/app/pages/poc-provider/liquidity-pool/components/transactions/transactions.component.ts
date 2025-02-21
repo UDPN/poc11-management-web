@@ -2,7 +2,7 @@
  * @Author: chenyuting
  * @Date: 2025-02-14 09:45:34
  * @LastEditors: chenyuting
- * @LastEditTime: 2025-02-14 10:19:37
+ * @LastEditTime: 2025-02-21 10:57:16
  * @Description:
  */
 /*
@@ -29,6 +29,7 @@ interface TransactionsParams {
   transactionHash: any;
   bic: any;
   createTime: any;
+  transactionTime: any;
   status: string | number;
 }
 
@@ -60,6 +61,7 @@ export class TransactionsComponent implements OnInit {
     transactionType: '',
     transactionHash: '',
     createTime: [],
+    transactionTime: [],
     bic: '',
     status: ''
   };
@@ -91,6 +93,7 @@ export class TransactionsComponent implements OnInit {
       transactionType: '',
       transactionHash: '',
       createTime: [],
+      transactionTime: [],
       bic: '',
       status: ''
     };
@@ -146,18 +149,15 @@ export class TransactionsComponent implements OnInit {
           width: 140
         },
         {
-          title: 'Transaction Type',
-          field: 'transactionType',
-          width: 150
-        },
-        {
           title: 'Amount',
           tdTemplate: this.amountTpl,
           width: 150
         },
         {
-          title: 'FX Rate',
-          tdTemplate: this.fxRateTpl,
+          title: 'Created on',
+          field: '',
+          pipe: 'timeStamp',
+          notNeedEllipsis: true,
           width: 140
         },
         {

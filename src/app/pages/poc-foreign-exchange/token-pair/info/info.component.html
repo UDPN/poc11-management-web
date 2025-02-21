@@ -23,187 +23,204 @@
               [nzBordered]="true"
             >
               <nz-descriptions-item nzTitle="Token Pair">{{
-                ''
+                basicInfo.formRateCurrency + '/' + basicInfo.toRateCurrency
               }}</nz-descriptions-item>
               <nz-descriptions-item nzTitle="Status"
-                ><nz-tag nzColor="success">{{
-                  ''
-                }}</nz-tag></nz-descriptions-item
+                ><nz-tag
+                  [nzColor]="basicInfo.status | map: 'tokenPairStatusColor'"
+                  >{{ basicInfo.status | map: 'tokenPairStatus' }}</nz-tag
+                ></nz-descriptions-item
               >
               <nz-descriptions-item nzTitle="FX Rate">{{
-                ''
+                basicInfo.fxRate | map: 'toThousandthMark'
               }}</nz-descriptions-item>
               <nz-descriptions-item nzTitle="FX Rate Updated on">{{
-                ''
+                basicInfo.updatedOn | map: 'timeStamp'
               }}</nz-descriptions-item
               ><nz-descriptions-item nzTitle="Created by">{{
-                ''
+                basicInfo.createdBy
               }}</nz-descriptions-item
               ><nz-descriptions-item nzTitle="Created on">{{
-                ''
+                basicInfo.createdOn | map: 'timeStamp'
               }}</nz-descriptions-item>
             </nz-descriptions>
           </nz-card>
-          <nz-card
-            nzBordered="false"
-            nzTitle="FX Rate History"
-            [nzBodyStyle]="{ 'padding-bottom': 0 }"
-            class="m-t-50 m-b-10"
-          >
-            <form nz-form nzLayout="vertical">
-              <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
-                <div
-                  nz-col
-                  [nzXXl]="8"
-                  [nzXl]="8"
-                  [nzLg]="12"
-                  [nzMd]="12"
-                  [nzSm]="24"
-                  [nzXs]="24"
-                >
-                  <nz-form-item>
-                    <nz-form-label>Date</nz-form-label>
-                    <nz-form-control>
-                      <nz-range-picker
-                        style="width: 100%"
-                        name="createTime"
-                        [(ngModel)]="basicParam.createTime"
-                      ></nz-range-picker>
-                    </nz-form-control>
-                  </nz-form-item>
+          <ng-container *ngIf="this.tabIndex === 0"
+            ><nz-card
+              nzBordered="false"
+              nzTitle="FX Rate History"
+              [nzBodyStyle]="{ 'padding-bottom': 0 }"
+              class="m-t-50 m-b-10"
+            >
+              <form nz-form nzLayout="vertical">
+                <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+                  <div
+                    nz-col
+                    [nzXXl]="8"
+                    [nzXl]="8"
+                    [nzLg]="12"
+                    [nzMd]="12"
+                    [nzSm]="24"
+                    [nzXs]="24"
+                  >
+                    <nz-form-item>
+                      <nz-form-label>Date</nz-form-label>
+                      <nz-form-control>
+                        <nz-range-picker
+                          style="width: 100%"
+                          name="createTime"
+                          [(ngModel)]="basicParam.createTime"
+                        ></nz-range-picker>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div
+                    nz-col
+                    [nzXXl]="16"
+                    [nzXl]="16"
+                    [nzLg]="12"
+                    [nzMd]="12"
+                    [nzSm]="24"
+                    [nzXs]="24"
+                    class="m-b-8 text-right p-0"
+                  >
+                    <nz-form-item>
+                      <nz-form-label [nzNoColon]="true"></nz-form-label>
+                      <nz-form-control>
+                        <div nz-col [nzSpan]="24">
+                          <button
+                            nz-button
+                            [nzType]="'primary'"
+                            (click)="getDataList(this.tableQueryParams)"
+                          >
+                            Query
+                          </button>
+                          <a
+                            nz-button
+                            nzType="link"
+                            class="m-l-15"
+                            (click)="resetForm()"
+                            >Reset</a
+                          >
+                        </div>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
                 </div>
-                <div
-                  nz-col
-                  [nzXXl]="16"
-                  [nzXl]="16"
-                  [nzLg]="12"
-                  [nzMd]="12"
-                  [nzSm]="24"
-                  [nzXs]="24"
-                  class="m-b-8 text-right p-0"
-                >
-                  <nz-form-item>
-                    <nz-form-label [nzNoColon]="true"></nz-form-label>
-                    <nz-form-control>
-                      <div nz-col [nzSpan]="24">
-                        <button
-                          nz-button
-                          [nzType]="'primary'"
-                          (click)="getDataList(this.tableQueryParams)"
-                        >
-                          Query
-                        </button>
-                        <a
-                          nz-button
-                          nzType="link"
-                          class="m-l-15"
-                          (click)="resetForm()"
-                          >Reset</a
-                        >
-                      </div>
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-              </div>
-            </form>
-          </nz-card>
-          <app-card-table-wrap [isNormalTable]="true">
-            <app-ant-table
-              (changePageSize)="changePageSize1($event)"
-              (changePageNum)="getHistoryDataList($event)"
-              [tableConfig]="historyTableConfig"
-              [tableData]="historyList"
-            ></app-ant-table>
-          </app-card-table-wrap>
+              </form>
+            </nz-card>
+            <app-card-table-wrap [isNormalTable]="true">
+              <app-ant-table
+                (changePageSize)="changePageSize1($event)"
+                (changePageNum)="getHistoryDataList($event)"
+                [tableConfig]="historyTableConfig"
+                [tableData]="historyList"
+              ></app-ant-table> </app-card-table-wrap
+          ></ng-container>
         </ng-container>
         <ng-container *ngIf="i === 1">
-          <nz-card
-            nzBordered="false"
-            [nzBodyStyle]="{ 'padding-bottom': 0 }"
-            class="m-b-10"
-          >
-            <form nz-form nzLayout="vertical">
-              <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
-                <div
-                  nz-col
-                  [nzXXl]="8"
-                  [nzXl]="8"
-                  [nzLg]="12"
-                  [nzMd]="12"
-                  [nzSm]="24"
-                  [nzXs]="24"
-                >
-                  <nz-form-item>
-                    <nz-form-label>Operation Type</nz-form-label>
-                    <nz-form-control>
-                      <nz-select
-                        nzPlaceHolder=""
-                        name="operationType"
-                        [(ngModel)]="searchParams.operationType"
-                      >
-                        <nz-option nzValue="" nzLabel="All"></nz-option>
-                        <nz-option
-                          nzValue="1"
-                          nzLabel="Pending Approval"
-                        ></nz-option>
-                        <nz-option nzValue="1" nzLabel="Active"></nz-option>
-                        <nz-option nzValue="2" nzLabel="Inactive"></nz-option>
-                        <nz-option nzValue="3" nzLabel="Register"></nz-option>
-                      </nz-select>
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div
-                  nz-col
-                  [nzXXl]="16"
-                  [nzXl]="16"
-                  [nzLg]="12"
-                  [nzMd]="12"
-                  [nzSm]="24"
-                  [nzXs]="24"
-                  class="m-b-8 text-right p-0"
-                >
-                  <nz-form-item>
-                    <nz-form-label [nzNoColon]="true"></nz-form-label>
-                    <nz-form-control>
-                      <div nz-col [nzSpan]="24">
-                        <button
-                          nz-button
-                          [nzType]="'primary'"
-                          (click)="getDataList(this.tableQueryParams)"
-                        >
-                          Query
-                        </button>
-                        <a
-                          nz-button
-                          nzType="link"
-                          class="m-l-15"
-                          (click)="resetForm()"
-                          >Reset</a
-                        >
-                      </div>
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-              </div>
-            </form>
-          </nz-card>
-          <app-card-table-wrap [isNormalTable]="true">
-            <app-ant-table
-              (changePageSize)="changePageSize($event)"
-              (changePageNum)="getDataList($event)"
-              [tableConfig]="tableConfig"
-              [tableData]="dataList"
-            ></app-ant-table>
-            <ng-template
-              #transactionHashTpl
-              let-transactionHash="transactionHash"
+          <ng-container *ngIf="tabIndex === 1"
+            ><nz-card
+              nzBordered="false"
+              [nzBodyStyle]="{ 'padding-bottom': 0 }"
+              class="m-b-10"
             >
-              <p
-                nz-typography
-                [nzCopyable]="transactionHash ? true : false"
-                [nzCopyText]="transactionHash"
-              ></p> </ng-template></app-card-table-wrap
-        ></ng-container> </nz-tab></nz-tabset
+              <form nz-form nzLayout="vertical">
+                <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+                  <div
+                    nz-col
+                    [nzXXl]="8"
+                    [nzXl]="8"
+                    [nzLg]="12"
+                    [nzMd]="12"
+                    [nzSm]="24"
+                    [nzXs]="24"
+                  >
+                    <nz-form-item>
+                      <nz-form-label>Operation Type</nz-form-label>
+                      <nz-form-control>
+                        <nz-select
+                          nzPlaceHolder=""
+                          name="operationType"
+                          [(ngModel)]="searchParams.operationType"
+                        >
+                          <nz-option nzValue="" nzLabel="All"></nz-option>
+                          <nz-option nzValue="0" nzLabel="Activate"></nz-option>
+                          <nz-option
+                            nzValue="1"
+                            nzLabel="Deactivate"
+                          ></nz-option>
+                          <nz-option nzValue="2" nzLabel="Add"></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div
+                    nz-col
+                    [nzXXl]="16"
+                    [nzXl]="16"
+                    [nzLg]="12"
+                    [nzMd]="12"
+                    [nzSm]="24"
+                    [nzXs]="24"
+                    class="m-b-8 text-right p-0"
+                  >
+                    <nz-form-item>
+                      <nz-form-label [nzNoColon]="true"></nz-form-label>
+                      <nz-form-control>
+                        <div nz-col [nzSpan]="24">
+                          <button
+                            nz-button
+                            [nzType]="'primary'"
+                            (click)="getDataList(this.tableQueryParams)"
+                          >
+                            Query
+                          </button>
+                          <a
+                            nz-button
+                            nzType="link"
+                            class="m-l-15"
+                            (click)="resetForm()"
+                            >Reset</a
+                          >
+                        </div>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </form>
+            </nz-card>
+            <app-card-table-wrap [isNormalTable]="true">
+              <app-ant-table
+                (changePageSize)="changePageSize($event)"
+                (changePageNum)="getDataList($event)"
+                [tableConfig]="tableConfig"
+                [tableData]="dataList"
+              ></app-ant-table> </app-card-table-wrap
+          ></ng-container>
+        </ng-container> </nz-tab></nz-tabset
   ></nz-card>
 </div>
+<ng-template #transactionHashTpl let-transactionHash="transactionHash">
+  <p
+    nz-typography
+    [nzCopyable]="transactionHash ? true : false"
+    [nzCopyText]="transactionHash"
+  >
+    {{ transactionHash | map: 'showPart' }}
+  </p>
+</ng-template>
+<ng-template #statusTpl let-status="status">
+  <nz-tag [nzColor]="status | map: 'tokenPairStatusColor'">{{
+    status | map: 'tokenPairStatus'
+  }}</nz-tag>
+</ng-template>
+<ng-template
+  #tokenPairTpl
+  let-formRateCurrency="formRateCurrency"
+  let-toRateCurrency="toRateCurrency"
+>
+  <span [title]="formRateCurrency + '/' + toRateCurrency">{{
+    formRateCurrency + '/' + toRateCurrency
+  }}</span>
+</ng-template>

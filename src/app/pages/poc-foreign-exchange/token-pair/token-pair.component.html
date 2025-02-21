@@ -26,9 +26,9 @@
               >
                 <nz-option nzValue="" nzLabel="All"></nz-option>
                 <nz-option
-                  *ngFor="let item of currencyList"
-                  [nzValue]="item.key"
-                  [nzLabel]="item.sourceCurrency + '/' + item.targetCurrency"
+                  *ngFor="let item of tokenPairList"
+                  [nzValue]="item.formRateCurrency + '/' + item.toRateCurrency"
+                  [nzLabel]="item.formRateCurrency + '/' + item.toRateCurrency"
                 >
                 </nz-option>
               </nz-select>
@@ -73,9 +73,9 @@
                 [(ngModel)]="searchParam.status"
               >
                 <nz-option nzValue="" nzLabel="All"></nz-option>
-                <nz-option nzValue="1" nzLabel="Processing"></nz-option>
-                <nz-option nzValue="2" nzLabel="Active"></nz-option>
-                <nz-option nzValue="3" nzLabel="Inactive"></nz-option>
+                <nz-option [nzValue]="0" nzLabel="Active"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="Inactive"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="Processing"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -122,21 +122,48 @@
       [tableConfig]="tableConfig"
       [tableData]="dataList"
     ></app-ant-table>
-    <ng-template #operationTpl let-transactionNo="transactionNo">
+    <ng-template #numberTpl let-key="key">
+      <span [title]="key">{{ key }}</span>
+    </ng-template>
+    <ng-template
+      #tokenPairTpl
+      let-formRateCurrency="formRateCurrency"
+      let-toRateCurrency="toRateCurrency"
+    >
+      <span [title]="formRateCurrency + '/' + toRateCurrency">{{
+        formRateCurrency + '/' + toRateCurrency
+      }}</span>
+    </ng-template>
+    <ng-template #tokenPairTpl let-status="status">
+      <nz-tag [nzColor]="status | map: ''">{{ status | map: '' }}</nz-tag>
+    </ng-template>
+    <ng-template #operationTpl let-exchangeId="exchangeId" let-status="status">
       <ng-container *appAuth="''">
         <span
           class="operate-text"
           routerLink="/poc/poc-foreign-exchange/token-pair/info"
-          [queryParams]="{}"
+          [queryParams]="{exchangeId}"
         >
           Details
         </span>
       </ng-container>
       <ng-container *appAuth="''">
-        <span class="operate-text" (click)="openVisible(1)"> Deactivate </span>
+        <span
+          class="operate-text"
+          *ngIf="status === 0"
+          (click)="openVisible(1, exchangeId)"
+        >
+          Deactivate
+        </span>
       </ng-container>
       <ng-container *appAuth="''">
-        <span class="operate-text" (click)="openVisible(2)"> Activate </span>
+        <span
+          class="operate-text"
+          *ngIf="status === 1"
+          (click)="openVisible(2, exchangeId)"
+        >
+          Activate
+        </span>
       </ng-container>
     </ng-template>
   </app-card-table-wrap>

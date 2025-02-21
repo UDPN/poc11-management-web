@@ -136,6 +136,21 @@ export const MapSet = {
   pinToTop: {
     1: 'Yes',
     0: 'No'
+  },
+  tokenPairStatus: {
+    0: 'Active',
+    1: 'Inactive',
+    2: 'Processing'
+  },
+  tokenPairStatusColor: {
+    0: 'green',
+    1: 'default',
+    2: 'blue'
+  },
+  tokenPairOperationType: {
+    0: 'Activate',
+    1: 'deactivate',
+    2: 'Add'
   }
 };
 
@@ -180,6 +195,13 @@ export class MapPipe implements PipeTransform {
     if (arg === 'nullValue') {
       if (!value) {
         return (value = '--');
+      } else {
+        return value;
+      }
+    }
+    if (arg === 'showNone') {
+      if (!value) {
+        return (value = 'N/A');
       } else {
         return value;
       }
@@ -245,9 +267,9 @@ export class MapPipe implements PipeTransform {
     }
     if (arg === 'showPart') {
       if (value) {
-        if (value?.length > 10) {
+        if (value?.length > 8) {
           return (
-            value.substring(0, 6) +
+            value.substring(0, 4) +
             '....' +
             value.substring(value.length - 4, value.length)
           );

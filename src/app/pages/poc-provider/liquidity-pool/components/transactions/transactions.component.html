@@ -37,21 +37,13 @@
         [nzXs]="24"
       >
         <nz-form-item>
-          <nz-form-label>Transaction Type</nz-form-label>
+          <nz-form-label>Created Time </nz-form-label>
           <nz-form-control>
-            <nz-select
-              nzPlaceHolder=""
-              name="transactionType"
-              [(ngModel)]="transactionsParams.transactionType"
-            >
-              <nz-option nzValue="" nzLabel="All"></nz-option>
-              <nz-option
-                *ngFor="let item of transactionTypeList"
-                [nzValue]="item.currencyKey"
-                [nzLabel]="item.currency"
-              >
-              </nz-option>
-            </nz-select>
+            <nz-range-picker
+              style="width: 100%"
+              name="createTime"
+              [(ngModel)]="transactionsParams.createTime"
+            ></nz-range-picker>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -116,8 +108,8 @@
           <nz-form-control>
             <nz-range-picker
               style="width: 100%"
-              name="createTime"
-              [(ngModel)]="transactionsParams.createTime"
+              name="transactionTime"
+              [(ngModel)]="transactionsParams.transactionTime"
             ></nz-range-picker>
           </nz-form-control>
         </nz-form-item>

@@ -13,7 +13,10 @@ const fnGetRandomNum = function getRandomNum(m: number, n: number): number {
   return num;
 };
 
-const fnGetFile = function getFile(url: string, isBlob = false): Promise<NzSafeAny> {
+const fnGetFile = function getFile(
+  url: string,
+  isBlob = false
+): Promise<NzSafeAny> {
   return new Promise((resolve, reject) => {
     const client = new XMLHttpRequest();
     client.responseType = isBlob ? 'blob' : '';
@@ -38,10 +41,13 @@ const fnGetFile = function getFile(url: string, isBlob = false): Promise<NzSafeA
 
 const fnCheckForm = function checkForm(form: FormGroup): boolean {
   let arr: any = [];
-  Object.keys(form.controls).forEach(key => {
+  Object.keys(form.controls).forEach((key) => {
     form.controls[key].markAsDirty();
     form.controls[key].updateValueAndValidity();
-    if (document.querySelector(`.${key}`) !== null && form.controls[key].invalid) {
+    if (
+      document.querySelector(`.${key}`) !== null &&
+      form.controls[key].invalid
+    ) {
       arr.push(key);
     }
   });
@@ -49,12 +55,11 @@ const fnCheckForm = function checkForm(form: FormGroup): boolean {
     document.querySelector(`.${arr[0]}`)?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
-      inline: 'nearest',
+      inline: 'nearest'
     });
   }
   return !form.invalid;
 };
-
 
 const fnClearFormArray = function clearFormArray(formArray: FormArray): void {
   while (formArray.length !== 0) {
@@ -64,12 +69,12 @@ const fnClearFormArray = function clearFormArray(formArray: FormArray): void {
 
 const fnStopMouseEvent = function stopMouseEvent(e: MouseEvent): void {
   silentEvent(e);
-
-
 };
 
-
-const fnRemoveDouble = function removeDouble<T>(list: NzSafeAny[], col: NzSafeAny): T {
+const fnRemoveDouble = function removeDouble<T>(
+  list: NzSafeAny[],
+  col: NzSafeAny
+): T {
   const obj = {};
   return list.reduce((cur, next) => {
     // @ts-ignore
@@ -78,8 +83,9 @@ const fnRemoveDouble = function removeDouble<T>(list: NzSafeAny[], col: NzSafeAn
   }, []);
 };
 
-
-const getDeepReuseStrategyKeyFn = function (route: ActivatedRouteSnapshot): string {
+const getDeepReuseStrategyKeyFn = function (
+  route: ActivatedRouteSnapshot
+): string {
   let temp = route;
   while (temp.firstChild) {
     temp = temp.firstChild;
@@ -87,8 +93,9 @@ const getDeepReuseStrategyKeyFn = function (route: ActivatedRouteSnapshot): stri
   return fnGetReuseStrategyKeyFn(temp);
 };
 
-
-const fnGetReuseStrategyKeyFn = function getKey(route: ActivatedRouteSnapshot): string {
+const fnGetReuseStrategyKeyFn = function getKey(
+  route: ActivatedRouteSnapshot
+): string {
   const configKey = route.data['key'];
   if (!configKey) {
     return '';
@@ -97,16 +104,15 @@ const fnGetReuseStrategyKeyFn = function getKey(route: ActivatedRouteSnapshot): 
   if (Object.keys(route.queryParams).length > 0) {
     return configKey + JSON.stringify(route.queryParams);
   } else if (Object.keys(route.params).length > 0) {
-
     return configKey + JSON.stringify(route.params);
   } else {
-
     return `${configKey}{}`;
   }
 };
 
-
-const fnGetPathWithoutParam = function getPathWithoutParam(path: string): string {
+const fnGetPathWithoutParam = function getPathWithoutParam(
+  path: string
+): string {
   const paramIndex = path.indexOf('?');
   if (paramIndex > -1) {
     return path.substring(0, paramIndex);
@@ -114,38 +120,49 @@ const fnGetPathWithoutParam = function getPathWithoutParam(path: string): string
   return path;
 };
 
-
 const fnGetUUID = function getUUID(): string {
   return uuidv4();
 };
 
-const fnGetBase64 = function getBase64(file: File): Promise<string | ArrayBuffer | null> {
+const fnGetBase64 = function getBase64(
+  file: File
+): Promise<string | ArrayBuffer | null> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });
 };
-
 
 const fnEncrypt = function encrypt(word: NzSafeAny, keyStr: string): string {
   return CryptoJS.AES.encrypt(JSON.stringify(word), keyStr).toString();
 };
 
-const fnEncrypts = function encrypt(word: NzSafeAny, keyStr: string, iv: any): string {
+const fnEncrypts = function encrypt(
+  word: NzSafeAny,
+  keyStr: string,
+  iv: any
+): string {
   if (!word) {
     return '';
   }
-  const encrypted: any = CryptoJS.AES.encrypt(JSON.stringify(word),CryptoJS.enc.Utf8.parse(keyStr), {
-    iv: CryptoJS.enc.Utf8.parse(iv),
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7,
-  });
+  const encrypted: any = CryptoJS.AES.encrypt(
+    JSON.stringify(word),
+    CryptoJS.enc.Utf8.parse(keyStr),
+    {
+      iv: CryptoJS.enc.Utf8.parse(iv),
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    }
+  );
   return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
 };
 
-const fnDecrypt = function decrypt(word: NzSafeAny, keyStr: string): LockScreenFlag {
+const fnDecrypt = function decrypt(
+  word: NzSafeAny,
+  keyStr: string
+): LockScreenFlag {
   const bytes = CryptoJS.AES.decrypt(word, keyStr);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 };
@@ -159,43 +176,43 @@ const fnEndOfDay = function EndOfDay(time: number): number {
   return endOfDay(time).getTime();
 };
 
-
-
 const fnFormatToHump = function formatToHump(value: string): string {
   return value.replace(/\-(\w)/g, (_, letter) => letter.toUpperCase());
 };
 
-
-const fnRandomString = function randomString(len: number, radix: string | number) {
+const fnRandomString = function randomString(
+  len: number,
+  radix: string | number
+) {
   var chars = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
   var uuid = [],
     radix = radix || chars.length;
   var i = 0;
   if (len) {
-    for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * (radix as number)];
+    for (i = 0; i < len; i++)
+      uuid[i] = chars[0 | (Math.random() * (radix as number))];
   } else {
     var r;
     uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
     uuid[14] = '4';
     for (i = 0; i < 36; i++) {
       if (!uuid[i]) {
-        r = 0 | Math.random() * 16;
-        uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r];
+        r = 0 | (Math.random() * 16);
+        uuid[i] = chars[i === 19 ? (r & 0x3) | 0x8 : r];
       }
     }
   }
   return uuid.join('');
-
-}
+};
 
 const JSONLength = function JSONLength(obj: object) {
-  var size = 0, key;
+  var size = 0,
+    key;
   for (key in obj) {
     if (obj.hasOwnProperty(key)) size++;
   }
   return size;
 };
-
 
 const strToBase64 = function strToBase64(str: string) {
   let code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
@@ -219,18 +236,15 @@ const strToBase64 = function strToBase64(str: string) {
     res += new Array((6 - tail) / 2 + 1).join('=');
   }
   return res;
-}
-
+};
 
 const timestampToTime = function timestampToTime(str: string) {
-
   let timeZone = new Date().getTimezoneOffset() / -60;
 
   const time = new Date(Number(str) * 1000);
   const len = time.getTime();
   const offset = time.getTimezoneOffset() * 60000;
   const utcTime = len + offset;
-
 
   const date = new Date(utcTime + 3600000 * timeZone);
   const y = date.getFullYear(),
@@ -241,25 +255,32 @@ const timestampToTime = function timestampToTime(str: string) {
     s = date.getSeconds();
 
   function addZero(value: number) {
-    if (value < 10) return "0" + value;
+    if (value < 10) return '0' + value;
     else return value;
   }
-  const result = y + "-" + addZero(mon) + "-" + addZero(d) + " " + addZero(h) + ":" + addZero(m) + ":" + addZero(s);
-  return result
-
-}
-
+  const result =
+    y +
+    '-' +
+    addZero(mon) +
+    '-' +
+    addZero(d) +
+    ' ' +
+    addZero(h) +
+    ':' +
+    addZero(m) +
+    ':' +
+    addZero(s);
+  return result;
+};
 
 const timeToTimestamp = function timeToTimestamp(str: any) {
   let date = new Date(str);
   return date.valueOf() / 1000;
-}
-
+};
 
 const timeZone = function timeZone(t: any) {
   return new Date().getTimezoneOffset() / -60;
-}
-
+};
 
 const timeZoneTotime = function timeZoneTotime(t: any) {
   if (!t) t = 8;
@@ -268,7 +289,6 @@ const timeZoneTotime = function timeZoneTotime(t: any) {
   const len = time.getTime();
   const offset = time.getTimezoneOffset() * 60000;
   const utcTime = len + offset;
-
 
   const date = new Date(utcTime + 3600000 * t);
   const y = date.getFullYear(),
@@ -279,56 +299,65 @@ const timeZoneTotime = function timeZoneTotime(t: any) {
     s = date.getSeconds();
 
   function addZero(value: number) {
-    if (value < 10) return "0" + value;
+    if (value < 10) return '0' + value;
     else return value;
   }
-  const result = y + "-" + addZero(mon) + "-" + addZero(d) + " " + addZero(h) + ":" + addZero(m) + ":" + addZero(s);
-  return result
-
-}
+  const result =
+    y +
+    '-' +
+    addZero(mon) +
+    '-' +
+    addZero(d) +
+    ' ' +
+    addZero(h) +
+    ':' +
+    addZero(m) +
+    ':' +
+    addZero(s);
+  return result;
+};
 
 const objPushKv = function objPushKv(t: any, k: string) {
   let arry = t;
-  let arryNew: any[] = []
+  let arryNew: any[] = [];
   arry.map((item: any, index: any) => {
     arryNew.push(Object.assign({}, item, { [k]: index + 1 }));
   });
   return arryNew;
-}
-
+};
 
 const thousandthMark = function thousandthMark(x: any) {
-  if(x) {
+  if (x) {
     x = Number(x);
-		return x.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-	} else {
-		return '0'
+    return x.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+  } else {
+    return '0';
   }
-}
+};
 
 const thousandthMarks = function thousandthMark(x: any) {
-  if(x) {
+  if (x) {
     x = Number(x);
-		return x.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-	} else {
-		return '0'
+    return x.replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+  } else {
+    return '0';
   }
-}
+};
 const thousandRate = function thousandthRate(x: any) {
-  var parts = x.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return parts.join(".");
-}
+  var parts = x.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return parts.join('.');
+};
 
 const timestampToDate = function timestampToTime(str: string) {
   str = str.toString();
   let timeZone = new Date().getTimezoneOffset() / -60;
 
-  const time = str.length > 10 ? new Date(Number(str)) : new Date(Number(str) * 1000);
+  const time =
+    str.length > 10 ? new Date(Number(str)) : new Date(Number(str) * 1000);
   const len = time.getTime();
   const offset = time.getTimezoneOffset() * 60000;
   const utcTime = len + offset;
-
 
   const date = new Date(utcTime + 3600000 * timeZone);
   const y = date.getFullYear(),
@@ -339,13 +368,12 @@ const timestampToDate = function timestampToTime(str: string) {
     s = date.getSeconds();
 
   function addZero(value: number) {
-    if (value < 10) return "0" + value;
+    if (value < 10) return '0' + value;
     else return value;
   }
-  const result = y + "-" + addZero(mon) + "-" + addZero(d);
-  return result
-
-}
+  const result = y + '-' + addZero(mon) + '-' + addZero(d);
+  return result;
+};
 
 export {
   fnFormatToHump,
@@ -376,5 +404,5 @@ export {
   thousandthMark,
   thousandRate,
   timestampToDate,
-  thousandthMarks 
+  thousandthMarks
 };

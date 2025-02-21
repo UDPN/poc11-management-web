@@ -89,31 +89,29 @@
         nzTitle="Source Liquidity Pool Address(To)"
         [nzSpan]="3"
       >
-        <!-- <p
+        <p
           nz-typography
-          [nzCopyable]="info.toAccount ? true : false"
-          [nzCopyText]="info.toAccount"
+          [nzCopyable]="info.sourceLiquidityPoolAddress ? true : false"
+          [nzCopyText]="info.sourceLiquidityPoolAddress"
         >
-          {{ info.toAccount }}
-        </p> -->
+          {{ info.sourceLiquidityPoolAddress }}
+        </p>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="Transaction Amount" [nzSpan]="3"
         ><b>{{ info.fromAmount | map: 'toThousandthMark' }}</b
         >{{ ' ' + (info.formCurrency | map: 'null') }}</nz-descriptions-item
       >
       <nz-descriptions-item nzTitle="Transaction Hash" [nzSpan]="3">
-        <!-- <p
+        <p
           nz-typography
-          [nzCopyable]="info.spCode ? true : false"
-          [nzCopyText]="info.spCode"
+          [nzCopyable]="info.fromTransactionHash ? true : false"
+          [nzCopyText]="info.fromTransactionHash"
         >
-          {{ info.spCode | map: 'null' }}
-        </p> -->
+          {{ info.fromTransactionHash | map: 'null' }}
+        </p>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="Transaction Time" [nzSpan]="3">
-        <!-- {{
-        info.transactionDate | map: 'timeStamp'
-        }} -->
+        {{ info.fromTransactionHash | map: 'timeStamp' }}
       </nz-descriptions-item>
     </nz-descriptions>
     <b nz-typography class="operate-text">Target Token Information</b>
@@ -131,13 +129,13 @@
         nzTitle="Target Liquidity Pool Address(From)"
         [nzSpan]="3"
       >
-        <!-- <p
+        <p
           nz-typography
-          [nzCopyable]="info.fromAccount ? true : false"
-          [nzCopyText]="info.fromAccount"
+          [nzCopyable]="info.receiverLiquidityPoolAddress ? true : false"
+          [nzCopyText]="info.receiverLiquidityPoolAddress"
         >
-          {{ info.fromAccount }}
-        </p> -->
+          {{ info.receiverLiquidityPoolAddress }}
+        </p>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="Receiver Wallet Address (To)" [nzSpan]="3">
         <p
@@ -153,18 +151,16 @@
         >{{ ' ' + (info.toCurrency | map: 'null') }}</nz-descriptions-item
       >
       <nz-descriptions-item nzTitle="Transaction Hash" [nzSpan]="3">
-        <!-- <p
+        <p
           nz-typography
-          [nzCopyable]="info.spCode ? true : false"
-          [nzCopyText]="info.spCode"
+          [nzCopyable]="info.toTransactionHash ? true : false"
+          [nzCopyText]="info.toTransactionHash"
         >
-          {{ info.spCode | map: 'null' }}
-        </p> -->
+          {{ info.toTransactionHash | map: 'null' }}
+        </p>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="Transaction Time" [nzSpan]="3">
-        <!-- {{
-        info.transactionDate | map: 'timeStamp'
-        }} -->
+        {{ info.toTransactionHash | map: 'timeStamp' }}
       </nz-descriptions-item>
     </nz-descriptions>
   </nz-card>
